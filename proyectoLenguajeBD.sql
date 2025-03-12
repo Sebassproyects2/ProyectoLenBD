@@ -53,7 +53,7 @@ FK_Hotel NUMBER NOT NULL,
 Tipo VARCHAR(30) NOT NULL,
 Marca VARCHAR(30) NOT NULL,
 Modelo VARCHAR(50) NOT NULL,
-Año INT NOT NULL,
+AÃ±o INT NOT NULL,
 Placa CHAR(8) NOT NULL,
 CONSTRAINT FK_idHotelVehiculo FOREIGN KEY (FK_Hotel) REFERENCES Hotel (Id_Hotel)
 );
@@ -170,38 +170,22 @@ Tipo VARCHAR(50) NOT  NULL
 
 CREATE TABLE CheckIn (
 Id_CheckIn NUMBER PRIMARY KEY not null, -- llave primaria
---FK_Reservacion NUMBER NOT NULL,
 Fecha_CheckIn DATE NOT NULL,
 Estado VARCHAR(30) NOT NULL
---CONSTRAINT FK_idReservacionCheckIn FOREIGN KEY (FK_Reservacion) REFERENCES Reservacion (Id_Reservacion)
-);
--- ============================================================================================================
--- Con estos bloque se agregan la FK de la reservacion, ejecutar despues de crear la tabla reservacion
--- ============================================================================================================
-ALTER TABLE CheckIn
-ADD FK_Reservacion NUMBER NOT NULL;
 
-ALTER TABLE CheckIn
-ADD CONSTRAINT FK_idReservacionCheckIn FOREIGN KEY (FK_Reservacion) REFERENCES Reservacion (Id_Reservacion);
+);
+
 --===========================================================================
 
 CREATE TABLE CheckOut (
 Id_CheckOut NUMBER PRIMARY KEY not null, -- llave primaria
--- FK_Reservacion NUMBER NOT NULL,
 Fecha_CheckOut DATE NOT NULL,
 Estado VARCHAR(30) NOT NULL,
 Mensaje VARCHAR(30) NOT NULL
--- CONSTRAINT FK_idReservacionCheckout FOREIGN KEY (FK_Reservacion) REFERENCES Reservacion (Id_Reservacion)
+
 );
 
--- ============================================================================================================
--- Con estos bloque se agregan la FK de la reservacion, ejecutar despues de crear la tabla reservacion
--- ============================================================================================================
-ALTER TABLE CheckOut
-ADD FK_Reservacion NUMBER NOT NULL;
 
-ALTER TABLE CheckOut
-add CONSTRAINT FK_idReservacionCheckout FOREIGN KEY (FK_Reservacion) REFERENCES Reservacion (Id_Reservacion);
 -----------------------------------------------------------------------------------
 
 CREATE TABLE Reservacion (
@@ -232,3 +216,5 @@ Monto FLOAT NOT NULL,
 Estado VARCHAR(30) NOT NULL,
 CONSTRAINT FK_idResevacion FOREIGN KEY (FK_Reservacion) REFERENCES Reservacion (Id_Reservacion)
 );
+
+
