@@ -2480,7 +2480,6 @@ END;
 
 -- Funcion para obtener funciones disponibles
 
-
 CREATE OR REPLACE FUNCTION obtener_habitaciones_disponibles(p_id_tipo_habitacion NUMBER)
 RETURN NUMBER
 IS
@@ -2503,3 +2502,5 @@ BEGIN
   v_cantidad_disponibles := obtener_habitaciones_disponibles(v_id_tipo_habitacion);
   dbms_output.put_line('Hay ' || v_cantidad_disponibles || ' habitaciones disponibles del tipo con ID ' || v_id_tipo_habitacion || '.');
 END;
+
+--
