@@ -1,3 +1,6 @@
+-- =============================================================================
+--                              Creacion de tablas
+-- =============================================================================
 
 CREATE TABLE Hotel (
 Id_Hotel NUMBER PRIMARY KEY not null, -- llave primaria
@@ -218,7 +221,7 @@ CONSTRAINT FK_idResevacion FOREIGN KEY (FK_Reservacion) REFERENCES Reservacion (
 
 
 -- ============================================================================
---                          Inserts
+--                              Inserts
 -- =============================================================================
 
 
@@ -247,12 +250,12 @@ rollback;
 END;
 
 BEGIN
-/*
+
 agregarHoteles(1, 'Hotel Verde', 'San José', 'Central', 'Carmen', 'Av. Principal #123', '2222-3333', 5);
 agregarHoteles(2, 'Hotel Vistas', 'Alajuela', 'Central', 'San José', 'Calle Sol #45', '2444-5555', 3);
 agregarHoteles(3, 'Hotel Flores', 'Heredia', 'San Rafael', 'Los Ángeles', 'Blvd. Este #67', '2666-7777', 4);
 agregarHoteles(4, 'Hotel Catedral', 'Cartago', 'Oreamuno', 'San Rafael', 'Carretera Vieja #89', '2555-6666', 6);    
-agregarHoteles(5, 'Hotel Marea', 'Puntarenas', 'Central', 'Barrio El Carmen', 'Paseo Marítimo #101', '2777-8888', 2);*/
+agregarHoteles(5, 'Hotel Marea', 'Puntarenas', 'Central', 'Barrio El Carmen', 'Paseo Marítimo #101', '2777-8888', 2);
 agregarHoteles(6, 'prueba eliminacion', 'Puntarenas', 'Central', 'Barrio El Carmen', 'Paseo Marítimo #101', '2777-8888', 2);
 END;
 
@@ -841,7 +844,7 @@ WHEN OTHERS THEN
 ROLLBACK;  
 END;
 
--- Los inserts no se estan guardando 
+-- Los inserts no se estan guardando en revision
 BEGIN
 
 agregarReservacion(1, 1, 1, 101, 1, 1, 1, 'Confirmado', 'Reservación para una noche en habitación con jacuzzi');
@@ -851,7 +854,6 @@ agregarReservacion(4, 4, 4, 404, 4, 4, 4, 'Cancelado', 'Reserva cancelada antes 
 agregarReservacion(5, 5, 5, 505, 5, 5, 5, 'Confirmado', 'Habitación con acceso directo a la playa');
 END;
 
--- select * from Reservacion
 
 -- ================= Reservacion ========================
 
@@ -2423,4 +2425,81 @@ BEGIN
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
         RETURN 0;
+END;
+
+-- Funcion para obtener el numero de eventos de un hotel
+
+CREATE OR REPLACE FUNCTION obtener_eventos_hotel(p_id_hotel NUMBER)
+RETURN NUMBER
+IS
+  v_cantidad_eventos NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO v_cantidad_eventos
+  FROM Evento
+  WHERE FK_Hotel = p_id_hotel;
+  RETURN v_cantidad_eventos;
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    RETURN 0;
+END;
+
+
+DECLARE
+  v_cantidad_eventos NUMBER;
+  v_id_hotel NUMBER := 3; 
+BEGIN
+  v_cantidad_eventos := obtener_eventos_hotel(v_id_hotel);
+  dbms_output.put_line('El hotel con ID ' || v_id_hotel || ' tiene ' || v_cantidad_eventos || ' eventos programados.');
+END;
+
+
+-- Funcion para saber cantidad de reservaciones de un huesped
+
+CREATE OR REPLACE FUNCTION obtener_reservaciones_huesped(p_id_huesped NUMBER)
+RETURN NUMBER
+IS
+  v_cantidad_reservaciones NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO v_cantidad_reservaciones
+  FROM ReservacionRestaurante
+  WHERE FK_Huesped = p_id_huesped;
+  RETURN v_cantidad_reservaciones;
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    RETURN 0;
+END;
+
+DECLARE
+  v_cantidad_reservaciones NUMBER;
+  v_id_huesped NUMBER := 2;
+BEGIN
+  v_cantidad_reservaciones := obtener_reservaciones_huesped(v_id_huesped);
+  dbms_output.put_line('El huésped con ID ' || v_id_huesped || ' tiene ' || v_cantidad_reservaciones || ' reservaciones de restaurante.');
+END;
+
+
+-- Funcion para obtener funciones disponibles
+
+
+CREATE OR REPLACE FUNCTION obtener_habitaciones_disponibles(p_id_tipo_habitacion NUMBER)
+RETURN NUMBER
+IS
+  v_cantidad_disponibles NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO v_cantidad_disponibles
+  FROM Habitacion
+  WHERE FK_TipoHabitacion = p_id_tipo_habitacion AND Estado = 'Disponible';
+  RETURN v_cantidad_disponibles;
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    RETURN 0;
+END;
+
+
+DECLARE
+  v_cantidad_disponibles NUMBER;
+  v_id_tipo_habitacion NUMBER := 4; 
+BEGIN
+  v_cantidad_disponibles := obtener_habitaciones_disponibles(v_id_tipo_habitacion);
+  dbms_output.put_line('Hay ' || v_cantidad_disponibles || ' habitaciones disponibles del tipo con ID ' || v_id_tipo_habitacion || '.');
 END;
