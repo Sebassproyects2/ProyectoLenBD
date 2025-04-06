@@ -834,7 +834,6 @@ CREATE OR REPLACE PROCEDURE agregarReservacion(
 )
 AS
 BEGIN
-
     INSERT INTO Reservacion (Id_Reservacion, FK_Huesped, FK_Hotel, FK_Habitacion, FK_Promocion, FK_CheckIn, FK_CheckOut, Estado, Comentarios)
     VALUES (v_id_reservacion, v_fk_huesped, v_fk_hotel, v_fk_habitacion, v_fk_promocion, v_fk_checkin, v_fk_checkout, v_estado, v_comentarios);
     
@@ -845,14 +844,17 @@ ROLLBACK;
 END;
 
 -- Los inserts no se estan guardando en revision
+declare
 BEGIN
-
-agregarReservacion(1, 1, 1, 101, 1, 1, 1, 'Confirmado', 'Reservación para una noche en habitación con jacuzzi');
-agregarReservacion(2, 2, 2, 202, 2, 2, 2, 'Pendiente', 'Habitación doble con vista a la ciudad');
-agregarReservacion(3, 3, 3, 303, 3, 3, 3, 'Confirmado', 'Habitación familiar con cama matrimonial y 2 individuales');
-agregarReservacion(4, 4, 4, 404, 4, 4, 4, 'Cancelado', 'Reserva cancelada antes del check-in');
-agregarReservacion(5, 5, 5, 505, 5, 5, 5, 'Confirmado', 'Habitación con acceso directo a la playa');
+    /*agregarReservacion(1, 1, 1, 1, 1, 1, 1, 'Confirmado', 'Reservación para una noche en habitación con jacuzzi');*/
+    agregarReservacion(2, 2, 2, 2, 2, 2, 2, 'Pendiente', 'Habitación doble con vista a la ciudad');
+    agregarReservacion(3, 3, 3, 3, 3, 3, 3, 'Confirmado', 'Habitación familiar con cama matrimonial y 2 individuales');
+    agregarReservacion(4, 4, 4, 4, 4, 4, 4, 'Cancelado', 'Reserva cancelada antes del check-in');
+    agregarReservacion(5, 5, 5, 5, 5, 5, 5, 'Confirmado', 'Habitación con acceso directo a la playa');
 END;
+
+INSERT INTO Reservacion (Id_Reservacion, FK_Huesped, FK_Hotel, FK_Habitacion, FK_Promocion, FK_CheckIn, FK_CheckOut, Estado, Comentarios)
+values (5, 5, 5, 505, 5, 5, 5, 'Confirmado', 'Habitación con acceso directo a la playa');
 
 
 -- ================= Reservacion ========================
@@ -868,7 +870,7 @@ CREATE OR REPLACE PROCEDURE agregarFactura(
 )
 AS
 BEGIN
-
+    
     INSERT INTO Factura (Id_Factura, FK_Reservacion, Fecha_Emision, Descuento, Metodo_Pago, Monto, Estado)
     VALUES (v_id_factura, v_fk_reservacion, v_fecha_emision, v_descuento, v_metodo_pago, v_monto, v_estado);
     
@@ -2329,6 +2331,106 @@ CREATE OR REPLACE VIEW vistaSalarioPuesto AS
 SELECT Nombre, salario
 FROM Puesto
 WHERE Salario >= 750000
+
+-- Reservacion restaurante con nombre del cliente, hotel y restaurante
+
+CREATE OR REPLACE VIEW vistaReservacionRestaurante AS
+SELECT 
+    h.Nombre AS Nombre_Huesped, 
+    t.Nombre AS Nombre_Hotel, 
+    R.Nombre_Rest,
+    R.Fecha_Reservacion,
+    R.Cantidad
+    
+FROM ReservacionRestaurante  R
+JOIN Huesped h ON R.FK_Huesped = h.Id_Huesped
+JOIN hotel t ON R.FK_hotel = t.Id_Hotel;
+
+-- Vista para evento mostrando el hotel
+
+CREATE OR REPLACE VIEW vistaEvento AS
+SELECT 
+    t.Nombre AS Nombre_Hotel, 
+    E.Nombre,
+    E.Capacidad,
+    E.Fecha_Inicio,
+    E.Fecha_Fin
+    
+FROM Evento  E
+JOIN hotel t ON E.FK_hotel = t.Id_Hotel;
+
+-- Ver tipos de habitacion con cierta cantidad de casmas
+
+CREATE OR REPLACE VIEW vistaTipoHabitacionCantidadCamas AS
+SELECT Nombre, Numero_Camas, Precio_PorNoche, Estado
+FROM TipoHabitacion
+WHERE Numero_Camas >= 3
+
+DECLARE
+
+    v_Camas NUMBER := 3;
+BEGIN
+
+    FOR i IN (
+        SELECT Nombre, Numero_Camas, Precio_PorNoche, Estado
+        FROM vistaTipoHabitacionCantidadCamas
+        WHERE Numero_Camas >= v_Camas
+    ) LOOP
+
+        DBMS_OUTPUT.PUT_LINE('Nombre: ' || i.Nombre || ', Numero de Camas: ' || i.Numero_Camas || 
+                             ', Precio: ' || i.Precio_PorNoche || ', Estado: ' || i.Estado);
+    END LOOP;
+END;
+
+select * from TipoHabitacion;
+
+-- Vista restaurante con capacidad 
+
+CREATE OR REPLACE VIEW vistaRestauranteCapacidad AS
+SELECT 
+    t.Nombre AS Nombre_Hotel, 
+    R.Nombre,
+    R.Num_Mesas,
+    R.Capacidad
+    
+FROM Restaurante  R
+JOIN hotel t ON R.FK_hotel = t.Id_Hotel
+where R.Capacidad >= 80;
+
+DECLARE
+
+    v_Capacidad NUMBER := 80;
+BEGIN
+
+    FOR i IN (
+        SELECT Nombre_Hotel, Nombre, Num_Mesas, Capacidad
+        FROM vistaRestauranteCapacidad
+        WHERE Capacidad >= v_Capacidad
+    ) LOOP
+
+        DBMS_OUTPUT.PUT_LINE('Nombre Hotel: ' || i.Nombre_Hotel || 
+                             ', Nombre Restaurante: ' || i.Nombre || 
+                             ', Número de Mesas: ' || i.Num_Mesas || 
+                             ', Capacidad: ' || i.Capacidad);
+    END LOOP;
+END;
+
+
+select * from vistaRestauranteCapacidad;
+
+/*
+Vista basada en la tabla de mantenimiento para ver las habiataciones en mantenimiento
+*/
+
+CREATE OR REPLACE VIEW vistaMantenimiento AS
+SELECT 
+    H.Descripcion AS Descripcion_habitacion, 
+    P.nombre AS Nombre_Proveedor,
+    M.Descripcion,
+    M.Fecha_Inicio
+FROM Mantenimiento M
+JOIN Habitacion H ON M.FK_Habitacion = H.Id_Habitacion
+JOIN Proveedor P ON M.FK_proveedor = P.Id_Proveedor;
 
 
 -- =============================================================================
