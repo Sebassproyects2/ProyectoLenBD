@@ -3276,3 +3276,357 @@ END;
 
 
 END pkg_crud_eventos;
+
+CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_hoteles AS
+
+PROCEDURE agregarHoteles(
+    v_id_hotel IN NUMBER,
+    v_nombre IN VARCHAR2,
+    v_ciudad IN VARCHAR2,
+    v_canton IN VARCHAR2,
+    v_distrito IN VARCHAR2,
+    v_detalle_direccion IN VARCHAR2,
+    v_telefono IN VARCHAR2,
+    v_numero_pisos IN INT
+);
+
+PROCEDURE ver_hotel_por_id (
+    hotelid IN NUMBER
+);
+
+PROCEDURE actualizar_hotel (
+    p_hotelid            IN NUMBER,
+    p_nombre             IN VARCHAR2,
+    p_ciudad             IN VARCHAR2,
+    p_canton             IN VARCHAR2,
+    p_distrito           IN VARCHAR2,
+    p_detalle_direccion  IN VARCHAR2,
+    p_telefono           IN VARCHAR2,
+    p_numero_pisos       IN NUMBER
+);
+
+PROCEDURE eliminar_hotel (
+    p_hotelid IN NUMBER
+);
+
+END pkg_crud_hoteles;
+
+CREATE OR REPLACE PACKAGE BODY pkg_crud_hoteles AS
+PROCEDURE agregarHoteles(
+    v_id_hotel IN NUMBER,
+    v_nombre IN VARCHAR2,
+    v_ciudad IN VARCHAR2,
+    v_canton IN VARCHAR2,
+    v_distrito IN VARCHAR2,
+    v_detalle_direccion IN VARCHAR2,
+    v_telefono IN VARCHAR2,
+    v_numero_pisos IN INT
+)
+AS
+BEGIN
+    INSERT INTO Hotel (Id_Hotel, Nombre, Ciudad, Canton, Distrito, Detalle_Direccion, Telefono, Numero_pisos)
+    VALUES (v_id_hotel, v_nombre, v_ciudad, v_canton, v_distrito, v_detalle_direccion, v_telefono, v_numero_pisos);
+    
+commit;
+Exception
+when others then 
+rollback;
+
+END;
+
+PROCEDURE ver_hotel_por_id (
+    hotelid IN NUMBER
+) AS
+    v_nombre            VARCHAR2(50);
+    v_ciudad            VARCHAR2(50);
+    v_canton            VARCHAR2(50);
+    v_distrito          VARCHAR2(50);
+    v_detalle_direccion VARCHAR2(50);
+    v_telefono          VARCHAR2(30);
+    v_numero_pisos      NUMBER;
+BEGIN
+
+    SELECT 
+        Nombre, 
+        Ciudad, 
+        Canton, 
+        Distrito, 
+        Detalle_Direccion, 
+        Telefono, 
+        Numero_pisos
+    INTO 
+        v_nombre, 
+        v_ciudad, 
+        v_canton, 
+        v_distrito, 
+        v_detalle_direccion, 
+        v_telefono, 
+        v_numero_pisos
+    FROM 
+        Hotel
+    WHERE 
+        Id_Hotel = hotelid;
+
+    dbms_output.put_line('Id_Hotel: ' || hotelid);
+    dbms_output.put_line('Nombrehotel: ' || v_nombre);
+    dbms_output.put_line('Ciudad: ' || v_ciudad);
+    dbms_output.put_line('Cant�n: ' || v_canton);
+    dbms_output.put_line('Distrito: ' || v_distrito);
+    dbms_output.put_line('Detalle Direcci�n: ' || v_detalle_direccion);
+    dbms_output.put_line('Tel�fono: ' || v_telefono);
+    dbms_output.put_line('N�mero de Pisos: ' || v_numero_pisos);
+
+EXCEPTION
+    WHEN no_data_found THEN
+        dbms_output.put_line('Hotel con Id_Hotel ' || hotelid || ' no encontrado.');
+    WHEN OTHERS THEN
+        dbms_output.put_line('Error: ' || SQLERRM);
+END;
+
+
+PROCEDURE actualizar_hotel (
+    p_hotelid            IN NUMBER,
+    p_nombre             IN VARCHAR2,
+    p_ciudad             IN VARCHAR2,
+    p_canton             IN VARCHAR2,
+    p_distrito           IN VARCHAR2,
+    p_detalle_direccion  IN VARCHAR2,
+    p_telefono           IN VARCHAR2,
+    p_numero_pisos       IN NUMBER
+) AS
+BEGIN
+    UPDATE Hotel
+    SET
+        Nombre = p_nombre,
+        Ciudad = p_ciudad,
+        Canton = p_canton,
+        Distrito = p_distrito,
+        Detalle_Direccion = p_detalle_direccion,
+        Telefono = p_telefono,
+        Numero_pisos = p_numero_pisos
+    WHERE
+        Id_Hotel = p_hotelid;
+end;
+
+
+
+PROCEDURE eliminar_hotel (
+    p_hotelid IN NUMBER
+) AS
+BEGIN
+    DELETE FROM Hotel
+    WHERE Id_Hotel = p_hotelid;
+
+END;
+
+
+END pkg_crud_hoteles;
+
+CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_huespedes AS
+PROCEDURE agregarHuesped(
+    v_id_huesped IN NUMBER,
+    v_nombre IN VARCHAR2,
+    v_cedula IN INT,
+    v_apellido1 IN VARCHAR2,
+    v_apellido2 IN VARCHAR2,
+    v_correo IN VARCHAR2,
+    v_telefono IN INT,
+    v_fecha_nacimiento IN DATE,
+    v_fecha_registro IN DATE
+);
+
+PROCEDURE HUESPED_OBETENER_SP (
+    p_id_huesped IN huesped.id_huesped%TYPE DEFAULT NULL
+);
+
+PROCEDURE HUESPED_MODIFICAR_SP(
+    p_Id_Huesped IN Huesped.Id_Huesped%TYPE, 
+    p_Nombre IN Huesped.Nombre%TYPE DEFAULT NULL, 
+    p_Cedula IN Huesped.Cedula%TYPE DEFAULT NULL, 
+    p_Apellido1 IN Huesped.Apellido1%TYPE DEFAULT NULL, 
+    p_Apellido2 IN Huesped.Apellido2%TYPE DEFAULT NULL, 
+    p_Correo IN Huesped.Correo%TYPE DEFAULT NULL, 
+    p_Telefono IN Huesped.Telefono%TYPE DEFAULT NULL,
+    p_Fecha_Nacimiento IN Huesped.Fecha_Nacimiento%TYPE DEFAULT NULL,
+    p_Fecha_Registro IN Huesped.Fecha_Registro%TYPE DEFAULT NULL 
+);
+
+PROCEDURE HUESPED_BORRAR_SP(
+    p_Id_Huesped IN Huesped.Id_Huesped%TYPE
+);
+
+END pkg_crud_huespedes;
+
+CREATE OR REPLACE PACKAGE BODY pkg_crud_huespedes AS
+
+PROCEDURE agregarHuesped(
+    v_id_huesped IN NUMBER,
+    v_nombre IN VARCHAR2,
+    v_cedula IN INT,
+    v_apellido1 IN VARCHAR2,
+    v_apellido2 IN VARCHAR2,
+    v_correo IN VARCHAR2,
+    v_telefono IN INT,
+    v_fecha_nacimiento IN DATE,
+    v_fecha_registro IN DATE
+)
+AS
+BEGIN
+
+    INSERT INTO Huesped (Id_Huesped, Nombre, Cedula, Apellido1, Apellido2, Correo, Telefono, Fecha_Nacimiento, Fecha_Registro)
+    VALUES (v_id_huesped, v_nombre, v_cedula, v_apellido1, v_apellido2, v_correo, v_telefono, v_fecha_nacimiento, v_fecha_registro);
+    
+COMMIT;  
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+END;
+
+
+PROCEDURE HUESPED_OBETENER_SP (
+    p_id_huesped IN huesped.id_huesped%TYPE DEFAULT NULL
+) IS
+
+    CURSOR c_huesped (
+        p_id huesped.id_huesped%TYPE
+    ) IS
+    SELECT
+        id_huesped,
+        nombre,
+        cedula,
+        apellido1,
+        apellido2,
+        correo,
+        telefono,
+        fecha_nacimiento,
+        fecha_registro
+    FROM
+        huesped
+    WHERE
+        id_huesped = p_id
+        OR p_id IS NULL;
+
+    v_id_huesped       huesped.id_huesped%TYPE;
+    v_nombre           huesped.nombre%TYPE;
+    v_cedula           huesped.cedula%TYPE;
+    v_apellido1        huesped.apellido1%TYPE;
+    v_apellido2        huesped.apellido2%TYPE;
+    v_correo           huesped.correo%TYPE;
+    v_telefono         huesped.telefono%TYPE;
+    v_fecha_nacimiento huesped.fecha_nacimiento%TYPE;
+    v_fecha_registro   huesped.fecha_registro%TYPE;
+BEGIN
+OPEN c_huesped(p_id_huesped);
+LOOP
+FETCH C_HUESPED INTO V_ID_HUESPED , V_NOMBRE , V_CEDULA , V_APELLIDO1 , V_APELLIDO2 , V_CORREO , V_TELEFONO , V_FECHA_NACIMIENTO, V_FECHA_REGISTRO ;
+EXIT WHEN c_Huesped%NOTFOUND;
+DBMS_OUTPUT.PUT_LINE(
+'ID: ' || v_Id_Huesped || ', ' ||
+'Nombre: ' || v_Nombre || ' ' || v_Apellido1 || ' ' || v_Apellido2 || ', ' ||
+'C�dula: ' || v_Cedula || ', ' ||
+'Correo: ' || v_Correo || ', ' ||
+'Tel�fono: ' || v_Telefono || ', ' ||
+'Fecha Nacimiento: ' || TO_CHAR(v_Fecha_Nacimiento, 'YYYY-MM-DD') || ', ' ||
+'Fecha Registro: ' || TO_CHAR(v_Fecha_Registro, 'YYYY-MM-DD')
+);
+END LOOP;
+CLOSE c_Huesped;
+END;
+
+PROCEDURE HUESPED_MODIFICAR_SP(
+    p_Id_Huesped IN Huesped.Id_Huesped%TYPE, 
+    p_Nombre IN Huesped.Nombre%TYPE DEFAULT NULL, 
+    p_Cedula IN Huesped.Cedula%TYPE DEFAULT NULL, 
+    p_Apellido1 IN Huesped.Apellido1%TYPE DEFAULT NULL, 
+    p_Apellido2 IN Huesped.Apellido2%TYPE DEFAULT NULL, 
+    p_Correo IN Huesped.Correo%TYPE DEFAULT NULL, 
+    p_Telefono IN Huesped.Telefono%TYPE DEFAULT NULL,
+    p_Fecha_Nacimiento IN Huesped.Fecha_Nacimiento%TYPE DEFAULT NULL,
+    p_Fecha_Registro IN Huesped.Fecha_Registro%TYPE DEFAULT NULL 
+) IS
+BEGIN
+
+    UPDATE Huesped
+    SET
+        Nombre = NVL(p_Nombre, Nombre), 
+        Cedula = NVL(p_Cedula, Cedula),
+        Apellido1 = NVL(p_Apellido1, Apellido1),
+        Apellido2 = NVL(p_Apellido2, Apellido2),
+        Correo = NVL(p_Correo, Correo),
+        Telefono = NVL(p_Telefono, Telefono),
+        Fecha_Nacimiento = NVL(p_Fecha_Nacimiento, Fecha_Nacimiento),
+        Fecha_Registro = NVL(p_Fecha_Registro, Fecha_Registro)
+    WHERE Id_Huesped = p_Id_Huesped;
+
+    IF SQL%ROWCOUNT = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n hu�sped con el ID ' || p_Id_Huesped);
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Hu�sped con ID ' || p_Id_Huesped || ' modificado correctamente.');
+    END IF;
+END;
+
+PROCEDURE HUESPED_BORRAR_SP(
+    p_Id_Huesped IN Huesped.Id_Huesped%TYPE
+) IS
+BEGIN
+
+    DELETE FROM Huesped
+    WHERE Id_Huesped = p_Id_Huesped;
+
+    IF SQL%ROWCOUNT = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n hu�sped con el ID ' || p_Id_Huesped);
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Hu�sped con ID ' || p_Id_Huesped || ' borrado correctamente.');
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error al borrar el hu�sped: ' || SQLERRM);
+END;
+
+END pkg_crud_huespedes;
+
+
+
+
+----FALTA PROCEDIMIENTOS DE FATURACION MOSTRAR,ACTUALIZAR Y ELIMINAR.---------
+CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_facturas AS
+
+PROCEDURE agregarFactura(
+    v_id_factura IN NUMBER,
+    v_fk_reservacion IN NUMBER,
+    v_fecha_emision IN DATE,
+    v_descuento IN INT,
+    v_metodo_pago IN VARCHAR2,
+    v_monto IN FLOAT,
+    v_estado IN VARCHAR2
+);
+
+END pkg_crud_facturas;
+
+
+CREATE OR REPLACE PACKAGE BODY pkg_crud_facturas AS
+
+PROCEDURE agregarFactura(
+    v_id_factura IN NUMBER,
+    v_fk_reservacion IN NUMBER,
+    v_fecha_emision IN DATE,
+    v_descuento IN INT,
+    v_metodo_pago IN VARCHAR2,
+    v_monto IN FLOAT,
+    v_estado IN VARCHAR2
+)
+AS
+BEGIN
+    
+    INSERT INTO Factura (Id_Factura, FK_Reservacion, Fecha_Emision, Descuento, Metodo_Pago, Monto, Estado)
+    VALUES (v_id_factura, v_fk_reservacion, v_fecha_emision, v_descuento, v_metodo_pago, v_monto, v_estado);
+    
+COMMIT;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;  
+END;
+
+
+
+END pkg_crud_facturas;
