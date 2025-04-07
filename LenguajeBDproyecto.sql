@@ -3630,3 +3630,129 @@ END;
 
 
 END pkg_crud_facturas;
+
+
+-- =============================================================================
+--                              Creacion de triggers
+-- ============================================================================
+
+--PARA EVITAR QUE SE APLIQUE UN DESCUENTO MAYOR AL 50%
+
+CREATE OR REPLACE TRIGGER trg_descuento_factura
+BEFORE UPDATE OF Descuento ON Factura
+FOR EACH ROW
+BEGIN
+  IF :new.Descuento > 50 THEN
+    RAISE_APPLICATION_ERROR(-20002, 'Descuento no puede ser mayor al 50%');
+  END IF;
+END;
+
+DECLARE
+  ex_descuento_factura EXCEPTION;
+  PRAGMA EXCEPTION_INIT(ex_descuento_factura, -20002);
+BEGIN
+  UPDATE Factura
+  SET Descuento = 70
+  WHERE Id_Factura = 1;
+EXCEPTION
+  WHEN ex_descuento_factura THEN
+    DBMS_OUTPUT.PUT_LINE('Error de Trigger: Descuento mayor al 50% no permitido');
+END;
+
+
+--VA A IMPEDIR CAMBIAR EL ESTADO DE UNA RESERVACIÓN A CANCELADO LUEGO DEL CHECK-IN
+
+CREATE OR REPLACE TRIGGER trg_estado_reservacion
+BEFORE UPDATE OF Estado ON Reservacion
+FOR EACH ROW
+BEGIN
+  IF :new.Estado = 'Cancelado' AND :old.FK_CheckIn IS NOT NULL THEN
+    RAISE_APPLICATION_ERROR(-20003, 'No se puede cancelar una reservación con check-in registrado');
+  END IF;
+END;
+
+
+DECLARE
+  ex_estado_reservacion EXCEPTION;
+  PRAGMA EXCEPTION_INIT(ex_estado_reservacion, -20003);
+BEGIN
+  UPDATE Reservacion
+  SET Estado = 'Cancelado'
+  WHERE Id_Reservacion = 1;
+EXCEPTION
+  WHEN ex_estado_reservacion THEN
+    DBMS_OUTPUT.PUT_LINE('Error de Trigger: No se puede cancelar reservación con Check-In');
+END;
+
+
+--- VALIDAR EL COSTO EN SUMINISTROS
+
+CREATE OR REPLACE TRIGGER trg_costo_suministro
+BEFORE INSERT OR UPDATE OF Costo ON Suministro
+FOR EACH ROW
+BEGIN
+  IF :new.Costo > 10000 THEN
+    RAISE_APPLICATION_ERROR(-20004, 'Costo de suministro excede el límite permitido');
+  END IF;
+END;
+
+
+DECLARE
+  ex_costo_suministro EXCEPTION;
+  PRAGMA EXCEPTION_INIT(ex_costo_suministro, -20004);
+BEGIN
+  INSERT INTO Suministro (Id_Suministro, FK_Proveedor, FK_Hotel, Nombre, Descripcion, Cantidad, Costo)
+  VALUES (1, 1, 1, 'Producto X', 'Descripción', 10, 15000);
+EXCEPTION
+  WHEN ex_costo_suministro THEN
+    DBMS_OUTPUT.PUT_LINE('Error de Trigger: Costo de suministro muy alto');
+END;
+
+
+---NO VA A PERMITIR ACTUALIZAR LA CAPACIDAD A MENOS DE 10 PERSONAS
+
+CREATE OR REPLACE TRIGGER trg_capacidad_evento
+BEFORE UPDATE OF Capacidad ON Evento
+FOR EACH ROW
+BEGIN
+  IF TO_NUMBER(:new.Capacidad) < 10 THEN
+    RAISE_APPLICATION_ERROR(-20005, 'La capacidad mínima de un evento debe ser de al menos 10 personas');
+  END IF;
+END;
+
+DECLARE
+  ex_capacidad_evento EXCEPTION;
+  PRAGMA EXCEPTION_INIT(ex_capacidad_evento, -20005);
+BEGIN
+  UPDATE Evento
+  SET Capacidad = '5'
+  WHERE Id_Evento = 1;
+EXCEPTION
+  WHEN ex_capacidad_evento THEN
+    DBMS_OUTPUT.PUT_LINE('Error de Trigger: Capacidad mínima no permitida');
+END;
+
+
+--VA A IMPEDIR ESTABLECER UN PRECIO NEGATIVO A UN SERVICIO
+
+CREATE OR REPLACE TRIGGER trg_precio_servicio
+BEFORE INSERT OR UPDATE OF Precio ON Servicio
+FOR EACH ROW
+BEGIN
+  IF :new.Precio <= 0 THEN
+    RAISE_APPLICATION_ERROR(-20006, 'El precio del servicio debe ser mayor a cero');
+  END IF;
+END;
+
+DECLARE
+  ex_precio_servicio EXCEPTION;
+  PRAGMA EXCEPTION_INIT(ex_precio_servicio, -20006);
+BEGIN
+  UPDATE Servicio
+  SET Precio = 0
+  WHERE Id_Servicio = 1;
+EXCEPTION
+  WHEN ex_precio_servicio THEN
+    DBMS_OUTPUT.PUT_LINE('Error de Trigger: Precio debe ser mayor a cero');
+END;
+
