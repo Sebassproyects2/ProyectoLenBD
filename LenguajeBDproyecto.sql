@@ -165,6 +165,17 @@ CONSTRAINT FK_idHuespedRe FOREIGN KEY (FK_Huesped) REFERENCES Huesped (Id_Huespe
 CONSTRAINT FK_idHotelRe FOREIGN KEY (FK_Hotel) REFERENCES Hotel (Id_Hotel)
 );
 
+ALTER TABLE ReservacionRestaurante
+DROP COLUMN Nombre_Rest;
+
+ALTER TABLE ReservacionRestaurante
+ADD FK_Restaurante NUMBER;
+
+ALTER TABLE ReservacionRestaurante
+ADD CONSTRAINT FK_idRestauranteRe
+FOREIGN KEY (FK_Restaurante) REFERENCES Restaurante(Id_Restaurante);
+
+
 CREATE TABLE Servicio (
 Id_Servicio NUMBER PRIMARY KEY not null, -- llave primaria
 Nombre VARCHAR(50)NOT NULL,
@@ -178,6 +189,8 @@ Fecha_CheckIn DATE NOT NULL,
 Estado VARCHAR(30) NOT NULL
 );
 
+DROP TABLE CheckIn CASCADE CONSTRAINTS;
+
 --===========================================================================
 
 CREATE TABLE CheckOut (
@@ -186,10 +199,10 @@ Fecha_CheckOut DATE NOT NULL,
 Estado VARCHAR(30) NOT NULL,
 Mensaje VARCHAR(30) NOT NULL
 );
+DROP TABLE CheckOut CASCADE CONSTRAINTS;
 
 
 -----------------------------------------------------------------------------------
-
 CREATE TABLE Reservacion (
 Id_Reservacion NUMBER PRIMARY KEY not null, -- llave primaria
 FK_Huesped NUMBER NOT NULL,
@@ -207,6 +220,17 @@ CONSTRAINT FK_Reservacion_CheckIn FOREIGN KEY (FK_CheckIn) REFERENCES CheckIn (I
 CONSTRAINT FK_Reservacion_CheckOut FOREIGN KEY (FK_CheckOut) REFERENCES CheckOut (Id_CheckOut),
 CONSTRAINT FK_Reservacion_Promocion FOREIGN KEY (FK_Promocion) REFERENCES Promocion (Id_Promocion)
 );
+
+ALTER TABLE Reservacion DROP COLUMN FK_CheckIn;
+
+ALTER TABLE Reservacion DROP COLUMN FK_CheckOut;
+
+ALTER TABLE Reservacion
+ADD Fecha_CheckIn DATE;
+
+ALTER TABLE Reservacion
+ADD Fecha_CheckOut DATE;
+
 
 CREATE TABLE Factura (
 Id_Factura NUMBER PRIMARY KEY not null, -- llave primaria
@@ -703,34 +727,34 @@ BEGIN
 END;
 
 -- ================= ReservacionRestaurante ========================
-
 CREATE OR REPLACE PROCEDURE agregarReservacionRestaurante(
     v_id_reservacion IN NUMBER,
     v_fk_huesped IN NUMBER,
     v_fk_hotel IN NUMBER,
-    v_nombre_rest IN VARCHAR2,
+    v_fk_restaurante IN NUMBER,
     v_fecha_reservacion IN DATE,
     v_cantidad IN INT
 )
 AS
 BEGIN
-
-    INSERT INTO ReservacionRestaurante (Id_ReservacionRestaurante, FK_Huesped, FK_Hotel, Nombre_Rest, Fecha_Reservacion, Cantidad)
-    VALUES (v_id_reservacion, v_fk_huesped, v_fk_hotel, v_nombre_rest, v_fecha_reservacion, v_cantidad);
-    
-COMMIT;  
+    INSERT INTO ReservacionRestaurante (Id_ReservacionRestaurante, FK_Huesped, FK_Hotel, FK_Restaurante, Fecha_Reservacion, Cantidad)
+    VALUES (v_id_reservacion, v_fk_huesped, v_fk_hotel, v_fk_restaurante, v_fecha_reservacion, v_cantidad);
+COMMIT;
 EXCEPTION
 WHEN OTHERS THEN
-ROLLBACK;  
+ROLLBACK;
 END;
 
 BEGIN
-
+/*
+-- Estos inserts son los originales
     agregarReservacionRestaurante(1, 1, 1, 'Bueno Mariscos', TO_DATE('2024-03-01', 'YYYY-MM-DD'), 2);
     agregarReservacionRestaurante(2, 2, 2, 'Esquina Italiana', TO_DATE('2024-03-02', 'YYYY-MM-DD'), 4);
     agregarReservacionRestaurante(3, 3, 3, 'Shun Fa', TO_DATE('2024-03-03', 'YYYY-MM-DD'), 3);
     agregarReservacionRestaurante(4, 4, 4, 'Buena Esquina', TO_DATE('2024-03-04', 'YYYY-MM-DD'), 1);
-    agregarReservacionRestaurante(5, 5, 5, 'Sabores caribe�os', TO_DATE('2024-03-05', 'YYYY-MM-DD'), 5);
+    agregarReservacionRestaurante(5, 5, 5, 'Sabores caribe�os', TO_DATE('2024-03-05', 'YYYY-MM-DD'), 5);*/
+-- Insert nuevo con las modificaciones realizadas
+    agregarReservacionRestaurante(6, 5, 5, 5, TO_DATE('2025-03-05', 'YYYY-MM-DD'), 5);
 END;
 
 -- ================= Servicio ========================
