@@ -231,7 +231,6 @@ ADD Fecha_CheckIn DATE;
 ALTER TABLE Reservacion
 ADD Fecha_CheckOut DATE;
 
-
 CREATE TABLE Factura (
 Id_Factura NUMBER PRIMARY KEY not null, -- llave primaria
 FK_Reservacion NUMBER NOT NULL,
@@ -242,7 +241,6 @@ Monto FLOAT NOT NULL,
 Estado VARCHAR(30) NOT NULL,
 CONSTRAINT FK_idResevacion FOREIGN KEY (FK_Reservacion) REFERENCES Reservacion (Id_Reservacion)
 );
-
 
 -- ============================================================================
 --                              Inserts
@@ -784,6 +782,7 @@ agregarServicio(2, 'Transporte al Aeropuerto', 35000, 'Transporte');
 agregarServicio(3, 'Cena Romï¿½ntica', 37000, 'Gastronomï¿½a');
 agregarServicio(4, 'Tour de la Ciudad', 30000, 'Turismo');
 agregarServicio(5, 'Lavanderï¿½a Express', 7000, 'Limpieza');
+agregarServicio(6, 'Pruebas', 7000, 'Limpieza');
 END;
 
 -- ================= CheckIn ========================
@@ -846,40 +845,45 @@ END;
 -- ================= Reservacion ========================
 
 CREATE OR REPLACE PROCEDURE agregarReservacion(
-    v_id_reservacion IN NUMBER,
-    v_fk_huesped IN NUMBER,
-    v_fk_hotel IN NUMBER,
-    v_fk_habitacion IN NUMBER,
-    v_fk_promocion IN NUMBER,
-    v_fk_checkin IN NUMBER,
-    v_fk_checkout IN NUMBER,
-    v_estado IN VARCHAR2,
-    v_comentarios IN VARCHAR2
+    v_id_reservacion   IN NUMBER,
+    v_fk_huesped       IN NUMBER,
+    v_fk_hotel         IN NUMBER,
+    v_fk_habitacion    IN NUMBER,
+    v_fk_promocion     IN NUMBER,
+    v_fecha_checkin    IN DATE,
+    v_fecha_checkout   IN DATE,
+    v_estado           IN VARCHAR2,
+    v_comentarios      IN VARCHAR2
 )
 AS
 BEGIN
-    INSERT INTO Reservacion (Id_Reservacion, FK_Huesped, FK_Hotel, FK_Habitacion, FK_Promocion, FK_CheckIn, FK_CheckOut, Estado, Comentarios)
-    VALUES (v_id_reservacion, v_fk_huesped, v_fk_hotel, v_fk_habitacion, v_fk_promocion, v_fk_checkin, v_fk_checkout, v_estado, v_comentarios);
+    INSERT INTO Reservacion (
+        Id_Reservacion, FK_Huesped, FK_Hotel, FK_Habitacion, FK_Promocion,
+        Fecha_CheckIn, Fecha_CheckOut, Estado, Comentarios
+    )
+    VALUES (
+        v_id_reservacion, v_fk_huesped, v_fk_hotel, v_fk_habitacion, v_fk_promocion,
+        v_fecha_checkin, v_fecha_checkout, v_estado, v_comentarios
+    );
     
-COMMIT;  
+    COMMIT;  
 EXCEPTION
-WHEN OTHERS THEN
-ROLLBACK;  
+    WHEN OTHERS THEN
+        ROLLBACK;
 END;
 
--- Los inserts no se estan guardando en revision
-declare
+-- Los inserts del 1 - 5 son con el formato antiguo, se deja el ejemplo 6 para ver como se agrega con el nuevo formato yy hacer ejemplos de CRUD
 BEGIN
-    /*agregarReservacion(1, 1, 1, 1, 1, 1, 1, 'Confirmado', 'Reservaciï¿½n para una noche en habitaciï¿½n con jacuzzi');*/
+    /*
+    agregarReservacion(1, 1, 1, 1, 1, 1, 1, 'Confirmado', 'Reservaciï¿½n para una noche en habitaciï¿½n con jacuzzi');
     agregarReservacion(2, 2, 2, 2, 2, 2, 2, 'Pendiente', 'Habitaciï¿½n doble con vista a la ciudad');
     agregarReservacion(3, 3, 3, 3, 3, 3, 3, 'Confirmado', 'Habitaciï¿½n familiar con cama matrimonial y 2 individuales');
     agregarReservacion(4, 4, 4, 4, 4, 4, 4, 'Cancelado', 'Reserva cancelada antes del check-in');
     agregarReservacion(5, 5, 5, 5, 5, 5, 5, 'Confirmado', 'Habitaciï¿½n con acceso directo a la playa');
+    */
+    agregarReservacion(6, 1, 1, 1, 1, TO_DATE('2024-03-01', 'YYYY-MM-DD'), 
+    TO_DATE('2024-03-05', 'YYYY-MM-DD'), 'Confirmada', 'Comentarios de ejemplo');
 END;
-
-INSERT INTO Reservacion (Id_Reservacion, FK_Huesped, FK_Hotel, FK_Habitacion, FK_Promocion, FK_CheckIn, FK_CheckOut, Estado, Comentarios)
-values (5, 5, 5, 505, 5, 5, 5, 'Confirmado', 'Habitaciï¿½n con acceso directo a la playa');
-
 
 -- ================= Reservacion ========================
 
@@ -911,8 +915,8 @@ agregarFactura(2, 2, TO_DATE('2024-03-02', 'YYYY-MM-DD'), 5, 'Efectivo', 60000, 
 agregarFactura(3, 3, TO_DATE('2024-03-03', 'YYYY-MM-DD'), 0, 'Tarjeta de crï¿½dito', 80000, 'Pagado');
 agregarFactura(4, 4, TO_DATE('2024-03-04', 'YYYY-MM-DD'), 15, 'Efectivo', 55000, 'Cancelado');
 agregarFactura(5, 5, TO_DATE('2024-03-05', 'YYYY-MM-DD'), 20, 'Transferencia bancaria', 72000, 'Pagado');
+agregarFactura(6, 5, TO_DATE('2024-03-05', 'YYYY-MM-DD'), 20, 'Prueba CRUDS', 72000, 'Pagado');
 END;
-
 
 -- =============================================================================
 --                      Otras funciones del CRUD
@@ -2303,6 +2307,408 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Restaurante con ID ' || p_Id_Restaurante || ' borrado correctamente.');
     END IF;
 END;
+
+
+-- ======================== Ver Reservacion restaurante ======================
+
+CREATE OR REPLACE PROCEDURE ver_reservacion_restaurante_por_id (
+    p_id_reservacion IN NUMBER
+) AS
+    v_fk_huesped     NUMBER;
+    v_fk_hotel       NUMBER;
+    v_fk_restaurante NUMBER;
+    v_fecha_reserva  DATE;
+    v_cantidad       NUMBER;
+BEGIN
+
+    SELECT 
+        FK_Huesped,
+        FK_Hotel,
+        FK_Restaurante,
+        Fecha_Reservacion,
+        Cantidad
+    INTO 
+        v_fk_huesped,
+        v_fk_hotel,
+        v_fk_restaurante,
+        v_fecha_reserva,
+        v_cantidad
+    FROM 
+        ReservacionRestaurante
+    WHERE 
+        Id_ReservacionRestaurante = p_id_reservacion;
+
+    dbms_output.put_line('ID Reservación Restaurante: ' || p_id_reservacion);
+    dbms_output.put_line('FK Huesped: ' || v_fk_huesped);
+    dbms_output.put_line('FK Hotel: ' || v_fk_hotel);
+    dbms_output.put_line('FK Restaurante: ' || v_fk_restaurante);
+    dbms_output.put_line('Fecha de Reservación: ' || TO_CHAR(v_fecha_reserva, 'YYYY-MM-DD'));
+    dbms_output.put_line('Cantidad de Personas: ' || v_cantidad);
+
+EXCEPTION
+    WHEN no_data_found THEN
+        dbms_output.put_line('No se encontró la reservación con ID ' || p_id_reservacion);
+    WHEN OTHERS THEN
+        dbms_output.put_line('Error: ' || SQLERRM);
+END;
+
+
+BEGIN
+    ver_reservacion_restaurante_por_id(1);
+END;
+
+
+
+-- =============================================================================
+--                      Actualizar reservacion restaurante 
+-- =============================================================================
+CREATE OR REPLACE PROCEDURE actualizar_reservacion_restaurante (
+    p_id_reservacion         IN NUMBER,
+    p_fk_huesped             IN NUMBER,
+    p_fk_hotel               IN NUMBER,
+    p_fk_restaurante         IN NUMBER,
+    p_fecha_reservacion      IN DATE,
+    p_cantidad               IN NUMBER
+) AS
+BEGIN
+    UPDATE ReservacionRestaurante
+    SET
+        FK_Huesped = p_fk_huesped,
+        FK_Hotel = p_fk_hotel,
+        FK_Restaurante = p_fk_restaurante,
+        Fecha_Reservacion = p_fecha_reservacion,
+        Cantidad = p_cantidad
+    WHERE
+        Id_ReservacionRestaurante = p_id_reservacion;
+END;
+
+BEGIN
+    actualizar_reservacion_restaurante( 1, 1, 1, 1, TO_DATE('2024-03-01', 'YYYY-MM-DD'), 2);
+    actualizar_reservacion_restaurante( 2, 2, 2, 2, TO_DATE('2024-03-02', 'YYYY-MM-DD'), 4);
+    actualizar_reservacion_restaurante( 3, 3, 3, 3, TO_DATE('2024-03-03', 'YYYY-MM-DD'), 3);
+    actualizar_reservacion_restaurante( 4, 4, 4, 4, TO_DATE('2024-04-03', 'YYYY-MM-DD'), 1);
+    actualizar_reservacion_restaurante( 5, 5, 5, 5, TO_DATE('2024-05-03', 'YYYY-MM-DD'), 5);
+    
+END;
+
+
+-- ========================= Eliminar Reservacion restaurante ==================
+CREATE OR REPLACE PROCEDURE eliminar_reservacion_restaurante (
+    p_id_reservacion IN NUMBER
+) AS
+BEGIN
+    DELETE FROM ReservacionRestaurante
+    WHERE Id_ReservacionRestaurante = p_id_reservacion;
+END;
+/
+
+
+BEGIN
+    eliminar_reservacion_restaurante(6);
+END;
+
+
+-- ==============================Ver Servicio===================================
+CREATE OR REPLACE PROCEDURE ver_servicio_por_id (
+    p_id_servicio IN NUMBER
+) AS
+    v_nombre   VARCHAR2(50);
+    v_precio   FLOAT;
+    v_tipo     VARCHAR2(50);
+BEGIN
+    SELECT 
+        Nombre,
+        Precio,
+        Tipo
+    INTO 
+        v_nombre,
+        v_precio,
+        v_tipo
+    FROM 
+        Servicio
+    WHERE 
+        Id_Servicio = p_id_servicio;
+
+    dbms_output.put_line('Id_Servicio: ' || p_id_servicio);
+    dbms_output.put_line('Nombre: ' || v_nombre);
+    dbms_output.put_line('Precio: ' || v_precio);
+    dbms_output.put_line('Tipo: ' || v_tipo);
+
+EXCEPTION
+    WHEN no_data_found THEN
+        dbms_output.put_line('Servicio con Id_Servicio ' || p_id_servicio || ' no encontrado.');
+    WHEN OTHERS THEN
+        dbms_output.put_line('Error: ' || SQLERRM);
+END;
+
+
+BEGIN
+    ver_servicio_por_id(1);
+END;
+
+
+-- =========================== Actualizar Servicio =============================
+CREATE OR REPLACE PROCEDURE actualizar_servicio (
+    p_id_servicio IN NUMBER,
+    p_nombre      IN VARCHAR2,
+    p_precio      IN FLOAT,
+    p_tipo        IN VARCHAR2
+) AS
+BEGIN
+    UPDATE Servicio
+    SET
+        Nombre = p_nombre,
+        Precio = p_precio,
+        Tipo   = p_tipo
+    WHERE
+        Id_Servicio = p_id_servicio;
+END;
+
+
+BEGIN
+    actualizar_servicio(
+        6,
+        'Prueba 2',
+        7000,
+        'Limpieza'
+    );
+END;
+
+
+
+-- ======================== Eliminar servicio ==================================
+CREATE OR REPLACE PROCEDURE eliminar_servicio (
+    p_id_servicio IN NUMBER
+) AS
+BEGIN
+    DELETE FROM Servicio
+    WHERE Id_Servicio = p_id_servicio;
+END;
+
+
+BEGIN
+    eliminar_servicio(6);
+END;
+
+
+
+-- ======================== Ver reservaciones =================================
+CREATE OR REPLACE PROCEDURE ver_reservacion_por_id (
+    p_id_reservacion IN NUMBER
+) AS
+    v_fk_huesped     NUMBER;
+    v_fk_hotel       NUMBER;
+    v_fk_habitacion  NUMBER;
+    v_fk_promocion   NUMBER;
+    v_estado         VARCHAR2(30);
+    v_comentarios    VARCHAR2(255);
+    v_fecha_checkin  DATE;
+    v_fecha_checkout DATE;
+BEGIN
+    SELECT
+        FK_Huesped,
+        FK_Hotel,
+        FK_Habitacion,
+        FK_Promocion,
+        Estado,
+        Comentarios,
+        Fecha_CheckIn,
+        Fecha_CheckOut
+    INTO
+        v_fk_huesped,
+        v_fk_hotel,
+        v_fk_habitacion,
+        v_fk_promocion,
+        v_estado,
+        v_comentarios,
+        v_fecha_checkin,
+        v_fecha_checkout
+    FROM
+        Reservacion
+    WHERE
+        Id_Reservacion = p_id_reservacion;
+
+    dbms_output.put_line('ID Reservación: ' || p_id_reservacion);
+    dbms_output.put_line('FK Huesped: ' || v_fk_huesped);
+    dbms_output.put_line('FK Hotel: ' || v_fk_hotel);
+    dbms_output.put_line('FK Habitación: ' || v_fk_habitacion);
+    dbms_output.put_line('FK Promoción: ' || v_fk_promocion);
+    dbms_output.put_line('Estado: ' || v_estado);
+    dbms_output.put_line('Comentarios: ' || v_comentarios);
+    dbms_output.put_line('Fecha Check-In: ' || TO_CHAR(v_fecha_checkin, 'YYYY-MM-DD'));
+    dbms_output.put_line('Fecha Check-Out: ' || TO_CHAR(v_fecha_checkout, 'YYYY-MM-DD'));
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        dbms_output.put_line('No se encontró una reservación con el ID: ' || p_id_reservacion);
+    WHEN OTHERS THEN
+        dbms_output.put_line('Error: ' || SQLERRM);
+END;
+
+
+BEGIN
+    ver_reservacion_por_id(1);
+END;
+
+
+
+-- ================== Actualizar Reservacion ==================================
+CREATE OR REPLACE PROCEDURE actualizarReservacion (
+    v_id_reservacion    IN NUMBER,
+    v_fk_huesped        IN NUMBER,
+    v_fk_hotel          IN NUMBER,
+    v_fk_habitacion     IN NUMBER,
+    v_fk_promocion      IN NUMBER,
+    v_estado            IN VARCHAR2,
+    v_comentarios       IN VARCHAR2,
+    v_fecha_checkin     IN DATE,
+    v_fecha_checkout    IN DATE
+)
+AS
+BEGIN
+    UPDATE Reservacion
+    SET
+        FK_Huesped      = v_fk_huesped,
+        FK_Hotel        = v_fk_hotel,
+        FK_Habitacion   = v_fk_habitacion,
+        FK_Promocion    = v_fk_promocion,
+        Estado          = v_estado,
+        Comentarios     = v_comentarios,
+        Fecha_CheckIn   = v_fecha_checkin,
+        Fecha_CheckOut  = v_fecha_checkout
+    WHERE Id_Reservacion = v_id_reservacion;
+
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        dbms_output.put_line('Error: ' || SQLERRM);
+END;
+
+
+BEGIN
+    actualizarReservacion(1, 1, 1, 1, 1, 'Confirmado', 'Reservación para una noche en habitación con jacuzzi',
+        TO_DATE('2024-03-10', 'YYYY-MM-DD'), TO_DATE('2024-03-10', 'YYYY-MM-DD'));
+
+    actualizarReservacion(2, 2, 2, 2, 2, 'Pendiente', 'Habitación doble con vista a la ciudad',
+        TO_DATE('2024-03-11', 'YYYY-MM-DD'), TO_DATE('2024-03-11', 'YYYY-MM-DD'));
+
+    actualizarReservacion(3, 3, 3, 3, 3, 'Confirmado', 'Habitación familiar con cama matrimonial y 2 individuales',
+        TO_DATE('2024-03-12', 'YYYY-MM-DD'), TO_DATE('2024-03-12', 'YYYY-MM-DD'));
+
+    actualizarReservacion(4, 4, 4, 4, 4, 'Cancelado', 'Reserva cancelada antes del check-in',
+        TO_DATE('2024-03-13', 'YYYY-MM-DD'), TO_DATE('2024-03-13', 'YYYY-MM-DD'));
+
+    actualizarReservacion(5, 5, 5, 5, 5, 'Confirmado', 'Habitación con acceso directo a la playa',
+        TO_DATE('2024-03-14', 'YYYY-MM-DD'), TO_DATE('2024-03-14', 'YYYY-MM-DD'));
+        
+    actualizarReservacion(6, 5, 5, 5, 5, 'Confirmado', 'Ejemplo actualizacion',
+        TO_DATE('2024-03-01', 'YYYY-MM-DD'), TO_DATE('2024-03-05', 'YYYY-MM-DD'));
+END;
+
+
+-- ========================= Eliminar ==========================================
+CREATE OR REPLACE PROCEDURE eliminar_reservacion (
+    p_id_reservacion IN NUMBER
+) AS
+BEGIN
+    DELETE FROM Reservacion
+    WHERE Id_Reservacion = p_id_reservacion;
+END;
+
+
+BEGIN
+    eliminar_reservacion(6);
+END;
+
+
+
+-- ==========================Ver factura =======================================
+CREATE OR REPLACE PROCEDURE ver_factura_por_id (
+    p_id_factura IN NUMBER
+) AS
+    v_fk_reservacion  NUMBER;
+    v_fecha_emision   DATE;
+    v_descuento       INT;
+    v_metodo_pago     VARCHAR2(30);
+    v_monto           FLOAT;
+    v_estado          VARCHAR2(30);
+BEGIN
+    SELECT FK_Reservacion, Fecha_Emision, Descuento, Metodo_Pago, Monto, Estado
+    INTO v_fk_reservacion, v_fecha_emision, v_descuento, v_metodo_pago, v_monto, v_estado
+    FROM Factura
+    WHERE Id_Factura = p_id_factura;
+
+    dbms_output.put_line('ID Factura: ' || p_id_factura);
+    dbms_output.put_line('FK Reservación: ' || v_fk_reservacion);
+    dbms_output.put_line('Fecha Emisión: ' || TO_CHAR(v_fecha_emision, 'YYYY-MM-DD'));
+    dbms_output.put_line('Descuento: ' || v_descuento || '%');
+    dbms_output.put_line('Método de Pago: ' || v_metodo_pago);
+    dbms_output.put_line('Monto: ' || v_monto);
+    dbms_output.put_line('Estado: ' || v_estado);
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        dbms_output.put_line('No se encontró factura con ID ' || p_id_factura);
+    WHEN OTHERS THEN
+        dbms_output.put_line('Error al consultar factura: ' || SQLERRM);
+END;
+
+
+BEGIN
+    ver_factura_por_id(1);
+END;
+
+
+-- ===================== Actualizar Factura ====================================
+CREATE OR REPLACE PROCEDURE actualizar_factura (
+    p_id_factura      IN NUMBER,
+    p_fk_reservacion  IN NUMBER,
+    p_fecha_emision   IN DATE,
+    p_descuento       IN INT,
+    p_metodo_pago     IN VARCHAR2,
+    p_monto           IN FLOAT,
+    p_estado          IN VARCHAR2
+) AS
+BEGIN
+    UPDATE Factura
+    SET 
+        FK_Reservacion = p_fk_reservacion,
+        Fecha_Emision  = p_fecha_emision,
+        Descuento      = p_descuento,
+        Metodo_Pago    = p_metodo_pago,
+        Monto          = p_monto,
+        Estado         = p_estado
+    WHERE Id_Factura = p_id_factura;
+
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        dbms_output.put_line('Error al actualizar factura: ' || SQLERRM);
+END;
+
+
+BEGIN
+    actualizar_factura(6, 5, TO_DATE('2024-03-05', 'YYYY-MM-DD'), 20, 'Prueba update', 72000, 'Pagado');
+END;
+
+
+
+-- ========================== Eliminarfactura =================================
+CREATE OR REPLACE PROCEDURE eliminar_factura (
+    p_id_factura IN NUMBER
+) AS
+BEGIN
+    DELETE FROM Factura
+    WHERE Id_Factura = p_id_factura;
+END;
+
+
+BEGIN
+    eliminar_factura(6);
+END;
+
 
 
 -- =============================================================================
