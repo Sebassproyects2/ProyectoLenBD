@@ -2338,16 +2338,16 @@ BEGIN
     WHERE 
         Id_ReservacionRestaurante = p_id_reservacion;
 
-    dbms_output.put_line('ID Reservación Restaurante: ' || p_id_reservacion);
+    dbms_output.put_line('ID Reservaciï¿½n Restaurante: ' || p_id_reservacion);
     dbms_output.put_line('FK Huesped: ' || v_fk_huesped);
     dbms_output.put_line('FK Hotel: ' || v_fk_hotel);
     dbms_output.put_line('FK Restaurante: ' || v_fk_restaurante);
-    dbms_output.put_line('Fecha de Reservación: ' || TO_CHAR(v_fecha_reserva, 'YYYY-MM-DD'));
+    dbms_output.put_line('Fecha de Reservaciï¿½n: ' || TO_CHAR(v_fecha_reserva, 'YYYY-MM-DD'));
     dbms_output.put_line('Cantidad de Personas: ' || v_cantidad);
 
 EXCEPTION
     WHEN no_data_found THEN
-        dbms_output.put_line('No se encontró la reservación con ID ' || p_id_reservacion);
+        dbms_output.put_line('No se encontrï¿½ la reservaciï¿½n con ID ' || p_id_reservacion);
     WHEN OTHERS THEN
         dbms_output.put_line('Error: ' || SQLERRM);
 END;
@@ -2528,11 +2528,11 @@ BEGIN
     WHERE
         Id_Reservacion = p_id_reservacion;
 
-    dbms_output.put_line('ID Reservación: ' || p_id_reservacion);
+    dbms_output.put_line('ID Reservaciï¿½n: ' || p_id_reservacion);
     dbms_output.put_line('FK Huesped: ' || v_fk_huesped);
     dbms_output.put_line('FK Hotel: ' || v_fk_hotel);
-    dbms_output.put_line('FK Habitación: ' || v_fk_habitacion);
-    dbms_output.put_line('FK Promoción: ' || v_fk_promocion);
+    dbms_output.put_line('FK Habitaciï¿½n: ' || v_fk_habitacion);
+    dbms_output.put_line('FK Promociï¿½n: ' || v_fk_promocion);
     dbms_output.put_line('Estado: ' || v_estado);
     dbms_output.put_line('Comentarios: ' || v_comentarios);
     dbms_output.put_line('Fecha Check-In: ' || TO_CHAR(v_fecha_checkin, 'YYYY-MM-DD'));
@@ -2540,7 +2540,7 @@ BEGIN
 
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        dbms_output.put_line('No se encontró una reservación con el ID: ' || p_id_reservacion);
+        dbms_output.put_line('No se encontrï¿½ una reservaciï¿½n con el ID: ' || p_id_reservacion);
     WHEN OTHERS THEN
         dbms_output.put_line('Error: ' || SQLERRM);
 END;
@@ -2587,19 +2587,19 @@ END;
 
 
 BEGIN
-    actualizarReservacion(1, 1, 1, 1, 1, 'Confirmado', 'Reservación para una noche en habitación con jacuzzi',
+    actualizarReservacion(1, 1, 1, 1, 1, 'Confirmado', 'Reservaciï¿½n para una noche en habitaciï¿½n con jacuzzi',
         TO_DATE('2024-03-10', 'YYYY-MM-DD'), TO_DATE('2024-03-10', 'YYYY-MM-DD'));
 
-    actualizarReservacion(2, 2, 2, 2, 2, 'Pendiente', 'Habitación doble con vista a la ciudad',
+    actualizarReservacion(2, 2, 2, 2, 2, 'Pendiente', 'Habitaciï¿½n doble con vista a la ciudad',
         TO_DATE('2024-03-11', 'YYYY-MM-DD'), TO_DATE('2024-03-11', 'YYYY-MM-DD'));
 
-    actualizarReservacion(3, 3, 3, 3, 3, 'Confirmado', 'Habitación familiar con cama matrimonial y 2 individuales',
+    actualizarReservacion(3, 3, 3, 3, 3, 'Confirmado', 'Habitaciï¿½n familiar con cama matrimonial y 2 individuales',
         TO_DATE('2024-03-12', 'YYYY-MM-DD'), TO_DATE('2024-03-12', 'YYYY-MM-DD'));
 
     actualizarReservacion(4, 4, 4, 4, 4, 'Cancelado', 'Reserva cancelada antes del check-in',
         TO_DATE('2024-03-13', 'YYYY-MM-DD'), TO_DATE('2024-03-13', 'YYYY-MM-DD'));
 
-    actualizarReservacion(5, 5, 5, 5, 5, 'Confirmado', 'Habitación con acceso directo a la playa',
+    actualizarReservacion(5, 5, 5, 5, 5, 'Confirmado', 'Habitaciï¿½n con acceso directo a la playa',
         TO_DATE('2024-03-14', 'YYYY-MM-DD'), TO_DATE('2024-03-14', 'YYYY-MM-DD'));
         
     actualizarReservacion(6, 5, 5, 5, 5, 'Confirmado', 'Ejemplo actualizacion',
@@ -2640,16 +2640,16 @@ BEGIN
     WHERE Id_Factura = p_id_factura;
 
     dbms_output.put_line('ID Factura: ' || p_id_factura);
-    dbms_output.put_line('FK Reservación: ' || v_fk_reservacion);
-    dbms_output.put_line('Fecha Emisión: ' || TO_CHAR(v_fecha_emision, 'YYYY-MM-DD'));
+    dbms_output.put_line('FK Reservaciï¿½n: ' || v_fk_reservacion);
+    dbms_output.put_line('Fecha Emisiï¿½n: ' || TO_CHAR(v_fecha_emision, 'YYYY-MM-DD'));
     dbms_output.put_line('Descuento: ' || v_descuento || '%');
-    dbms_output.put_line('Método de Pago: ' || v_metodo_pago);
+    dbms_output.put_line('Mï¿½todo de Pago: ' || v_metodo_pago);
     dbms_output.put_line('Monto: ' || v_monto);
     dbms_output.put_line('Estado: ' || v_estado);
 
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        dbms_output.put_line('No se encontró factura con ID ' || p_id_factura);
+        dbms_output.put_line('No se encontrï¿½ factura con ID ' || p_id_factura);
     WHEN OTHERS THEN
         dbms_output.put_line('Error al consultar factura: ' || SQLERRM);
 END;
@@ -4061,7 +4061,218 @@ END;
 
 END pkg_crud_facturas;
 
+CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_reservaciones AS
+PROCEDURE agregarReservacion(
+    v_id_reservacion   IN NUMBER,
+    v_fk_huesped       IN NUMBER,
+    v_fk_hotel         IN NUMBER,
+    v_fk_habitacion    IN NUMBER,
+    v_fk_promocion     IN NUMBER,
+    v_fecha_checkin    IN DATE,
+    v_fecha_checkout   IN DATE,
+    v_estado           IN VARCHAR2,
+    v_comentarios      IN VARCHAR2
+);
 
+PROCEDURE ver_reservacion_por_id (
+    p_id_reservacion IN NUMBER
+);
+
+PROCEDURE actualizarReservacion (
+    v_id_reservacion    IN NUMBER,
+    v_fk_huesped        IN NUMBER,
+    v_fk_hotel          IN NUMBER,
+    v_fk_habitacion     IN NUMBER,
+    v_fk_promocion      IN NUMBER,
+    v_estado            IN VARCHAR2,
+    v_comentarios       IN VARCHAR2,
+    v_fecha_checkin     IN DATE,
+    v_fecha_checkout    IN DATE
+);
+
+PROCEDURE eliminar_reservacion (
+    p_id_reservacion IN NUMBER
+);
+
+
+END pkg_crud_reservaciones;
+
+
+CREATE OR REPLACE PACKAGE BODY pkg_crud_reservaciones AS
+PROCEDURE agregarReservacion(
+    v_id_reservacion   IN NUMBER,
+    v_fk_huesped       IN NUMBER,
+    v_fk_hotel         IN NUMBER,
+    v_fk_habitacion    IN NUMBER,
+    v_fk_promocion     IN NUMBER,
+    v_fecha_checkin    IN DATE,
+    v_fecha_checkout   IN DATE,
+    v_estado           IN VARCHAR2,
+    v_comentarios      IN VARCHAR2
+)
+AS
+BEGIN
+    INSERT INTO Reservacion (
+        Id_Reservacion, FK_Huesped, FK_Hotel, FK_Habitacion, FK_Promocion,
+        Fecha_CheckIn, Fecha_CheckOut, Estado, Comentarios
+    )
+    VALUES (
+        v_id_reservacion, v_fk_huesped, v_fk_hotel, v_fk_habitacion, v_fk_promocion,
+        v_fecha_checkin, v_fecha_checkout, v_estado, v_comentarios
+    );
+    
+    COMMIT;  
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+END;
+
+PROCEDURE ver_reservacion_por_id (
+    p_id_reservacion IN NUMBER
+) AS
+    v_fk_huesped     NUMBER;
+    v_fk_hotel       NUMBER;
+    v_fk_habitacion  NUMBER;
+    v_fk_promocion   NUMBER;
+    v_estado         VARCHAR2(30);
+    v_comentarios    VARCHAR2(255);
+    v_fecha_checkin  DATE;
+    v_fecha_checkout DATE;
+BEGIN
+    SELECT
+        FK_Huesped,
+        FK_Hotel,
+        FK_Habitacion,
+        FK_Promocion,
+        Estado,
+        Comentarios,
+        Fecha_CheckIn,
+        Fecha_CheckOut
+    INTO
+        v_fk_huesped,
+        v_fk_hotel,
+        v_fk_habitacion,
+        v_fk_promocion,
+        v_estado,
+        v_comentarios,
+        v_fecha_checkin,
+        v_fecha_checkout
+    FROM
+        Reservacion
+    WHERE
+        Id_Reservacion = p_id_reservacion;
+
+    dbms_output.put_line('ID Reservaciï¿½n: ' || p_id_reservacion);
+    dbms_output.put_line('FK Huesped: ' || v_fk_huesped);
+    dbms_output.put_line('FK Hotel: ' || v_fk_hotel);
+    dbms_output.put_line('FK Habitaciï¿½n: ' || v_fk_habitacion);
+    dbms_output.put_line('FK Promociï¿½n: ' || v_fk_promocion);
+    dbms_output.put_line('Estado: ' || v_estado);
+    dbms_output.put_line('Comentarios: ' || v_comentarios);
+    dbms_output.put_line('Fecha Check-In: ' || TO_CHAR(v_fecha_checkin, 'YYYY-MM-DD'));
+    dbms_output.put_line('Fecha Check-Out: ' || TO_CHAR(v_fecha_checkout, 'YYYY-MM-DD'));
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        dbms_output.put_line('No se encontrï¿½ una reservaciï¿½n con el ID: ' || p_id_reservacion);
+    WHEN OTHERS THEN
+        dbms_output.put_line('Error: ' || SQLERRM);
+END;
+
+
+
+PROCEDURE actualizarReservacion (
+    v_id_reservacion    IN NUMBER,
+    v_fk_huesped        IN NUMBER,
+    v_fk_hotel          IN NUMBER,
+    v_fk_habitacion     IN NUMBER,
+    v_fk_promocion      IN NUMBER,
+    v_estado            IN VARCHAR2,
+    v_comentarios       IN VARCHAR2,
+    v_fecha_checkin     IN DATE,
+    v_fecha_checkout    IN DATE
+)
+AS
+BEGIN
+    UPDATE Reservacion
+    SET
+        FK_Huesped      = v_fk_huesped,
+        FK_Hotel        = v_fk_hotel,
+        FK_Habitacion   = v_fk_habitacion,
+        FK_Promocion    = v_fk_promocion,
+        Estado          = v_estado,
+        Comentarios     = v_comentarios,
+        Fecha_CheckIn   = v_fecha_checkin,
+        Fecha_CheckOut  = v_fecha_checkout
+    WHERE Id_Reservacion = v_id_reservacion;
+
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        dbms_output.put_line('Error: ' || SQLERRM);
+END;
+
+PROCEDURE eliminar_reservacion (
+    p_id_reservacion IN NUMBER
+) AS
+BEGIN
+    DELETE FROM Reservacion
+    WHERE Id_Reservacion = p_id_reservacion;
+END;
+
+
+END pkg_crud_reservaciones;
+
+
+-- Eliminar procedimientos fuera del paquete----
+
+DROP PROCEDURE agregarReservacion;
+DROP PROCEDURE ver_reservacion_por_id;
+DROP PROCEDURE actualizarReservacion;
+DROP PROCEDURE eliminar_reservacion;
+
+
+DROP PROCEDURE agregarVehiculo;
+DROP PROCEDURE ver_vehiculoporid;
+DROP PROCEDURE actualizar_vehiculo;
+DROP PROCEDURE eliminar_vehiculo;
+
+
+DROP PROCEDURE agregarInventario;
+DROP PROCEDURE ver_inventario_por_id;
+DROP PROCEDURE actualizar_inventario;
+DROP PROCEDURE eliminar_inventario;
+
+
+DROP PROCEDURE agregarPuesto;
+DROP PROCEDURE ver_puesto_por_id;
+DROP PROCEDURE actualizar_puesto;
+DROP PROCEDURE eliminar_puesto;
+
+
+DROP PROCEDURE agregarEmpleado;
+DROP PROCEDURE ver_empleado_por_id;
+DROP PROCEDURE actualizar_empleado;
+DROP PROCEDURE eliminar_empleado;
+
+
+DROP PROCEDURE agregarEvento;
+DROP PROCEDURE ver_evento_por_id;
+DROP PROCEDURE actualizar_evento;
+DROP PROCEDURE eliminar_evento;
+
+
+DROP PROCEDURE agregarHoteles;
+DROP PROCEDURE ver_hotel_por_id;
+DROP PROCEDURE actualizar_hotel;
+DROP PROCEDURE eliminar_hotel;
+
+
+DROP PROCEDURE agregarHuesped;
+DROP PROCEDURE HUESPED_OBETENER_SP;
+DROP PROCEDURE HUESPED_MODIFICAR_SP;
+DROP PROCEDURE HUESPED_BORRAR_SP;
 -- =============================================================================
 --                              Creacion de triggers
 -- ============================================================================
