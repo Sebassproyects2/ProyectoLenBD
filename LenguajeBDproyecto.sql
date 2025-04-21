@@ -2812,7 +2812,6 @@ BEGIN
     END LOOP;
 END;
 
-select * from TipoHabitacion;
 
 -- Vista restaurante con capacidad 
 
@@ -2845,8 +2844,6 @@ BEGIN
     END LOOP;
 END;
 
-
-select * from vistaRestauranteCapacidad;
 
 /*
 Vista basada en la tabla de mantenimiento para ver las habiataciones en mantenimiento
@@ -3435,149 +3432,154 @@ END;
 END pkg_crud_puestos;
 
 
-CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_empleados AS
+--==============================================================================
+-- Aqui estan los empleados
+-- =============================================================================
+CREATE SEQUENCE EMPLEADO_SEQ
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
 
-PROCEDURE agregarEmpleado(
-    v_id_empleado IN NUMBER,
-    v_fk_hotel IN NUMBER,
-    v_fk_puesto IN NUMBER,
-    v_nombre IN VARCHAR2,
-    v_cedula IN INT,
-    v_correo IN VARCHAR2,
-    v_telefono IN INT,
-    v_fecha_ingreso IN DATE
-);
+CREATE OR REPLACE PACKAGE EMPLEADO_PKG AS
+  TYPE EMPLEADO_CURSOR IS REF CURSOR;
 
-PROCEDURE ver_empleado_por_id (
-    empleadoid IN NUMBER
-);
+  PROCEDURE INSERTAR_EMPLEADO_SP(
+    P_FK_HOTEL       IN EMPLEADO.FK_Hotel%TYPE,
+    P_FK_PUESTO      IN EMPLEADO.FK_Puesto%TYPE,
+    P_NOMBRE         IN EMPLEADO.Nombre%TYPE,
+    P_CEDULA         IN EMPLEADO.Cedula%TYPE,
+    P_CORREO         IN EMPLEADO.Correo%TYPE,
+    P_TELEFONO       IN EMPLEADO.Telefono%TYPE,
+    P_FECHA_INGRESO  IN EMPLEADO.Fecha_Ingreso%TYPE
+  );
 
-PROCEDURE actualizar_empleado (
-    p_empleadoid   IN NUMBER,
-    p_hotelid      IN NUMBER,
-    p_puestoid     IN NUMBER,
-    p_nombre       IN VARCHAR2,
-    p_cedula       IN NUMBER,
-    p_correo       IN VARCHAR2,
-    p_telefono     IN NUMBER,
-    p_fechaingreso IN DATE
-);
+  PROCEDURE LISTAR_EMPLEADOS_SP(P_CURSOR OUT EMPLEADO_CURSOR);
+  
+   PROCEDURE ACTUALIZAR_EMPLEADO_SP(
+    P_ID_EMPLEADO     IN EMPLEADO.ID_EMPLEADO%TYPE,
+    P_FK_HOTEL        IN EMPLEADO.FK_HOTEL%TYPE,
+    P_FK_PUESTO       IN EMPLEADO.FK_PUESTO%TYPE,
+    P_NOMBRE          IN EMPLEADO.NOMBRE%TYPE,
+    P_CEDULA          IN EMPLEADO.CEDULA%TYPE,
+    P_CORREO          IN EMPLEADO.CORREO%TYPE,
+    P_TELEFONO        IN EMPLEADO.TELEFONO%TYPE,
+    P_FECHA_INGRESO   IN EMPLEADO.FECHA_INGRESO%TYPE
+  );
+  
+   PROCEDURE OBTENER_EMPLEADO_POR_ID_SP(P_ID_EMPLEADO IN EMPLEADO.ID_EMPLEADO%TYPE, P_CURSOR OUT SYS_REFCURSOR);
+   
+   PROCEDURE ELIMINAR_EMPLEADO_SP(
+    P_ID_EMPLEADO IN EMPLEADO.ID_EMPLEADO%TYPE
+  );
 
-PROCEDURE eliminar_empleado (
-    p_empleadoid IN NUMBER
-);
-
-END pkg_crud_empleado;
-
-CREATE OR REPLACE PACKAGE BODY pkg_crud_empleados AS 
-
-PROCEDURE agregarEmpleado(
-    v_id_empleado IN NUMBER,
-    v_fk_hotel IN NUMBER,
-    v_fk_puesto IN NUMBER,
-    v_nombre IN VARCHAR2,
-    v_cedula IN INT,
-    v_correo IN VARCHAR2,
-    v_telefono IN INT,
-    v_fecha_ingreso IN DATE
-)
-AS
-BEGIN
     
-    INSERT INTO Empleado (Id_Empleado, FK_Hotel, FK_Puesto, Nombre, Cedula, Correo, Telefono, Fecha_Ingreso)
-    VALUES (v_id_empleado, v_fk_hotel, v_fk_puesto, v_nombre, v_cedula, v_correo, v_telefono, v_fecha_ingreso);
-    
-COMMIT;  
-EXCEPTION
-WHEN OTHERS THEN
-ROLLBACK;  
-END;
+END EMPLEADO_PKG;
+/
 
-PROCEDURE ver_empleado_por_id (
-    empleadoid IN NUMBER
-) AS
+CREATE OR REPLACE PACKAGE BODY EMPLEADO_PKG AS
 
-    v_fk_hotel      NUMBER;
-    v_fk_puesto     NUMBER;
-    v_nombre        VARCHAR2(30);
-    v_cedula        NUMBER;
-    v_correo        VARCHAR2(50);
-    v_telefono      NUMBER;
-    v_fecha_ingreso DATE;
-BEGIN
-    SELECT
-        fk_hotel,
-        fk_puesto,
-        nombre,
-        cedula,
-        correo,
-        telefono,
-        fecha_ingreso
-    INTO
-        v_fk_hotel,
-        v_fk_puesto,
-        v_nombre,
-        v_cedula,
-        v_correo,
-        v_telefono,
-        v_fecha_ingreso
-    FROM
-        empleado
-    WHERE
-        id_empleado = empleadoid;
+  PROCEDURE INSERTAR_EMPLEADO_SP(
+    P_FK_HOTEL       IN EMPLEADO.FK_Hotel%TYPE,
+    P_FK_PUESTO      IN EMPLEADO.FK_Puesto%TYPE,
+    P_NOMBRE         IN EMPLEADO.Nombre%TYPE,
+    P_CEDULA         IN EMPLEADO.Cedula%TYPE,
+    P_CORREO         IN EMPLEADO.Correo%TYPE,
+    P_TELEFONO       IN EMPLEADO.Telefono%TYPE,
+    P_FECHA_INGRESO  IN EMPLEADO.Fecha_Ingreso%TYPE
+  ) IS
+  BEGIN
+    INSERT INTO EMPLEADO (
+      Id_Empleado,
+      FK_Hotel,
+      FK_Puesto,
+      Nombre,
+      Cedula,
+      Correo,
+      Telefono,
+      Fecha_Ingreso
+    )
+    VALUES (
+      EMPLEADO_SEQ.NEXTVAL,
+      P_FK_HOTEL,
+      P_FK_PUESTO,
+      P_NOMBRE,
+      P_CEDULA,
+      P_CORREO,
+      P_TELEFONO,
+      P_FECHA_INGRESO
+    );
+  END;
 
-    dbms_output.put_line('Id_Empleado: ' || empleadoid);
-    dbms_output.put_line('Id_Hotel: ' || v_fk_hotel);
-    dbms_output.put_line('Id_Puesto: ' || v_fk_puesto);
-    dbms_output.put_line('Nombre: ' || v_nombre);
-    dbms_output.put_line('Cedula: ' || v_cedula);
-    dbms_output.put_line('Correo: ' || v_correo);
-    dbms_output.put_line('Telefono: ' || v_telefono);
-    dbms_output.put_line('Fecha_Ingreso: ' || to_char(v_fecha_ingreso, 'YYYY-MM-DD'));
-EXCEPTION
-    WHEN no_data_found THEN
-        dbms_output.put_line('Empleado con Id_Empleado '
-                             || empleadoid
-                             || ' no encontrado.');
-END;
+  PROCEDURE LISTAR_EMPLEADOS_SP(P_CURSOR OUT EMPLEADO_CURSOR) IS
+  BEGIN
+    OPEN P_CURSOR FOR
+      SELECT
+  E.Id_Empleado,
+  E.Nombre,
+  E.Cedula,
+  E.Correo,
+  E.Telefono,
+  E.Fecha_Ingreso,
+  H.Nombre AS Nombre_Hotel,
+  P.Nombre AS Nombre_Puesto
+FROM Empleado E
+JOIN Hotel H ON E.FK_Hotel = H.Id_Hotel
+JOIN Puesto P ON E.FK_Puesto = P.Id_Puesto;
 
-PROCEDURE actualizar_empleado (
-    p_empleadoid   IN NUMBER,
-    p_hotelid      IN NUMBER,
-    p_puestoid     IN NUMBER,
-    p_nombre       IN VARCHAR2,
-    p_cedula       IN NUMBER,
-    p_correo       IN VARCHAR2,
-    p_telefono     IN NUMBER,
-    p_fechaingreso IN DATE
-) AS
-BEGIN
-    UPDATE empleado
+  END;
+  
+PROCEDURE ACTUALIZAR_EMPLEADO_SP(
+    P_ID_EMPLEADO     IN EMPLEADO.ID_EMPLEADO%TYPE,
+    P_FK_HOTEL        IN EMPLEADO.FK_HOTEL%TYPE,
+    P_FK_PUESTO       IN EMPLEADO.FK_PUESTO%TYPE,
+    P_NOMBRE          IN EMPLEADO.NOMBRE%TYPE,
+    P_CEDULA          IN EMPLEADO.CEDULA%TYPE,
+    P_CORREO          IN EMPLEADO.CORREO%TYPE,
+    P_TELEFONO        IN EMPLEADO.TELEFONO%TYPE,
+    P_FECHA_INGRESO   IN EMPLEADO.FECHA_INGRESO%TYPE
+  ) IS
+  BEGIN
+    UPDATE EMPLEADO
     SET
-        fk_hotel = p_hotelid,
-        fk_puesto = p_puestoid,
-        nombre = p_nombre,
-        cedula = p_cedula,
-        correo = p_correo,
-        telefono = p_telefono,
-        fecha_ingreso = p_fechaingreso
-    WHERE
-        id_empleado = p_empleadoid;
+      FK_HOTEL      = P_FK_HOTEL,
+      FK_PUESTO     = P_FK_PUESTO,
+      NOMBRE        = P_NOMBRE,
+      CEDULA        = P_CEDULA,
+      CORREO        = P_CORREO,
+      TELEFONO      = P_TELEFONO,
+      FECHA_INGRESO = P_FECHA_INGRESO
+    WHERE ID_EMPLEADO = P_ID_EMPLEADO;
+  END;
+  
+  PROCEDURE OBTENER_EMPLEADO_POR_ID_SP(P_ID_EMPLEADO IN EMPLEADO.ID_EMPLEADO%TYPE, P_CURSOR OUT SYS_REFCURSOR) IS
+  BEGIN
+    OPEN P_CURSOR FOR
+      SELECT
+        E.ID_EMPLEADO,
+        E.NOMBRE,
+        E.CEDULA,
+        E.CORREO,
+        E.TELEFONO,
+        E.FECHA_INGRESO,
+        E.FK_HOTEL,
+        E.FK_PUESTO
+      FROM EMPLEADO E
+      WHERE E.ID_EMPLEADO = P_ID_EMPLEADO;
+  END;
 
-END;
+  PROCEDURE ELIMINAR_EMPLEADO_SP(
+    P_ID_EMPLEADO IN EMPLEADO.ID_EMPLEADO%TYPE
+  ) IS
+  BEGIN
+    DELETE FROM EMPLEADO
+    WHERE ID_EMPLEADO = P_ID_EMPLEADO;
+  END ELIMINAR_EMPLEADO_SP;
 
-PROCEDURE eliminar_empleado (
-    p_empleadoid IN NUMBER
-) AS
-BEGIN
-    DELETE FROM empleado
-    WHERE
-        id_empleado = p_empleadoid;
 
-END;
 
-END pkg_crud_empleados;
-
+END EMPLEADO_PKG;
+/
+-- FINAL EMPLEADOS
 
 CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_eventos AS 
 
