@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Editar Empleado</title>
+    </head>
+    <body>
+
+        <h2>Editar Empleado</h2>
+
+        <form th:action="@{/empleados/editar}" th:object="${empleado}" method="post">
+            <input type="hidden" th:field="*{idEmpleado}" />
+
+            <label>Nombre:</label>
+            <input type="text" th:field="*{nombre}" required/><br/>
+
+            <label>Cédula:</label>
+            <input type="number" th:field="*{cedula}" required/><br/>
+
+            <label>Correo:</label>
+            <input type="email" th:field="*{correo}" required/><br/>
+
+            <label>Teléfono:</label>
+            <input type="number" th:field="*{telefono}" required/><br/>
+
+            <label>Fecha de Ingreso:</label>
+            <input type="date" th:field="*{fechaIngreso}" required/><br/>
+
+            <label for="hotel">Hotel:</label>
+            <select th:field="*{nombreHotel}" required>
+                <option th:each="hotel : ${hoteles}" th:value="${hotel}" th:text="${hotel}"></option>
+            </select>
+
+            <label for="puesto">Puesto:</label>
+            <select th:field="*{nombrePuesto}" required>
+                <option th:each="puesto : ${puestos}" th:value="${puesto}" th:text="${puesto}"></option>
+            </select>
+
+            <button type="submit">Guardar Cambios</button>
+        </form>
+
+        <div th:if="${error}">
+            <p style="color:red;" th:text="${error}"></p>
+        </div>
+
+        <a href="/empleados">Volver al listado</a>
+
+    </body>
+</html>
