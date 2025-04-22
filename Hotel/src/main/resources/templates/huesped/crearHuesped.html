@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Huésped</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <h1>Crear Nuevo Huésped</h1>
+
+    <div th:if="${error}" style="color: red;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form th:action="@{/huespedes/crear}" th:object="${huesped}" method="post">
+        <label>Nombre:</label><br>
+        <input type="text" th:field="*{nombre}" required/><br><br>
+
+        <label>Primer Apellido:</label><br>
+        <input type="text" th:field="*{apellido1}" required/><br><br>
+
+        <label>Segundo Apellido:</label><br>
+        <input type="text" th:field="*{apellido2}" required/><br><br>
+
+        <label>Cédula:</label><br>
+        <input type="number" th:field="*{cedula}" required/><br><br>
+
+        <label>Correo:</label><br>
+        <input type="email" th:field="*{correo}" required/><br><br>
+
+        <label>Teléfono:</label><br>
+        <input type="number" th:field="*{telefono}" required/><br><br>
+
+        <label>Fecha de Nacimiento:</label><br>
+        <input type="date" th:field="*{fechaNacimiento}" required/><br><br>
+
+        <label>Fecha de Registro:</label><br>
+        <input type="date" th:field="*{fechaRegistro}" required/><br><br>
+
+        <button type="submit">Guardar</button>
+    </form>
+
+    <br>
+    <a th:href="@{/huespedes}">Volver al listado</a>
+
+</body>
+</html>

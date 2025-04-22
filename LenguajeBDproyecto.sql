@@ -3435,10 +3435,11 @@ END pkg_crud_puestos;
 --==============================================================================
 -- Aqui estan los empleados
 -- =============================================================================
-CREATE SEQUENCE EMPLEADO_SEQ
-START WITH 1
-INCREMENT BY 1
-NOCACHE;
+
+ALTER SEQUENCE EMPLEADO_SEQ INCREMENT BY 6;
+
+SELECT EMPLEADO_SEQ.NEXTVAL FROM DUAL;
+ 
 
 CREATE OR REPLACE PACKAGE EMPLEADO_PKG AS
   TYPE EMPLEADO_CURSOR IS REF CURSOR;
@@ -3854,6 +3855,10 @@ END;
 
 END pkg_crud_hoteles;
 
+-- =============================================================================
+-- HUESPEDES
+-- =============================================================================
+
 CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_huespedes AS
 PROCEDURE agregarHuesped(
     v_id_huesped IN NUMBER,
@@ -3919,9 +3924,7 @@ PROCEDURE HUESPED_OBETENER_SP (
     p_id_huesped IN huesped.id_huesped%TYPE DEFAULT NULL
 ) IS
 
-    CURSOR c_huesped (
-        p_id huesped.id_huesped%TYPE
-    ) IS
+    CURSOR c_huesped IS
     SELECT
         id_huesped,
         nombre,
@@ -3935,8 +3938,7 @@ PROCEDURE HUESPED_OBETENER_SP (
     FROM
         huesped
     WHERE
-        id_huesped = p_id
-        OR p_id IS NULL;
+        p_id_huesped IS NULL OR id_huesped = p_id_huesped;
 
     v_id_huesped       huesped.id_huesped%TYPE;
     v_nombre           huesped.nombre%TYPE;
@@ -3947,22 +3949,24 @@ PROCEDURE HUESPED_OBETENER_SP (
     v_telefono         huesped.telefono%TYPE;
     v_fecha_nacimiento huesped.fecha_nacimiento%TYPE;
     v_fecha_registro   huesped.fecha_registro%TYPE;
+
 BEGIN
-OPEN c_huesped(p_id_huesped);
-LOOP
-FETCH C_HUESPED INTO V_ID_HUESPED , V_NOMBRE , V_CEDULA , V_APELLIDO1 , V_APELLIDO2 , V_CORREO , V_TELEFONO , V_FECHA_NACIMIENTO, V_FECHA_REGISTRO ;
-EXIT WHEN c_Huesped%NOTFOUND;
-DBMS_OUTPUT.PUT_LINE(
-'ID: ' || v_Id_Huesped || ', ' ||
-'Nombre: ' || v_Nombre || ' ' || v_Apellido1 || ' ' || v_Apellido2 || ', ' ||
-'Cï¿½dula: ' || v_Cedula || ', ' ||
-'Correo: ' || v_Correo || ', ' ||
-'Telï¿½fono: ' || v_Telefono || ', ' ||
-'Fecha Nacimiento: ' || TO_CHAR(v_Fecha_Nacimiento, 'YYYY-MM-DD') || ', ' ||
-'Fecha Registro: ' || TO_CHAR(v_Fecha_Registro, 'YYYY-MM-DD')
-);
-END LOOP;
-CLOSE c_Huesped;
+    OPEN c_huesped;
+    LOOP
+        FETCH c_huesped INTO v_id_huesped, v_nombre, v_cedula, v_apellido1, v_apellido2, v_correo, v_telefono, v_fecha_nacimiento, v_fecha_registro;
+        EXIT WHEN c_huesped%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'ID: ' || v_id_huesped || ', ' ||
+            'Nombre: ' || v_nombre || ' ' || v_apellido1 || ' ' || v_apellido2 || ', ' ||
+            'Cédula: ' || v_cedula || ', ' ||
+            'Correo: ' || v_correo || ', ' ||
+            'Teléfono: ' || v_telefono || ', ' ||
+            'Fecha Nacimiento: ' || TO_CHAR(v_fecha_nacimiento, 'YYYY-MM-DD') || ', ' ||
+            'Fecha Registro: ' || TO_CHAR(v_fecha_registro, 'YYYY-MM-DD')
+        );
+    END LOOP;
+    CLOSE c_huesped;
 END;
 
 PROCEDURE HUESPED_MODIFICAR_SP(

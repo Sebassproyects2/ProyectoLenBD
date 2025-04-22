@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Huéspedes</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <h1>Lista de Huéspedes</h1>
+
+    <a th:href="@{/huespedes/crear}">Crear nuevo huésped</a>
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido 1</th>
+                <th>Apellido 2</th>
+                <th>Cédula</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Fecha Nacimiento</th>
+                <th>Fecha Registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="huesped : ${huespedes}">
+                <td th:text="${huesped.idHuesped}"></td>
+                <td th:text="${huesped.nombre}"></td>
+                <td th:text="${huesped.apellido1}"></td>
+                <td th:text="${huesped.apellido2}"></td>
+                <td th:text="${huesped.cedula}"></td>
+                <td th:text="${huesped.correo}"></td>
+                <td th:text="${huesped.telefono}"></td>
+                <td th:text="${#dates.format(huesped.fechaNacimiento, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#dates.format(huesped.fechaRegistro, 'dd/MM/yyyy')}"></td>
+                <td>
+                    <a th:href="@{/huespedes/editar/{id}(id=${huesped.idHuesped})}">Editar</a> |
+                    <a th:href="@{/huespedes/eliminar/{id}(id=${huesped.idHuesped})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
