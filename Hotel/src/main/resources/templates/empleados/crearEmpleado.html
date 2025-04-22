@@ -29,18 +29,21 @@
             <label>Fecha de Ingreso:</label><br>
             <input type="date" th:field="*{fechaIngreso}" required/><br><br>
 
-            <label for="nombreHotel">Hotel:</label>
-            <select th:field="*{nombreHotel}">
-                <option th:each="hotel : ${hoteles}" th:value="${hotel}" th:text="${hotel}"></option>
+            <label for="fkHotel">Hotel:</label>
+            <select th:field="*{fkHotel}">
+                <option th:each="hotel : ${hoteles}"
+                        th:value="${hotel.id}"
+                        th:text="${hotel.nombre}"></option>
             </select>
-            
-            <br>
 
-            <label for="nombrePuesto">Puesto:</label>
-            <select th:field="*{nombrePuesto}">
-                <option th:each="puesto : ${puestos}" th:value="${puesto}" th:text="${puesto}"></option>
+            <label for="fkPuesto">Puesto:</label>
+            <select th:field="*{fkPuesto}">
+                <option th:each="puesto : ${puestos}"
+                        th:value="${puesto.id}"
+                        th:text="${puesto.nombre}"></option>
             </select>
-            
+
+
             <br>
 
             <button type="submit">Guardar</button>

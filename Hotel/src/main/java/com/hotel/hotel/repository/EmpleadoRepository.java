@@ -1,6 +1,8 @@
 package com.hotel.hotel.repository;
 
 import com.hotel.hotel.model.Empleado;
+import com.hotel.hotel.model.OpcionSelect;
+
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -76,13 +78,21 @@ public void init() {
 
     simpleJdbcCall.execute(params);
 }
-public List<String> obtenerNombresHoteles() {
-    return jdbcTemplate.queryForList("SELECT Nombre FROM Hotel", String.class);
+
+public List<OpcionSelect> obtenerHoteles() {
+    String sql = "SELECT Id_Hotel, Nombre FROM Hotel";
+    return jdbcTemplate.query(sql, (rs, rowNum) ->
+        new OpcionSelect(rs.getInt("Id_Hotel"), rs.getString("Nombre"))
+    );
 }
 
-public List<String> obtenerNombresPuestos() {
-    return jdbcTemplate.queryForList("SELECT Nombre FROM Puesto", String.class);
+public List<OpcionSelect> obtenerPuestos() {
+    String sql = "SELECT Id_Puesto, Nombre FROM Puesto";
+    return jdbcTemplate.query(sql, (rs, rowNum) ->
+        new OpcionSelect(rs.getInt("Id_Puesto"), rs.getString("Nombre"))
+    );
 }
+
 
 public void actualizarEmpleado(Empleado empleado) {
     SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)

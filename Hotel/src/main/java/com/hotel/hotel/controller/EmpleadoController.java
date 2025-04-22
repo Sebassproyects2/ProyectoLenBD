@@ -1,5 +1,6 @@
 package com.hotel.hotel.controller;
 
+
 import com.hotel.hotel.model.Empleado;
 import com.hotel.hotel.repository.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,9 @@ public class EmpleadoController {
     @GetMapping("/empleados/crear")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("empleado", new Empleado());
-        model.addAttribute("hoteles", empleadoRepository.obtenerNombresHoteles());
-        model.addAttribute("puestos", empleadoRepository.obtenerNombresPuestos());
+        model.addAttribute("hoteles", empleadoRepository.obtenerHoteles());
+        model.addAttribute("puestos", empleadoRepository.obtenerPuestos());
+
         return "empleados/crearEmpleado";
     }
 
@@ -41,8 +43,9 @@ public class EmpleadoController {
             return "redirect:/empleados";
         } catch (Exception e) {
             model.addAttribute("error", "Error al insertar el empleado: " + e.getMessage());
-            model.addAttribute("hoteles", empleadoRepository.obtenerNombresHoteles());
-            model.addAttribute("puestos", empleadoRepository.obtenerNombresPuestos());
+            model.addAttribute("hoteles", empleadoRepository.obtenerHoteles());
+            model.addAttribute("puestos", empleadoRepository.obtenerPuestos());
+
             return "empleados/crearEmpleado";
         }
     }
@@ -55,8 +58,8 @@ public class EmpleadoController {
             return "redirect:/empleados";
         }
         model.addAttribute("empleado", empleado);
-        model.addAttribute("hoteles", empleadoRepository.obtenerNombresHoteles());
-        model.addAttribute("puestos", empleadoRepository.obtenerNombresPuestos());
+        model.addAttribute("hoteles", empleadoRepository.obtenerHoteles());
+        model.addAttribute("puestos", empleadoRepository.obtenerPuestos());
         return "empleados/editarEmpleado"; // usa esta vista
     }
 
@@ -68,8 +71,9 @@ public class EmpleadoController {
             return "redirect:/empleados";
         } catch (Exception e) {
             model.addAttribute("error", "Error al actualizar el empleado: " + e.getMessage());
-            model.addAttribute("hoteles", empleadoRepository.obtenerNombresHoteles());
-            model.addAttribute("puestos", empleadoRepository.obtenerNombresPuestos());
+            model.addAttribute("hoteles", empleadoRepository.obtenerHoteles());
+            model.addAttribute("puestos", empleadoRepository.obtenerPuestos());
+
             return "empleados/editarEmpleado";
         }
     }
