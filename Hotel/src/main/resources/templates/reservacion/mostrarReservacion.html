@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Reservaciones</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <h1>Lista de Reservaciones</h1>
+
+    <a th:href="@{/reservaciones/crear}">Crear nueva reservación</a>
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha Entrada</th>
+                <th>Fecha Salida</th>
+                <th>Precio Total</th>
+                <th>Cliente</th>
+                <th>Habitación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="reservacion : ${reservaciones}">
+                <td th:text="${reservacion.idReservacion}"></td>
+                <td th:text="${#dates.format(reservacion.fechaEntrada, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#dates.format(reservacion.fechaSalida, 'dd/MM/yyyy')}"></td>
+                <td>₡<span th:text="${reservacion.precioTotal}"></span></td>
+                <td th:text="${reservacion.fkCliente.nombre}"></td>
+                <td th:text="${reservacion.fkHabitacion.descripcion}"></td>
+                <td>
+                    <a th:href="@{/reservaciones/editar/{id}(id=${reservacion.idReservacion})}">Editar</a> |
+                    <a th:href="@{/reservaciones/eliminar/{id}(id=${reservacion.idReservacion})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
