@@ -1,53 +1,91 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
     <head>
         <meta charset="UTF-8">
         <title>Editar Empleado</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
+        
+        <!-- Parte de arriba--> 
+        <nav class="navbar navbar-expand-lg" style="background-color: #003366;">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" href="/">Cadena hotelera 5Gs</a>
+            </div>
+        </nav>
+        
+        <!-- Menu izquierdo-->
+        <div class="d-flex">
+            <div class="sidebar bg-light p-3" style="width: 220px;">
+                <a class="d-block mb-2 text-decoration-none text-dark" href="/huespedes">Huesped</a>
+                <a class="d-block mb-2 text-decoration-none text-dark" href="/empleados">Empleado</a>
+                <a class="d-block mb-2 text-decoration-none text-dark" href="/reservaciones">Reservacion</a>
+                <a class="d-block mb-2 text-decoration-none text-dark" href="/hoteles/listar">Hotel</a>
+            </div>
 
-        <h2>Editar Empleado</h2>
+            <div class="flex-grow-1 p-4">
+                <h2>Editar Empleado</h2></br>
 
-        <form th:action="@{/empleados/editar}" th:object="${empleado}" method="post">
-            <input type="hidden" th:field="*{idEmpleado}" />
+                <form th:action="@{/empleados/editar}" th:object="${empleado}" method="post" class="row g-3" style="width: 800px;">
+                    <input type="hidden" th:field="*{idEmpleado}" />
 
-            <label>Nombre:</label>
-            <input type="text" th:field="*{nombre}" required/><br/>
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre:</label>
+                        <input type="text" th:field="*{nombre}" class="form-control" required/>
+                    </div>
 
-            <label>Cédula:</label>
-            <input type="number" th:field="*{cedula}" required/><br/>
+                    <div class="col-md-6">
+                        <label class="form-label">Cédula:</label>
+                        <input type="number" th:field="*{cedula}" class="form-control" required/>
+                    </div>
 
-            <label>Correo:</label>
-            <input type="email" th:field="*{correo}" required/><br/>
+                    <div class="col-md-6">
+                        <label class="form-label">Correo:</label>
+                        <input type="email" th:field="*{correo}" class="form-control" required/>
+                    </div>
 
-            <label>Teléfono:</label>
-            <input type="number" th:field="*{telefono}" required/><br/>
+                    <div class="col-md-6">
+                        <label class="form-label">Teléfono:</label>
+                        <input type="number" th:field="*{telefono}" class="form-control" required/>
+                    </div>
 
-            <label>Fecha de Ingreso:</label>
-            <input type="date" th:field="*{fechaIngreso}" required/><br/>
+                    <div class="col-md-6">
+                        <label class="form-label">Fecha de Ingreso:</label>
+                        <input type="date" th:field="*{fechaIngreso}" class="form-control" required/>
+                    </div>
 
-            <label for="fkHotel">Hotel:</label>
-            <select th:field="*{fkHotel}">
-                <option th:each="hotel : ${hoteles}"
-                        th:value="${hotel.id}"
-                        th:text="${hotel.nombre}"></option>
-            </select>
+                    <div class="col-md-6">
+                        <label class="form-label">Hotel:</label>
+                        <select th:field="*{fkHotel}" class="form-select">
+                            <option th:each="hotel : ${hoteles}"
+                                    th:value="${hotel.id}"
+                                    th:text="${hotel.nombre}"></option>
+                        </select>
+                    </div>
 
-            <label for="fkPuesto">Puesto:</label>
-            <select th:field="*{fkPuesto}">
-                <option th:each="puesto : ${puestos}"
-                        th:value="${puesto.id}"
-                        th:text="${puesto.nombre}"></option>
-            </select>
+                    <div class="col-md-6">
+                        <label class="form-label">Puesto:</label>
+                        <select th:field="*{fkPuesto}" class="form-select">
+                            <option th:each="puesto : ${puestos}"
+                                    th:value="${puesto.id}"
+                                    th:text="${puesto.nombre}"></option>
+                        </select>
+                    </div>
 
-            <button type="submit">Guardar Cambios</button>
-        </form>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="/empleados" class="btn btn-secondary">Volver</a>
+                    </div>
 
-        <div th:if="${error}">
-            <p style="color:red;" th:text="${error}"></p>
+                    <div th:if="${error}" class="col-12">
+                        <p class="text-danger" th:text="${error}"></p>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <a href="/empleados">Volver al listado</a>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

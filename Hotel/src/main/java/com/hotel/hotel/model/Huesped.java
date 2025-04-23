@@ -7,13 +7,28 @@ public class Huesped {
     
     private Long idHuesped;
     private String nombre;
-    private int cedula;
+    private Integer cedula;
     private String apellido1;
     private String apellido2;
     private String correo;
-    private int telefono;
+    private Integer telefono;
     private Date fechaNacimiento;
     private Date fechaRegistro;
+
+    public Huesped() {}
+
+    public Huesped(Long idHuesped, String nombre, Integer cedula, String apellido1, String apellido2,
+                   String correo, Integer telefono, Date fechaNacimiento, Date fechaRegistro) {
+        this.idHuesped = idHuesped;
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
+        this.fechaRegistro = fechaRegistro;
+    }
 
     public Long getIdHuesped() {
         return idHuesped;
@@ -31,11 +46,11 @@ public class Huesped {
         this.nombre = nombre;
     }
 
-    public int getCedula() {
+    public Integer getCedula() {
         return cedula;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(Integer cedula) {
         this.cedula = cedula;
     }
 
@@ -63,11 +78,11 @@ public class Huesped {
         this.correo = correo;
     }
 
-    public int getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
 
@@ -86,5 +101,4 @@ public class Huesped {
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
-
 }

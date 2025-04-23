@@ -57,7 +57,7 @@ FK_Hotel NUMBER NOT NULL,
 Tipo VARCHAR(30) NOT NULL,
 Marca VARCHAR(30) NOT NULL,
 Modelo VARCHAR(50) NOT NULL,
-Aï¿½o INT NOT NULL,
+A�o INT NOT NULL,
 Placa CHAR(8) NOT NULL,
 CONSTRAINT FK_idHotelVehiculo FOREIGN KEY (FK_Hotel) REFERENCES Hotel (Id_Hotel)
 );
@@ -273,12 +273,12 @@ END;
 
 BEGIN
 
-agregarHoteles(1, 'Hotel Verde', 'San Josï¿½', 'Central', 'Carmen', 'Av. Principal #123', '2222-3333', 5);
-agregarHoteles(2, 'Hotel Vistas', 'Alajuela', 'Central', 'San Josï¿½', 'Calle Sol #45', '2444-5555', 3);
-agregarHoteles(3, 'Hotel Flores', 'Heredia', 'San Rafael', 'Los ï¿½ngeles', 'Blvd. Este #67', '2666-7777', 4);
+agregarHoteles(1, 'Hotel Verde', 'San Jos�', 'Central', 'Carmen', 'Av. Principal #123', '2222-3333', 5);
+agregarHoteles(2, 'Hotel Vistas', 'Alajuela', 'Central', 'San Jos�', 'Calle Sol #45', '2444-5555', 3);
+agregarHoteles(3, 'Hotel Flores', 'Heredia', 'San Rafael', 'Los �ngeles', 'Blvd. Este #67', '2666-7777', 4);
 agregarHoteles(4, 'Hotel Catedral', 'Cartago', 'Oreamuno', 'San Rafael', 'Carretera Vieja #89', '2555-6666', 6);    
-agregarHoteles(5, 'Hotel Marea', 'Puntarenas', 'Central', 'Barrio El Carmen', 'Paseo Marï¿½timo #101', '2777-8888', 2);
-agregarHoteles(6, 'prueba eliminacion', 'Puntarenas', 'Central', 'Barrio El Carmen', 'Paseo Marï¿½timo #101', '2777-8888', 2);
+agregarHoteles(5, 'Hotel Marea', 'Puntarenas', 'Central', 'Barrio El Carmen', 'Paseo Mar�timo #101', '2777-8888', 2);
+agregarHoteles(6, 'prueba eliminacion', 'Puntarenas', 'Central', 'Barrio El Carmen', 'Paseo Mar�timo #101', '2777-8888', 2);
 END;
 
 
@@ -308,11 +308,11 @@ ROLLBACK;
 END;
 
 BEGIN
-agregarProveedor(1, 'Suministros Varios CR', 'Juan Pï¿½rez', 88885555, 'contacto@suministroscr.com', 'San Josï¿½', 'Limpieza', TO_DATE('2023-01-15', 'YYYY-MM-DD'));
-agregarProveedor(2, 'Alimentos CR', 'Marï¿½a Lï¿½pez', 87776666, 'ventas@alimentospv.com', 'Heredia', 'Alimentos', TO_DATE('2022-12-01', 'YYYY-MM-DD'));
-agregarProveedor(3, 'Gallo', 'Carlos Ramï¿½rez', 86667777, 'info@electrotico.com', 'Alajuela', 'Electrodomï¿½sticos', TO_DATE('2023-02-10', 'YYYY-MM-DD'));
-agregarProveedor(4, 'Muebles Cartago', 'Ana Gï¿½mez', 85554444, 'soporte@mueblesfinos.com', 'Cartago', 'Mobiliario', TO_DATE('2022-11-20', 'YYYY-MM-DD'));
-agregarProveedor(5, 'Decoraciones SA', 'Pedro Rojas', 84443333, 'ventas@decoraciones.com', 'Puntarenas', 'Decoraciï¿½n', TO_DATE('2023-03-05', 'YYYY-MM-DD'));
+agregarProveedor(1, 'Suministros Varios CR', 'Juan P�rez', 88885555, 'contacto@suministroscr.com', 'San Jos�', 'Limpieza', TO_DATE('2023-01-15', 'YYYY-MM-DD'));
+agregarProveedor(2, 'Alimentos CR', 'Mar�a L�pez', 87776666, 'ventas@alimentospv.com', 'Heredia', 'Alimentos', TO_DATE('2022-12-01', 'YYYY-MM-DD'));
+agregarProveedor(3, 'Gallo', 'Carlos Ram�rez', 86667777, 'info@electrotico.com', 'Alajuela', 'Electrodom�sticos', TO_DATE('2023-02-10', 'YYYY-MM-DD'));
+agregarProveedor(4, 'Muebles Cartago', 'Ana G�mez', 85554444, 'soporte@mueblesfinos.com', 'Cartago', 'Mobiliario', TO_DATE('2022-11-20', 'YYYY-MM-DD'));
+agregarProveedor(5, 'Decoraciones SA', 'Pedro Rojas', 84443333, 'ventas@decoraciones.com', 'Puntarenas', 'Decoraci�n', TO_DATE('2023-03-05', 'YYYY-MM-DD'));
 END;
 
 
@@ -342,10 +342,10 @@ END;
 
 BEGIN
 
-agregarSuministro(1, 1, 1, 'Jabï¿½n lï¿½quido', 'Jabï¿½n antibacterial 500ml', 100, 20000);
-agregarSuministro(2, 2, 2, 'Cafï¿½ premium', 'Cafï¿½ en grano 1kg', 50, 30000);
+agregarSuministro(1, 1, 1, 'Jab�n l�quido', 'Jab�n antibacterial 500ml', 100, 20000);
+agregarSuministro(2, 2, 2, 'Caf� premium', 'Caf� en grano 1kg', 50, 30000);
 agregarSuministro(3, 3, 3, 'Televisor LED', 'Smart TV 42 pulgadas', 10, 500000);
-agregarSuministro(4, 4, 4, 'Sillï¿½n de recepciï¿½n', 'Sillï¿½n de cuero negro', 5, 200000);
+agregarSuministro(4, 4, 4, 'Sill�n de recepci�n', 'Sill�n de cuero negro', 5, 200000);
 agregarSuministro(5, 5, 5, 'Cuadros decorativos', 'Set de 3 cuadros modernos', 15, 100000);
 END;
 
@@ -374,9 +374,9 @@ END;
 BEGIN
 
 agregarPromocion(1, 1, 'Descuento verano', TO_DATE('2025-06-01', 'YYYY-MM-DD'), TO_DATE('2025-07-31', 'YYYY-MM-DD'));
-agregarPromocion(2, 2, 'Fin de semana romï¿½ntico', TO_DATE('2025-02-14', 'YYYY-MM-DD'), TO_DATE('2025-02-16', 'YYYY-MM-DD'));
-agregarPromocion(3, 3, 'Estadï¿½a lealtad', TO_DATE('2025-03-10', 'YYYY-MM-DD'), TO_DATE('2025-04-10', 'YYYY-MM-DD'));
-agregarPromocion(4, 4, 'Promociï¿½n familiar', TO_DATE('2025-05-01', 'YYYY-MM-DD'), TO_DATE('2025-05-31', 'YYYY-MM-DD'));
+agregarPromocion(2, 2, 'Fin de semana rom�ntico', TO_DATE('2025-02-14', 'YYYY-MM-DD'), TO_DATE('2025-02-16', 'YYYY-MM-DD'));
+agregarPromocion(3, 3, 'Estad�a lealtad', TO_DATE('2025-03-10', 'YYYY-MM-DD'), TO_DATE('2025-04-10', 'YYYY-MM-DD'));
+agregarPromocion(4, 4, 'Promoci�n familiar', TO_DATE('2025-05-01', 'YYYY-MM-DD'), TO_DATE('2025-05-31', 'YYYY-MM-DD'));
 agregarPromocion(5, 5, '2x1 en habitaciones dobles', TO_DATE('2025-09-01', 'YYYY-MM-DD'), TO_DATE('2025-09-15', 'YYYY-MM-DD'));
 END;
 
@@ -403,10 +403,10 @@ END;
 BEGIN
 
 agregarTipoPromocion(1, 'Descuento', 'Se aplica un descuento sobre el precio total de la reserva');
-agregarTipoPromocion(2, 'Paquete', 'Incluye alojamiento y actividades turï¿½sticas');
-agregarTipoPromocion(3, 'Upgrade gratis', 'Los huï¿½spedes reciben una mejora de habitaciï¿½n sin costo adicional');
-agregarTipoPromocion(4, 'Puntos dobles', 'Se duplican los puntos de fidelidad en esta promociï¿½n');
-agregarTipoPromocion(5, 'Cena incluida', 'La promociï¿½n incluye una cena gratis por noche reservada');
+agregarTipoPromocion(2, 'Paquete', 'Incluye alojamiento y actividades tur�sticas');
+agregarTipoPromocion(3, 'Upgrade gratis', 'Los hu�spedes reciben una mejora de habitaci�n sin costo adicional');
+agregarTipoPromocion(4, 'Puntos dobles', 'Se duplican los puntos de fidelidad en esta promoci�n');
+agregarTipoPromocion(5, 'Cena incluida', 'La promoci�n incluye una cena gratis por noche reservada');
 END;
 
 -- ======================= Vehiculo ========================================
@@ -423,7 +423,7 @@ CREATE OR REPLACE PROCEDURE agregarVehiculo(
 AS
 BEGIN
 
-    INSERT INTO Vehiculo (Id_Vehiculo, FK_Hotel, Tipo, Marca, Modelo, Aï¿½o, Placa)
+    INSERT INTO Vehiculo (Id_Vehiculo, FK_Hotel, Tipo, Marca, Modelo, A�o, Placa)
     VALUES (v_id_vehiculo, v_fk_hotel, v_tipo, v_marca, v_modelo, v_ano, v_placa);
     
 COMMIT;  
@@ -434,7 +434,7 @@ END;
 
 BEGIN
 
-    agregarVehiculo(1, 1, 'Automï¿½vil', 'Toyota', 'Corolla', 2020, 'ABC1234');
+    agregarVehiculo(1, 1, 'Autom�vil', 'Toyota', 'Corolla', 2020, 'ABC1234');
     agregarVehiculo(2, 2, 'Minivan', 'Honda', 'Odyssey', 2021, 'DEF1234');
     agregarVehiculo(3, 3, 'pick-up', 'Ford', 'Explorer', 2019, 'GHIJ123');
     agregarVehiculo(4, 4, 'Buseta', 'Mercedes', 'Sprinter', 2022, 'ABC4567');
@@ -469,10 +469,10 @@ END;
 
 BEGIN
 
-agregarInventario(1, 1, 'Televisor', 'Electrï¿½nico', 'Samsung', 'SmartTV 50"', 'SER123456', TO_DATE('2024-01-10', 'YYYY-MM-DD'), 10);
-agregarInventario(2, 2, 'Aire Acondicionado', 'Electrodomï¿½stico', 'LG', 'Max', 'SER654321', TO_DATE('2023-12-15', 'YYYY-MM-DD'), 8);
-agregarInventario(3, 3, 'Colchï¿½n King Size', 'Mobiliario', 'Sealy', 'Suave', 'SER987654', TO_DATE('2024-02-20', 'YYYY-MM-DD'), 20);
-agregarInventario(4, 4, 'Computadora', 'Electrï¿½nico', 'Dell', 'Inspiron 15', 'SER741852', TO_DATE('2024-03-01', 'YYYY-MM-DD'), 5);
+agregarInventario(1, 1, 'Televisor', 'Electr�nico', 'Samsung', 'SmartTV 50"', 'SER123456', TO_DATE('2024-01-10', 'YYYY-MM-DD'), 10);
+agregarInventario(2, 2, 'Aire Acondicionado', 'Electrodom�stico', 'LG', 'Max', 'SER654321', TO_DATE('2023-12-15', 'YYYY-MM-DD'), 8);
+agregarInventario(3, 3, 'Colch�n King Size', 'Mobiliario', 'Sealy', 'Suave', 'SER987654', TO_DATE('2024-02-20', 'YYYY-MM-DD'), 20);
+agregarInventario(4, 4, 'Computadora', 'Electr�nico', 'Dell', 'Inspiron 15', 'SER741852', TO_DATE('2024-03-01', 'YYYY-MM-DD'), 5);
 agregarInventario(5, 5, 'Sillas de conferencia', 'Mobiliario', 'Mugui', 'Ergonomico', 'SER369258', TO_DATE('2024-01-30', 'YYYY-MM-DD'), 50);
 END;
 
@@ -532,8 +532,8 @@ BEGIN
 
 agregarEmpleado(1, 1, 1, 'Maria Rodriguez', 12345678, 'mariaRodriguez@gmail.com', 88881111, TO_DATE('2022-05-10', 'YYYY-MM-DD'));
 agregarEmpleado(2, 2, 2, 'Ricardo Arce', 87654321, 'ricardoArce@gmail.com', 89992222, TO_DATE('2021-08-15', 'YYYY-MM-DD'));
-agregarEmpleado(3, 3, 3, 'Keylin Peï¿½a', 11223344, 'keypeï¿½a@gmail.com', 87773333, TO_DATE('2023-01-20', 'YYYY-MM-DD'));
-agregarEmpleado(4, 4, 4, 'Josï¿½ Fernï¿½ndez', 44332211, 'josefernandez@gmail.com', 85554444, TO_DATE('2020-11-30', 'YYYY-MM-DD'));
+agregarEmpleado(3, 3, 3, 'Keylin Pe�a', 11223344, 'keype�a@gmail.com', 87773333, TO_DATE('2023-01-20', 'YYYY-MM-DD'));
+agregarEmpleado(4, 4, 4, 'Jos� Fern�ndez', 44332211, 'josefernandez@gmail.com', 85554444, TO_DATE('2020-11-30', 'YYYY-MM-DD'));
 agregarEmpleado(5, 5, 5, 'Valeria Solano', 55667788, 'valeriasolano@gmail.com', 82221111, TO_DATE('2024-02-05', 'YYYY-MM-DD'));
 END;
 
@@ -595,11 +595,11 @@ END;
 
 BEGIN
 
-agregarHuesped(1, 'Carlos', 12345678, 'Gï¿½mez', 'Ramï¿½rez', 'carlosgomez@gmail.com', 88881111, TO_DATE('1990-05-10', 'YYYY-MM-DD'), TO_DATE('2024-02-01', 'YYYY-MM-DD'));
-agregarHuesped(2, 'Ana', 87654321, 'Martï¿½nez', 'Fernï¿½ndez', 'anamartinez@gmail.com', 89992222, TO_DATE('1985-08-20', 'YYYY-MM-DD'), TO_DATE('2024-02-03', 'YYYY-MM-DD'));
-agregarHuesped(3, 'Javier', 11223344, 'Lï¿½pez', 'Hernï¿½ndez', 'javierlopez@gmail.com', 87773333, TO_DATE('1995-11-15', 'YYYY-MM-DD'), TO_DATE('2024-02-05', 'YYYY-MM-DD'));
-agregarHuesped(4, 'Sofï¿½a', 44332211, 'Rodrï¿½guez', 'Dï¿½az', 'sofiarodriguez@gmail.com', 85554444, TO_DATE('2000-01-25', 'YYYY-MM-DD'), TO_DATE('2024-02-07', 'YYYY-MM-DD'));
-agregarHuesped(5, 'Miguel', 55667788, 'Fernï¿½ndez', 'Castro', 'miguelfernandez@gmail.com', 82221111, TO_DATE('1988-06-30', 'YYYY-MM-DD'), TO_DATE('2024-02-09', 'YYYY-MM-DD'));
+agregarHuesped(1, 'Carlos', 12345678, 'G�mez', 'Ram�rez', 'carlosgomez@gmail.com', 88881111, TO_DATE('1990-05-10', 'YYYY-MM-DD'), TO_DATE('2024-02-01', 'YYYY-MM-DD'));
+agregarHuesped(2, 'Ana', 87654321, 'Mart�nez', 'Fern�ndez', 'anamartinez@gmail.com', 89992222, TO_DATE('1985-08-20', 'YYYY-MM-DD'), TO_DATE('2024-02-03', 'YYYY-MM-DD'));
+agregarHuesped(3, 'Javier', 11223344, 'L�pez', 'Hern�ndez', 'javierlopez@gmail.com', 87773333, TO_DATE('1995-11-15', 'YYYY-MM-DD'), TO_DATE('2024-02-05', 'YYYY-MM-DD'));
+agregarHuesped(4, 'Sof�a', 44332211, 'Rodr�guez', 'D�az', 'sofiarodriguez@gmail.com', 85554444, TO_DATE('2000-01-25', 'YYYY-MM-DD'), TO_DATE('2024-02-07', 'YYYY-MM-DD'));
+agregarHuesped(5, 'Miguel', 55667788, 'Fern�ndez', 'Castro', 'miguelfernandez@gmail.com', 82221111, TO_DATE('1988-06-30', 'YYYY-MM-DD'), TO_DATE('2024-02-09', 'YYYY-MM-DD'));
 END;
 
 --  ========================== TipoHabitacion ===================
@@ -628,9 +628,9 @@ END;
 BEGIN
 
 agregarTipoHabitacion(1, 'Habitacion individual', '1 Persona', 1, 'Vista al mar', 12500, 'Disponible');
-agregarTipoHabitacion(2, 'Habitaciï¿½n doble', '2 personas', 2, 'Vista a la ciudad', 20000, 'Disponible');
-agregarTipoHabitacion(3, 'Habitaciï¿½n familiar', '4 personas', 3, 'Vista al jardï¿½n', 27500, 'Ocupado');
-agregarTipoHabitacion(4, 'Penthouse', '6 personas', 5, 'Vista panorï¿½mica', 37000, 'Mantenimiento');
+agregarTipoHabitacion(2, 'Habitaci�n doble', '2 personas', 2, 'Vista a la ciudad', 20000, 'Disponible');
+agregarTipoHabitacion(3, 'Habitaci�n familiar', '4 personas', 3, 'Vista al jard�n', 27500, 'Ocupado');
+agregarTipoHabitacion(4, 'Penthouse', '6 personas', 5, 'Vista panor�mica', 37000, 'Mantenimiento');
 agregarTipoHabitacion(5, 'Habitacion tematica', '3 personas', 2, 'Vista a la playa', 42000, 'Reservado');
 END;
 
@@ -687,11 +687,11 @@ END;
 
 BEGIN
 
-    agregarMantenimiento(1, 4, 1, 'Reparaciï¿½n de jacuzzi', TO_DATE('2024-02-15', 'YYYY-MM-DD'));
+    agregarMantenimiento(1, 4, 1, 'Reparaci�n de jacuzzi', TO_DATE('2024-02-15', 'YYYY-MM-DD'));
     agregarMantenimiento(2, 5, 2, 'Cambio de muebles en la sala', TO_DATE('2024-02-18', 'YYYY-MM-DD'));
-    agregarMantenimiento(3, 3, 3, 'Revisiï¿½n del aire acondicionado', TO_DATE('2024-02-20', 'YYYY-MM-DD'));
+    agregarMantenimiento(3, 3, 3, 'Revisi�n del aire acondicionado', TO_DATE('2024-02-20', 'YYYY-MM-DD'));
     agregarMantenimiento(4, 2, 4, 'Pintura de las paredes', TO_DATE('2024-02-22', 'YYYY-MM-DD'));
-    agregarMantenimiento(5, 1, 5, 'Limpieza profunda y sanitizaciï¿½n', TO_DATE('2024-02-25', 'YYYY-MM-DD'));
+    agregarMantenimiento(5, 1, 5, 'Limpieza profunda y sanitizaci�n', TO_DATE('2024-02-25', 'YYYY-MM-DD'));
 END;
 
 -- ================= Restaurante ========================
@@ -721,7 +721,7 @@ BEGIN
     agregarRestaurante(2, 2, 'Esquina Italiana', 25, 100);
     agregarRestaurante(3, 3, 'Shun Fa', 15, 60);
     agregarRestaurante(4, 4, 'Buena Esquina', 10, 40);
-    agregarRestaurante(5, 5, 'Sabores caribeï¿½os', 30, 120);
+    agregarRestaurante(5, 5, 'Sabores caribe�os', 30, 120);
 END;
 
 -- ================= ReservacionRestaurante ========================
@@ -750,7 +750,7 @@ BEGIN
     agregarReservacionRestaurante(2, 2, 2, 'Esquina Italiana', TO_DATE('2024-03-02', 'YYYY-MM-DD'), 4);
     agregarReservacionRestaurante(3, 3, 3, 'Shun Fa', TO_DATE('2024-03-03', 'YYYY-MM-DD'), 3);
     agregarReservacionRestaurante(4, 4, 4, 'Buena Esquina', TO_DATE('2024-03-04', 'YYYY-MM-DD'), 1);
-    agregarReservacionRestaurante(5, 5, 5, 'Sabores caribeï¿½os', TO_DATE('2024-03-05', 'YYYY-MM-DD'), 5);*/
+    agregarReservacionRestaurante(5, 5, 5, 'Sabores caribe�os', TO_DATE('2024-03-05', 'YYYY-MM-DD'), 5);*/
 -- Insert nuevo con las modificaciones realizadas
     agregarReservacionRestaurante(6, 5, 5, 5, TO_DATE('2025-03-05', 'YYYY-MM-DD'), 5);
 END;
@@ -779,9 +779,9 @@ BEGIN
 
 agregarServicio(1, 'Spa', 12500, 'Bienestar');
 agregarServicio(2, 'Transporte al Aeropuerto', 35000, 'Transporte');
-agregarServicio(3, 'Cena Romï¿½ntica', 37000, 'Gastronomï¿½a');
+agregarServicio(3, 'Cena Rom�ntica', 37000, 'Gastronom�a');
 agregarServicio(4, 'Tour de la Ciudad', 30000, 'Turismo');
-agregarServicio(5, 'Lavanderï¿½a Express', 7000, 'Limpieza');
+agregarServicio(5, 'Lavander�a Express', 7000, 'Limpieza');
 agregarServicio(6, 'Pruebas', 7000, 'Limpieza');
 END;
 
@@ -875,11 +875,11 @@ END;
 -- Los inserts del 1 - 5 son con el formato antiguo, se deja el ejemplo 6 para ver como se agrega con el nuevo formato yy hacer ejemplos de CRUD
 BEGIN
     /*
-    agregarReservacion(1, 1, 1, 1, 1, 1, 1, 'Confirmado', 'Reservaciï¿½n para una noche en habitaciï¿½n con jacuzzi');
-    agregarReservacion(2, 2, 2, 2, 2, 2, 2, 'Pendiente', 'Habitaciï¿½n doble con vista a la ciudad');
-    agregarReservacion(3, 3, 3, 3, 3, 3, 3, 'Confirmado', 'Habitaciï¿½n familiar con cama matrimonial y 2 individuales');
+    agregarReservacion(1, 1, 1, 1, 1, 1, 1, 'Confirmado', 'Reservaci�n para una noche en habitaci�n con jacuzzi');
+    agregarReservacion(2, 2, 2, 2, 2, 2, 2, 'Pendiente', 'Habitaci�n doble con vista a la ciudad');
+    agregarReservacion(3, 3, 3, 3, 3, 3, 3, 'Confirmado', 'Habitaci�n familiar con cama matrimonial y 2 individuales');
     agregarReservacion(4, 4, 4, 4, 4, 4, 4, 'Cancelado', 'Reserva cancelada antes del check-in');
-    agregarReservacion(5, 5, 5, 5, 5, 5, 5, 'Confirmado', 'Habitaciï¿½n con acceso directo a la playa');
+    agregarReservacion(5, 5, 5, 5, 5, 5, 5, 'Confirmado', 'Habitaci�n con acceso directo a la playa');
     */
     agregarReservacion(6, 1, 1, 1, 1, TO_DATE('2024-03-01', 'YYYY-MM-DD'), 
     TO_DATE('2024-03-05', 'YYYY-MM-DD'), 'Confirmada', 'Comentarios de ejemplo');
@@ -910,9 +910,9 @@ END;
 
 BEGIN
 
-agregarFactura(1, 1, TO_DATE('2024-03-01', 'YYYY-MM-DD'), 10, 'Tarjeta de crï¿½dito', 50000, 'Pagado');
+agregarFactura(1, 1, TO_DATE('2024-03-01', 'YYYY-MM-DD'), 10, 'Tarjeta de cr�dito', 50000, 'Pagado');
 agregarFactura(2, 2, TO_DATE('2024-03-02', 'YYYY-MM-DD'), 5, 'Efectivo', 60000, 'Pendiente');
-agregarFactura(3, 3, TO_DATE('2024-03-03', 'YYYY-MM-DD'), 0, 'Tarjeta de crï¿½dito', 80000, 'Pagado');
+agregarFactura(3, 3, TO_DATE('2024-03-03', 'YYYY-MM-DD'), 0, 'Tarjeta de cr�dito', 80000, 'Pagado');
 agregarFactura(4, 4, TO_DATE('2024-03-04', 'YYYY-MM-DD'), 15, 'Efectivo', 55000, 'Cancelado');
 agregarFactura(5, 5, TO_DATE('2024-03-05', 'YYYY-MM-DD'), 20, 'Transferencia bancaria', 72000, 'Pagado');
 agregarFactura(6, 5, TO_DATE('2024-03-05', 'YYYY-MM-DD'), 20, 'Prueba CRUDS', 72000, 'Pagado');
@@ -963,11 +963,11 @@ BEGIN
     dbms_output.put_line('Id_Hotel: ' || hotelid);
     dbms_output.put_line('Nombrehotel: ' || v_nombre);
     dbms_output.put_line('Ciudad: ' || v_ciudad);
-    dbms_output.put_line('Cantï¿½n: ' || v_canton);
+    dbms_output.put_line('Cant�n: ' || v_canton);
     dbms_output.put_line('Distrito: ' || v_distrito);
-    dbms_output.put_line('Detalle Direcciï¿½n: ' || v_detalle_direccion);
-    dbms_output.put_line('Telï¿½fono: ' || v_telefono);
-    dbms_output.put_line('Nï¿½mero de Pisos: ' || v_numero_pisos);
+    dbms_output.put_line('Detalle Direcci�n: ' || v_detalle_direccion);
+    dbms_output.put_line('Tel�fono: ' || v_telefono);
+    dbms_output.put_line('N�mero de Pisos: ' || v_numero_pisos);
 
 EXCEPTION
     WHEN no_data_found THEN
@@ -1015,7 +1015,7 @@ BEGIN
     actualizar_hotel(
         1,
         'Hotel nuevo',
-        'San Josï¿½',
+        'San Jos�',
         'Central',
         'Carmen',
         'Av. 10, Calle 5',
@@ -1083,7 +1083,7 @@ BEGIN
     dbms_output.put_line('Id_Proveedor: ' || proveedorid);
     dbms_output.put_line('Nombre: ' || v_nombre);
     dbms_output.put_line('Contacto: ' || v_contacto);
-    dbms_output.put_line('Telï¿½fono: ' || v_telefono);
+    dbms_output.put_line('Tel�fono: ' || v_telefono);
     dbms_output.put_line('Email: ' || v_email);
     dbms_output.put_line('Ciudad: ' || v_ciudad);
     dbms_output.put_line('Tipo: ' || v_tipo);
@@ -1134,10 +1134,10 @@ BEGIN
     actualizar_proveedor(
         1,
         'Nuevos suministos',
-        'Juan Pï¿½rez',
+        'Juan P�rez',
         88885555,
         'Nuevos@suministos.com',
-        'San Josï¿½',
+        'San Jos�',
         'Limpieza',
         TO_DATE('2023-01-15', 'YYYY-MM-DD')
     );
@@ -1197,7 +1197,7 @@ BEGIN
     dbms_output.put_line('Id_Proveedor: ' || v_fk_proveedor);
     dbms_output.put_line('Id_Hotel: ' || v_fk_hotel);
     dbms_output.put_line('Nombre: ' || v_nombre);
-    dbms_output.put_line('Descripciï¿½n: ' || v_descripcion);
+    dbms_output.put_line('Descripci�n: ' || v_descripcion);
     dbms_output.put_line('Cantidad: ' || v_cantidad);
     dbms_output.put_line('Costo: ' || v_costo);
 
@@ -1246,7 +1246,7 @@ BEGIN
         1,
         1,
         'Nuevo suministro',
-        'Jabï¿½n antibacterial 500ml',
+        'Jab�n antibacterial 500ml',
         100,
         20000
     );
@@ -1296,13 +1296,13 @@ BEGIN
 
     dbms_output.put_line('Id_Promocion: ' || promocionid);
     dbms_output.put_line('Id_Hotel: ' || v_fk_hotel);
-    dbms_output.put_line('Descripciï¿½n: ' || v_descripcion);
+    dbms_output.put_line('Descripci�n: ' || v_descripcion);
     dbms_output.put_line('Fecha de Inicio: ' || TO_CHAR(v_fecha_inicio, 'DD-MON-YYYY'));
     dbms_output.put_line('Fecha de Fin: ' || TO_CHAR(v_fecha_fin, 'DD-MON-YYYY'));
 
 EXCEPTION
     WHEN no_data_found THEN
-        dbms_output.put_line('Promociï¿½n con Id_Promocion ' || promocionid || ' no encontrada.');
+        dbms_output.put_line('Promoci�n con Id_Promocion ' || promocionid || ' no encontrada.');
     WHEN OTHERS THEN
         dbms_output.put_line('Error: ' || SQLERRM);
 END;
@@ -1387,7 +1387,7 @@ BEGIN
 
 EXCEPTION
     WHEN no_data_found THEN
-        dbms_output.put_line('Tipo de promociï¿½n con Id_Tipo_Promocion ' || tipo_promocionid || ' no encontrado.');
+        dbms_output.put_line('Tipo de promoci�n con Id_Tipo_Promocion ' || tipo_promocionid || ' no encontrado.');
     WHEN OTHERS THEN
         dbms_output.put_line('Error: ' || SQLERRM);
 END;
@@ -1456,7 +1456,7 @@ BEGIN
         tipo,
         marca,
         modelo,
-        aï¿½o,
+        a�o,
         placa,
         fk_hotel
     INTO
@@ -1476,11 +1476,11 @@ BEGIN
     dbms_output.put_line('Tipo: ' || v_tipo);
     dbms_output.put_line('Marca: ' || v_marca);
     dbms_output.put_line('Modelo: ' || v_modelo);
-    dbms_output.put_line('Aï¿½o: ' || v_anio);
+    dbms_output.put_line('A�o: ' || v_anio);
     dbms_output.put_line('Placa: ' || v_placa);
 EXCEPTION
     WHEN no_data_found THEN
-        dbms_output.put_line('Vehï¿½culo con Id_Vehiculo '
+        dbms_output.put_line('Veh�culo con Id_Vehiculo '
                              || vehiculoid
                              || ' no encontrado.');
 END;
@@ -1508,7 +1508,7 @@ BEGIN
         tipo = p_tipo,
         marca = p_marca,
         modelo = p_modelo,
-        aï¿½o = p_anio,
+        a�o = p_anio,
         placa = p_placa
     WHERE
         id_vehiculo = p_vehiculoid;
@@ -1930,9 +1930,9 @@ EXIT WHEN c_Huesped%NOTFOUND;
 DBMS_OUTPUT.PUT_LINE(
 'ID: ' || v_Id_Huesped || ', ' ||
 'Nombre: ' || v_Nombre || ' ' || v_Apellido1 || ' ' || v_Apellido2 || ', ' ||
-'Cï¿½dula: ' || v_Cedula || ', ' ||
+'C�dula: ' || v_Cedula || ', ' ||
 'Correo: ' || v_Correo || ', ' ||
-'Telï¿½fono: ' || v_Telefono || ', ' ||
+'Tel�fono: ' || v_Telefono || ', ' ||
 'Fecha Nacimiento: ' || TO_CHAR(v_Fecha_Nacimiento, 'YYYY-MM-DD') || ', ' ||
 'Fecha Registro: ' || TO_CHAR(v_Fecha_Registro, 'YYYY-MM-DD')
 );
@@ -1969,9 +1969,9 @@ BEGIN
     WHERE Id_Huesped = p_Id_Huesped;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n huï¿½sped con el ID ' || p_Id_Huesped);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n hu�sped con el ID ' || p_Id_Huesped);
     ELSE
-        DBMS_OUTPUT.PUT_LINE('Huï¿½sped con ID ' || p_Id_Huesped || ' modificado correctamente.');
+        DBMS_OUTPUT.PUT_LINE('Hu�sped con ID ' || p_Id_Huesped || ' modificado correctamente.');
     END IF;
 END;
 
@@ -1986,13 +1986,13 @@ BEGIN
     WHERE Id_Huesped = p_Id_Huesped;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n huï¿½sped con el ID ' || p_Id_Huesped);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n hu�sped con el ID ' || p_Id_Huesped);
     ELSE
-        DBMS_OUTPUT.PUT_LINE('Huï¿½sped con ID ' || p_Id_Huesped || ' borrado correctamente.');
+        DBMS_OUTPUT.PUT_LINE('Hu�sped con ID ' || p_Id_Huesped || ' borrado correctamente.');
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error al borrar el huï¿½sped: ' || SQLERRM);
+        DBMS_OUTPUT.PUT_LINE('Error al borrar el hu�sped: ' || SQLERRM);
 END;
 
 --TIPOHABITACION
@@ -2022,7 +2022,7 @@ DBMS_OUTPUT.PUT_LINE(
             'ID: ' || v_Id_TipoHabitacion || ', ' ||
             'Nombre: ' || v_Nombre || ', ' ||
             'Capacidad: ' || v_Capacidad || ', ' ||
-            'Nï¿½mero de Camas: ' || v_Numero_Camas || ', ' ||
+            'N�mero de Camas: ' || v_Numero_Camas || ', ' ||
             'Vista: ' || v_Vista || ', ' ||
             'Precio por Noche: ' || TO_CHAR(v_Precio_PorNoche, '999999.99') || ', ' ||
             'Estado: ' || v_Estado
@@ -2059,9 +2059,9 @@ BEGIN
     WHERE Id_TipoHabitacion = p_Id_TipoHabitacion;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n tipo de habitaciï¿½n con el ID ' || p_Id_TipoHabitacion);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n tipo de habitaci�n con el ID ' || p_Id_TipoHabitacion);
     ELSE
-        DBMS_OUTPUT.PUT_LINE('Tipo de habitaciï¿½n con ID ' || p_Id_TipoHabitacion || ' modificado correctamente.');
+        DBMS_OUTPUT.PUT_LINE('Tipo de habitaci�n con ID ' || p_Id_TipoHabitacion || ' modificado correctamente.');
     END IF;
 END;
 
@@ -2076,9 +2076,9 @@ BEGIN
     WHERE Id_TipoHabitacion = p_Id_TipoHabitacion;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n tipo de habitaciï¿½n con el ID ' || p_Id_TipoHabitacion);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n tipo de habitaci�n con el ID ' || p_Id_TipoHabitacion);
     ELSE
-        DBMS_OUTPUT.PUT_LINE('Tipo de habitaciï¿½n con ID ' || p_Id_TipoHabitacion || ' borrado correctamente.');
+        DBMS_OUTPUT.PUT_LINE('Tipo de habitaci�n con ID ' || p_Id_TipoHabitacion || ' borrado correctamente.');
     END IF;
 END;
 
@@ -2106,8 +2106,8 @@ EXIT WHEN c_Habitacion%NOTFOUND;
 DBMS_OUTPUT.PUT_LINE(
             'ID: ' || v_Id_Habitacion || ', ' ||
             'FK_TipoHabitacion: ' || v_FK_TipoHabitacion || ', ' ||
-            'Nï¿½mero de Habitaciï¿½n: ' || v_Numero_Habitacion || ', ' ||
-            'Descripciï¿½n: ' || v_Descripcion || ', ' ||
+            'N�mero de Habitaci�n: ' || v_Numero_Habitacion || ', ' ||
+            'Descripci�n: ' || v_Descripcion || ', ' ||
             'Estado: ' || v_Estado
         );
     END LOOP;
@@ -2135,9 +2135,9 @@ BEGIN
     WHERE Id_Habitacion = p_Id_Habitacion;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ninguna habitaciï¿½n con el ID ' || p_Id_Habitacion);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ninguna habitaci�n con el ID ' || p_Id_Habitacion);
     ELSE
-        DBMS_OUTPUT.PUT_LINE('Habitaciï¿½n con ID ' || p_Id_Habitacion || ' modificada correctamente.');
+        DBMS_OUTPUT.PUT_LINE('Habitaci�n con ID ' || p_Id_Habitacion || ' modificada correctamente.');
     END IF;
 END;
 
@@ -2152,9 +2152,9 @@ BEGIN
     WHERE Id_Habitacion = p_Id_Habitacion;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ninguna habitaciï¿½n con el ID ' || p_Id_Habitacion);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ninguna habitaci�n con el ID ' || p_Id_Habitacion);
     ELSE
-        DBMS_OUTPUT.PUT_LINE('Habitaciï¿½n con ID ' || p_Id_Habitacion || ' borrada correctamente.');
+        DBMS_OUTPUT.PUT_LINE('Habitaci�n con ID ' || p_Id_Habitacion || ' borrada correctamente.');
     END IF;
 END;
 
@@ -2185,7 +2185,7 @@ DBMS_OUTPUT.PUT_LINE(
             'ID: ' || v_Id_Mantenimiento || ', ' ||
             'FK_Habitacion: ' || v_FK_Habitacion || ', ' ||
             'FK_Proveedor: ' || v_FK_Proveedor || ', ' ||
-            'Descripciï¿½n: ' || v_Descripcion || ', ' ||
+            'Descripci�n: ' || v_Descripcion || ', ' ||
             'Fecha de Inicio: ' || TO_CHAR(v_Fecha_Inicio, 'YYYY-MM-DD')
         );
 END LOOP;
@@ -2212,7 +2212,7 @@ BEGIN
     WHERE Id_Mantenimiento = p_Id_Mantenimiento;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n mantenimiento con el ID ' || p_Id_Mantenimiento);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n mantenimiento con el ID ' || p_Id_Mantenimiento);
     ELSE
         DBMS_OUTPUT.PUT_LINE('Mantenimiento con ID ' || p_Id_Mantenimiento || ' modificado correctamente.');
     END IF;
@@ -2227,7 +2227,7 @@ DELETE FROM Mantenimiento
 WHERE Id_Mantenimiento = p_Id_Mantenimiento;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n mantenimiento con el ID ' || p_Id_Mantenimiento);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n mantenimiento con el ID ' || p_Id_Mantenimiento);
     ELSE
         DBMS_OUTPUT.PUT_LINE('Mantenimiento con ID ' || p_Id_Mantenimiento || ' borrado correctamente.');
     END IF;
@@ -2258,7 +2258,7 @@ DBMS_OUTPUT.PUT_LINE(
             'ID: ' || v_Id_Restaurante || ', ' ||
             'FK_Hotel: ' || v_FK_Hotel || ', ' ||
             'Nombre: ' || v_Nombre || ', ' ||
-            'Nï¿½mero de Mesas: ' || v_Num_Mesas || ', ' ||
+            'N�mero de Mesas: ' || v_Num_Mesas || ', ' ||
             'Capacidad: ' || v_Capacidad
         );
 END LOOP;
@@ -2285,7 +2285,7 @@ BEGIN
     WHERE Id_Restaurante = p_Id_Restaurante;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n restaurante con el ID ' || p_Id_Restaurante);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n restaurante con el ID ' || p_Id_Restaurante);
     ELSE
         DBMS_OUTPUT.PUT_LINE('Restaurante con ID ' || p_Id_Restaurante || ' modificado correctamente.');
     END IF;
@@ -2302,7 +2302,7 @@ BEGIN
     WHERE Id_Restaurante = p_Id_Restaurante;
     
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n restaurante con el ID ' || p_Id_Restaurante);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n restaurante con el ID ' || p_Id_Restaurante);
     ELSE
         DBMS_OUTPUT.PUT_LINE('Restaurante con ID ' || p_Id_Restaurante || ' borrado correctamente.');
     END IF;
@@ -2338,16 +2338,16 @@ BEGIN
     WHERE 
         Id_ReservacionRestaurante = p_id_reservacion;
 
-    dbms_output.put_line('ID Reservaciï¿½n Restaurante: ' || p_id_reservacion);
+    dbms_output.put_line('ID Reservaci�n Restaurante: ' || p_id_reservacion);
     dbms_output.put_line('FK Huesped: ' || v_fk_huesped);
     dbms_output.put_line('FK Hotel: ' || v_fk_hotel);
     dbms_output.put_line('FK Restaurante: ' || v_fk_restaurante);
-    dbms_output.put_line('Fecha de Reservaciï¿½n: ' || TO_CHAR(v_fecha_reserva, 'YYYY-MM-DD'));
+    dbms_output.put_line('Fecha de Reservaci�n: ' || TO_CHAR(v_fecha_reserva, 'YYYY-MM-DD'));
     dbms_output.put_line('Cantidad de Personas: ' || v_cantidad);
 
 EXCEPTION
     WHEN no_data_found THEN
-        dbms_output.put_line('No se encontrï¿½ la reservaciï¿½n con ID ' || p_id_reservacion);
+        dbms_output.put_line('No se encontr� la reservaci�n con ID ' || p_id_reservacion);
     WHEN OTHERS THEN
         dbms_output.put_line('Error: ' || SQLERRM);
 END;
@@ -2528,11 +2528,11 @@ BEGIN
     WHERE
         Id_Reservacion = p_id_reservacion;
 
-    dbms_output.put_line('ID Reservaciï¿½n: ' || p_id_reservacion);
+    dbms_output.put_line('ID Reservaci�n: ' || p_id_reservacion);
     dbms_output.put_line('FK Huesped: ' || v_fk_huesped);
     dbms_output.put_line('FK Hotel: ' || v_fk_hotel);
-    dbms_output.put_line('FK Habitaciï¿½n: ' || v_fk_habitacion);
-    dbms_output.put_line('FK Promociï¿½n: ' || v_fk_promocion);
+    dbms_output.put_line('FK Habitaci�n: ' || v_fk_habitacion);
+    dbms_output.put_line('FK Promoci�n: ' || v_fk_promocion);
     dbms_output.put_line('Estado: ' || v_estado);
     dbms_output.put_line('Comentarios: ' || v_comentarios);
     dbms_output.put_line('Fecha Check-In: ' || TO_CHAR(v_fecha_checkin, 'YYYY-MM-DD'));
@@ -2540,7 +2540,7 @@ BEGIN
 
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        dbms_output.put_line('No se encontrï¿½ una reservaciï¿½n con el ID: ' || p_id_reservacion);
+        dbms_output.put_line('No se encontr� una reservaci�n con el ID: ' || p_id_reservacion);
     WHEN OTHERS THEN
         dbms_output.put_line('Error: ' || SQLERRM);
 END;
@@ -2587,19 +2587,19 @@ END;
 
 
 BEGIN
-    actualizarReservacion(1, 1, 1, 1, 1, 'Confirmado', 'Reservaciï¿½n para una noche en habitaciï¿½n con jacuzzi',
+    actualizarReservacion(1, 1, 1, 1, 1, 'Confirmado', 'Reservaci�n para una noche en habitaci�n con jacuzzi',
         TO_DATE('2024-03-10', 'YYYY-MM-DD'), TO_DATE('2024-03-10', 'YYYY-MM-DD'));
 
-    actualizarReservacion(2, 2, 2, 2, 2, 'Pendiente', 'Habitaciï¿½n doble con vista a la ciudad',
+    actualizarReservacion(2, 2, 2, 2, 2, 'Pendiente', 'Habitaci�n doble con vista a la ciudad',
         TO_DATE('2024-03-11', 'YYYY-MM-DD'), TO_DATE('2024-03-11', 'YYYY-MM-DD'));
 
-    actualizarReservacion(3, 3, 3, 3, 3, 'Confirmado', 'Habitaciï¿½n familiar con cama matrimonial y 2 individuales',
+    actualizarReservacion(3, 3, 3, 3, 3, 'Confirmado', 'Habitaci�n familiar con cama matrimonial y 2 individuales',
         TO_DATE('2024-03-12', 'YYYY-MM-DD'), TO_DATE('2024-03-12', 'YYYY-MM-DD'));
 
     actualizarReservacion(4, 4, 4, 4, 4, 'Cancelado', 'Reserva cancelada antes del check-in',
         TO_DATE('2024-03-13', 'YYYY-MM-DD'), TO_DATE('2024-03-13', 'YYYY-MM-DD'));
 
-    actualizarReservacion(5, 5, 5, 5, 5, 'Confirmado', 'Habitaciï¿½n con acceso directo a la playa',
+    actualizarReservacion(5, 5, 5, 5, 5, 'Confirmado', 'Habitaci�n con acceso directo a la playa',
         TO_DATE('2024-03-14', 'YYYY-MM-DD'), TO_DATE('2024-03-14', 'YYYY-MM-DD'));
         
     actualizarReservacion(6, 5, 5, 5, 5, 'Confirmado', 'Ejemplo actualizacion',
@@ -2640,16 +2640,16 @@ BEGIN
     WHERE Id_Factura = p_id_factura;
 
     dbms_output.put_line('ID Factura: ' || p_id_factura);
-    dbms_output.put_line('FK Reservaciï¿½n: ' || v_fk_reservacion);
-    dbms_output.put_line('Fecha Emisiï¿½n: ' || TO_CHAR(v_fecha_emision, 'YYYY-MM-DD'));
+    dbms_output.put_line('FK Reservaci�n: ' || v_fk_reservacion);
+    dbms_output.put_line('Fecha Emisi�n: ' || TO_CHAR(v_fecha_emision, 'YYYY-MM-DD'));
     dbms_output.put_line('Descuento: ' || v_descuento || '%');
-    dbms_output.put_line('Mï¿½todo de Pago: ' || v_metodo_pago);
+    dbms_output.put_line('M�todo de Pago: ' || v_metodo_pago);
     dbms_output.put_line('Monto: ' || v_monto);
     dbms_output.put_line('Estado: ' || v_estado);
 
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        dbms_output.put_line('No se encontrï¿½ factura con ID ' || p_id_factura);
+        dbms_output.put_line('No se encontr� factura con ID ' || p_id_factura);
     WHEN OTHERS THEN
         dbms_output.put_line('Error al consultar factura: ' || SQLERRM);
 END;
@@ -2750,10 +2750,10 @@ JOIN hotel h ON p.FK_hotel = h.Id_Hotel;
 
 -- Mostrar vehiculos mas recientes 
 
-CREATE OR REPLACE VIEW vistaAï¿½oVehiculo AS
-SELECT Id_Vehiculo, Tipo, Marca, Modelo,Aï¿½o,Placa
+CREATE OR REPLACE VIEW vistaA�oVehiculo AS
+SELECT Id_Vehiculo, Tipo, Marca, Modelo,A�o,Placa
 FROM Vehiculo
-WHERE Aï¿½o >= 2022
+WHERE A�o >= 2022
 
 --  Vista mostrar empleados con salarios mayores 750000
 
@@ -2839,7 +2839,7 @@ BEGIN
 
         DBMS_OUTPUT.PUT_LINE('Nombre Hotel: ' || i.Nombre_Hotel || 
                              ', Nombre Restaurante: ' || i.Nombre || 
-                             ', Nï¿½mero de Mesas: ' || i.Num_Mesas || 
+                             ', N�mero de Mesas: ' || i.Num_Mesas || 
                              ', Capacidad: ' || i.Capacidad);
     END LOOP;
 END;
@@ -3003,7 +3003,7 @@ DECLARE
   v_id_huesped NUMBER := 2;
 BEGIN
   v_cantidad_reservaciones := obtener_reservaciones_huesped(v_id_huesped);
-  dbms_output.put_line('El huï¿½sped con ID ' || v_id_huesped || ' tiene ' || v_cantidad_reservaciones || ' reservaciones de restaurante.');
+  dbms_output.put_line('El hu�sped con ID ' || v_id_huesped || ' tiene ' || v_cantidad_reservaciones || ' reservaciones de restaurante.');
 END;
 
 
@@ -3083,7 +3083,7 @@ PROCEDURE agregarVehiculo(
 AS
 BEGIN
 
-    INSERT INTO Vehiculo (Id_Vehiculo, FK_Hotel, Tipo, Marca, Modelo, AÃ±o, Placa)
+    INSERT INTO Vehiculo (Id_Vehiculo, FK_Hotel, Tipo, Marca, Modelo, Año, Placa)
     VALUES (v_id_vehiculo, v_fk_hotel, v_tipo, v_marca, v_modelo, v_ano, v_placa);
     
 COMMIT;  
@@ -3107,7 +3107,7 @@ BEGIN
         tipo,
         marca,
         modelo,
-        aÃ±o,
+        año,
         placa,
         fk_hotel
     INTO
@@ -3127,11 +3127,11 @@ BEGIN
     dbms_output.put_line('Tipo: ' || v_tipo);
     dbms_output.put_line('Marca: ' || v_marca);
     dbms_output.put_line('Modelo: ' || v_modelo);
-    dbms_output.put_line('AÃ±o: ' || v_anio);
+    dbms_output.put_line('Año: ' || v_anio);
     dbms_output.put_line('Placa: ' || v_placa);
 EXCEPTION
     WHEN no_data_found THEN
-        dbms_output.put_line('VehÃ­culo con Id_Vehiculo '
+        dbms_output.put_line('Vehículo con Id_Vehiculo '
                              || vehiculoid
                              || ' no encontrado.');
 END;
@@ -3154,7 +3154,7 @@ BEGIN
         tipo = p_tipo,
         marca = p_marca,
         modelo = p_modelo,
-        aÃ±o = p_anio,
+        año = p_anio,
         placa = p_placa
     WHERE
         id_vehiculo = p_vehiculoid;
@@ -3436,11 +3436,9 @@ END pkg_crud_puestos;
 -- Aqui estan los empleados
 -- =============================================================================
 
-ALTER SEQUENCE EMPLEADO_SEQ INCREMENT BY 6;
-
+ALTER SEQUENCE EMPLEADO_SEQ INCREMENT BY 1;
 SELECT EMPLEADO_SEQ.NEXTVAL FROM DUAL;
  
-
 CREATE OR REPLACE PACKAGE EMPLEADO_PKG AS
   TYPE EMPLEADO_CURSOR IS REF CURSOR;
 
@@ -3710,6 +3708,10 @@ END;
 
 END pkg_crud_eventos;
 
+-- =============================================================================
+--                                  Hoteles
+-- =============================================================================
+
 CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_hoteles AS
 
 PROCEDURE agregarHoteles(
@@ -3743,6 +3745,7 @@ PROCEDURE eliminar_hotel (
 );
 
 END pkg_crud_hoteles;
+
 
 CREATE OR REPLACE PACKAGE BODY pkg_crud_hoteles AS
 PROCEDURE agregarHoteles(
@@ -3803,11 +3806,11 @@ BEGIN
     dbms_output.put_line('Id_Hotel: ' || hotelid);
     dbms_output.put_line('Nombrehotel: ' || v_nombre);
     dbms_output.put_line('Ciudad: ' || v_ciudad);
-    dbms_output.put_line('Cantï¿½n: ' || v_canton);
+    dbms_output.put_line('Cant�n: ' || v_canton);
     dbms_output.put_line('Distrito: ' || v_distrito);
-    dbms_output.put_line('Detalle Direcciï¿½n: ' || v_detalle_direccion);
-    dbms_output.put_line('Telï¿½fono: ' || v_telefono);
-    dbms_output.put_line('Nï¿½mero de Pisos: ' || v_numero_pisos);
+    dbms_output.put_line('Detalle Direcci�n: ' || v_detalle_direccion);
+    dbms_output.put_line('Tel�fono: ' || v_telefono);
+    dbms_output.put_line('N�mero de Pisos: ' || v_numero_pisos);
 
 EXCEPTION
     WHEN no_data_found THEN
@@ -3855,9 +3858,29 @@ END;
 
 END pkg_crud_hoteles;
 
+
+
 -- =============================================================================
 -- HUESPEDES
 -- =============================================================================
+
+CREATE SEQUENCE Huesped_SEQ
+START WITH 12
+INCREMENT BY 1
+NOCACHE;
+
+select * from huesped; 
+
+SELECT argument_name, position, data_type, in_out
+FROM all_arguments
+WHERE object_name = 'HUESPED_OBETENER_SP'
+AND package_name = 'PKG_CRUD_HUESPEDES'
+ORDER BY position;
+
+
+ALTER SEQUENCE Huesped_SEQ INCREMENT BY 1;
+SELECT Huesped_SEQ.NEXTVAL FROM DUAL;
+
 
 CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_huespedes AS
 PROCEDURE agregarHuesped(
@@ -3873,8 +3896,13 @@ PROCEDURE agregarHuesped(
 );
 
 PROCEDURE HUESPED_OBETENER_SP (
-    p_id_huesped IN huesped.id_huesped%TYPE DEFAULT NULL
+    p_id_huesped IN HUESPED.ID_HUESPED%TYPE,
+    p_resultado OUT SYS_REFCURSOR
 );
+
+
+PROCEDURE LISTAR_HUESPEDES_SP(p_resultado OUT SYS_REFCURSOR);
+
 
 PROCEDURE HUESPED_MODIFICAR_SP(
     p_Id_Huesped IN Huesped.Id_Huesped%TYPE, 
@@ -3921,10 +3949,11 @@ END;
 
 
 PROCEDURE HUESPED_OBETENER_SP (
-    p_id_huesped IN huesped.id_huesped%TYPE DEFAULT NULL
+    p_id_huesped IN huesped.id_huesped%TYPE DEFAULT NULL,
+    p_resultado OUT SYS_REFCURSOR
 ) IS
-
-    CURSOR c_huesped IS
+BEGIN
+    OPEN p_resultado FOR
     SELECT
         id_huesped,
         nombre,
@@ -3939,34 +3968,22 @@ PROCEDURE HUESPED_OBETENER_SP (
         huesped
     WHERE
         p_id_huesped IS NULL OR id_huesped = p_id_huesped;
+END;
 
-    v_id_huesped       huesped.id_huesped%TYPE;
-    v_nombre           huesped.nombre%TYPE;
-    v_cedula           huesped.cedula%TYPE;
-    v_apellido1        huesped.apellido1%TYPE;
-    v_apellido2        huesped.apellido2%TYPE;
-    v_correo           huesped.correo%TYPE;
-    v_telefono         huesped.telefono%TYPE;
-    v_fecha_nacimiento huesped.fecha_nacimiento%TYPE;
-    v_fecha_registro   huesped.fecha_registro%TYPE;
-
+PROCEDURE LISTAR_HUESPEDES_SP(p_resultado OUT SYS_REFCURSOR) IS
 BEGIN
-    OPEN c_huesped;
-    LOOP
-        FETCH c_huesped INTO v_id_huesped, v_nombre, v_cedula, v_apellido1, v_apellido2, v_correo, v_telefono, v_fecha_nacimiento, v_fecha_registro;
-        EXIT WHEN c_huesped%NOTFOUND;
-
-        DBMS_OUTPUT.PUT_LINE(
-            'ID: ' || v_id_huesped || ', ' ||
-            'Nombre: ' || v_nombre || ' ' || v_apellido1 || ' ' || v_apellido2 || ', ' ||
-            'Cédula: ' || v_cedula || ', ' ||
-            'Correo: ' || v_correo || ', ' ||
-            'Teléfono: ' || v_telefono || ', ' ||
-            'Fecha Nacimiento: ' || TO_CHAR(v_fecha_nacimiento, 'YYYY-MM-DD') || ', ' ||
-            'Fecha Registro: ' || TO_CHAR(v_fecha_registro, 'YYYY-MM-DD')
-        );
-    END LOOP;
-    CLOSE c_huesped;
+    OPEN p_resultado FOR
+    SELECT
+        id_huesped,
+        nombre,
+        cedula,
+        apellido1,
+        apellido2,
+        correo,
+        telefono,
+        fecha_nacimiento,
+        fecha_registro
+    FROM huesped;
 END;
 
 PROCEDURE HUESPED_MODIFICAR_SP(
@@ -3995,9 +4012,9 @@ BEGIN
     WHERE Id_Huesped = p_Id_Huesped;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n huï¿½sped con el ID ' || p_Id_Huesped);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n hu�sped con el ID ' || p_Id_Huesped);
     ELSE
-        DBMS_OUTPUT.PUT_LINE('Huï¿½sped con ID ' || p_Id_Huesped || ' modificado correctamente.');
+        DBMS_OUTPUT.PUT_LINE('Hu�sped con ID ' || p_Id_Huesped || ' modificado correctamente.');
     END IF;
 END;
 
@@ -4010,13 +4027,13 @@ BEGIN
     WHERE Id_Huesped = p_Id_Huesped;
 
     IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontrï¿½ ningï¿½n huï¿½sped con el ID ' || p_Id_Huesped);
+        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n hu�sped con el ID ' || p_Id_Huesped);
     ELSE
-        DBMS_OUTPUT.PUT_LINE('Huï¿½sped con ID ' || p_Id_Huesped || ' borrado correctamente.');
+        DBMS_OUTPUT.PUT_LINE('Hu�sped con ID ' || p_Id_Huesped || ' borrado correctamente.');
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error al borrar el huï¿½sped: ' || SQLERRM);
+        DBMS_OUTPUT.PUT_LINE('Error al borrar el hu�sped: ' || SQLERRM);
 END;
 
 END pkg_crud_huespedes;
@@ -4067,136 +4084,138 @@ END;
 
 END pkg_crud_facturas;
 
------------------------
---RESERVACION
------------------------
 
 CREATE SEQUENCE RESERVACION_SEQ
-  START WITH 1
+  START WITH 6
   INCREMENT BY 1
   NOCACHE;
+  
+CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_reservaciones AS
 
-CREATE OR REPLACE PACKAGE pkg_crud_reservaciones AS
-  TYPE cursor_reservaciones IS REF CURSOR;
-
+  -- Agregar reservaci�n
   PROCEDURE agregar_reservacion(
-    p_fk_huesped     IN NUMBER,
-    p_fk_hotel       IN NUMBER,
-    p_fk_habitacion  IN NUMBER,
-    p_fk_promocion   IN NUMBER,
-    p_fecha_checkin  IN DATE,
-    p_fecha_checkout IN DATE,
-    p_estado         IN VARCHAR2,
-    p_comentarios    IN VARCHAR2
+    p_id_reservacion   IN Reservacion.Id_Reservacion%TYPE,
+    p_fk_huesped       IN Reservacion.FK_Huesped%TYPE,
+    p_fk_hotel         IN Reservacion.FK_Hotel%TYPE,
+    p_fk_habitacion    IN Reservacion.FK_Habitacion%TYPE,
+    p_fk_promocion     IN Reservacion.FK_Promocion%TYPE,
+    p_estado           IN Reservacion.Estado%TYPE,
+    p_comentarios      IN Reservacion.Comentarios%TYPE,
+    p_fecha_checkin    IN Reservacion.Fecha_CheckIn%TYPE,
+    p_fecha_checkout   IN Reservacion.Fecha_CheckOut%TYPE
   );
 
-  PROCEDURE listar_reservaciones(p_cursor OUT cursor_reservaciones);
-
-  PROCEDURE obtener_reservacion_por_id(
-    p_id_reservacion IN NUMBER,
-    p_cursor         OUT cursor_reservaciones
+  -- Obtener reservaci�n
+  PROCEDURE obtener_reservacion(
+    p_id_reservacion IN Reservacion.Id_Reservacion%TYPE
   );
 
-  PROCEDURE actualizar_reservacion(
-    p_id_reservacion IN NUMBER,
-    p_fk_huesped     IN NUMBER,
-    p_fk_hotel       IN NUMBER,
-    p_fk_habitacion  IN NUMBER,
-    p_fk_promocion   IN NUMBER,
-    p_fecha_checkin  IN DATE,
-    p_fecha_checkout IN DATE,
-    p_estado         IN VARCHAR2,
-    p_comentarios    IN VARCHAR2
+  -- Modificar reservaci�n
+  PROCEDURE modificar_reservacion(
+    p_id_reservacion   IN Reservacion.Id_Reservacion%TYPE,
+    p_fk_huesped       IN Reservacion.FK_Huesped%TYPE,
+    p_fk_hotel         IN Reservacion.FK_Hotel%TYPE,
+    p_fk_habitacion    IN Reservacion.FK_Habitacion%TYPE,
+    p_fk_promocion     IN Reservacion.FK_Promocion%TYPE,
+    p_estado           IN Reservacion.Estado%TYPE,
+    p_comentarios      IN Reservacion.Comentarios%TYPE,
+    p_fecha_checkin    IN Reservacion.Fecha_CheckIn%TYPE,
+    p_fecha_checkout   IN Reservacion.Fecha_CheckOut%TYPE
   );
 
-  PROCEDURE eliminar_reservacion(p_id_reservacion IN NUMBER);
+  -- Eliminar reservaci�n
+  PROCEDURE eliminar_reservacion(
+    p_id_reservacion IN Reservacion.Id_Reservacion%TYPE
+  );
+
 END pkg_crud_reservaciones;
+
 /
 
 
 CREATE OR REPLACE PACKAGE BODY pkg_crud_reservaciones AS
 
   PROCEDURE agregar_reservacion(
-    p_fk_huesped     IN NUMBER,
-    p_fk_hotel       IN NUMBER,
-    p_fk_habitacion  IN NUMBER,
-    p_fk_promocion   IN NUMBER,
-    p_fecha_checkin  IN DATE,
-    p_fecha_checkout IN DATE,
-    p_estado         IN VARCHAR2,
-    p_comentarios    IN VARCHAR2
-  ) IS
+    p_id_reservacion   IN Reservacion.Id_Reservacion%TYPE,
+    p_fk_huesped       IN Reservacion.FK_Huesped%TYPE,
+    p_fk_hotel         IN Reservacion.FK_Hotel%TYPE,
+    p_fk_habitacion    IN Reservacion.FK_Habitacion%TYPE,
+    p_fk_promocion     IN Reservacion.FK_Promocion%TYPE,
+    p_estado           IN Reservacion.Estado%TYPE,
+    p_comentarios      IN Reservacion.Comentarios%TYPE,
+    p_fecha_checkin    IN Reservacion.Fecha_CheckIn%TYPE,
+    p_fecha_checkout   IN Reservacion.Fecha_CheckOut%TYPE
+  )
+  AS
   BEGIN
     INSERT INTO Reservacion (
-      Id_Reservacion,
-      FK_Huesped,
-      FK_Hotel,
-      FK_Habitacion,
-      FK_Promocion,
-      Fecha_CheckIn,
-      Fecha_CheckOut,
-      Estado,
-      Comentarios
-    ) VALUES (
-      RESERVACION_SEQ.NEXTVAL,
-      p_fk_huesped,
-      p_fk_hotel,
-      p_fk_habitacion,
-      p_fk_promocion,
-      p_fecha_checkin,
-      p_fecha_checkout,
-      p_estado,
-      p_comentarios
+      Id_Reservacion, FK_Huesped, FK_Hotel, FK_Habitacion, FK_Promocion,
+      Estado, Comentarios, Fecha_CheckIn, Fecha_CheckOut
+    )
+    VALUES (
+      p_id_reservacion, p_fk_huesped, p_fk_hotel, p_fk_habitacion, p_fk_promocion,
+      p_estado, p_comentarios, p_fecha_checkin, p_fecha_checkout
     );
-  END agregar_reservacion;
+    COMMIT;
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      DBMS_OUTPUT.PUT_LINE('Error al agregar reservaci�n: ' || SQLERRM);
+  END;
 
-  PROCEDURE listar_reservaciones(p_cursor OUT cursor_reservaciones) IS
+  PROCEDURE obtener_reservacion(
+    p_id_reservacion IN Reservacion.Id_Reservacion%TYPE
+  )
+  AS
+    v_fk_huesped     Reservacion.FK_Huesped%TYPE;
+    v_fk_hotel       Reservacion.FK_Hotel%TYPE;
+    v_fk_habitacion  Reservacion.FK_Habitacion%TYPE;
+    v_fk_promocion   Reservacion.FK_Promocion%TYPE;
+    v_estado         Reservacion.Estado%TYPE;
+    v_comentarios    Reservacion.Comentarios%TYPE;
+    v_fecha_checkin  Reservacion.Fecha_CheckIn%TYPE;
+    v_fecha_checkout Reservacion.Fecha_CheckOut%TYPE;
   BEGIN
-    OPEN p_cursor FOR
-      SELECT
-        r.Id_Reservacion,
-        r.FK_Huesped,
-        r.FK_Hotel,
-        r.FK_Habitacion,
-        r.FK_Promocion,
-        r.Fecha_CheckIn,
-        r.Fecha_CheckOut,
-        r.Estado,
-        r.Comentarios
-      FROM Reservacion r;
-  END listar_reservaciones;
+    SELECT
+      FK_Huesped, FK_Hotel, FK_Habitacion, FK_Promocion,
+      Estado, Comentarios, Fecha_CheckIn, Fecha_CheckOut
+    INTO
+      v_fk_huesped, v_fk_hotel, v_fk_habitacion, v_fk_promocion,
+      v_estado, v_comentarios, v_fecha_checkin, v_fecha_checkout
+    FROM
+      Reservacion
+    WHERE
+      Id_Reservacion = p_id_reservacion;
 
-  PROCEDURE obtener_reservacion_por_id(
-    p_id_reservacion IN NUMBER,
-    p_cursor         OUT cursor_reservaciones
-  ) IS
-  BEGIN
-    OPEN p_cursor FOR
-      SELECT
-        r.Id_Reservacion,
-        r.FK_Huesped,
-        r.FK_Hotel,
-        r.FK_Habitacion,
-        r.FK_Promocion,
-        r.Fecha_CheckIn,
-        r.Fecha_CheckOut,
-        r.Estado,
-        r.Comentarios
-      FROM Reservacion r
-      WHERE r.Id_Reservacion = p_id_reservacion;
-  END obtener_reservacion_por_id;
+    DBMS_OUTPUT.PUT_LINE('ID Reservaci�n: ' || p_id_reservacion);
+    DBMS_OUTPUT.PUT_LINE('FK Huesped: ' || v_fk_huesped);
+    DBMS_OUTPUT.PUT_LINE('FK Hotel: ' || v_fk_hotel);
+    DBMS_OUTPUT.PUT_LINE('FK Habitaci�n: ' || v_fk_habitacion);
+    DBMS_OUTPUT.PUT_LINE('FK Promoci�n: ' || v_fk_promocion);
+    DBMS_OUTPUT.PUT_LINE('Estado: ' || v_estado);
+    DBMS_OUTPUT.PUT_LINE('Comentarios: ' || v_comentarios);
+    DBMS_OUTPUT.PUT_LINE('Fecha Check-In: ' || TO_CHAR(v_fecha_checkin, 'YYYY-MM-DD'));
+    DBMS_OUTPUT.PUT_LINE('Fecha Check-Out: ' || TO_CHAR(v_fecha_checkout, 'YYYY-MM-DD'));
 
-  PROCEDURE actualizar_reservacion(
-    p_id_reservacion IN NUMBER,
-    p_fk_huesped     IN NUMBER,
-    p_fk_hotel       IN NUMBER,
-    p_fk_habitacion  IN NUMBER,
-    p_fk_promocion   IN NUMBER,
-    p_fecha_checkin  IN DATE,
-    p_fecha_checkout IN DATE,
-    p_estado         IN VARCHAR2,
-    p_comentarios    IN VARCHAR2
-  ) IS
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('No se encontr� la reservaci�n con ID: ' || p_id_reservacion);
+    WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+  END;
+
+  PROCEDURE modificar_reservacion(
+    p_id_reservacion   IN Reservacion.Id_Reservacion%TYPE,
+    p_fk_huesped       IN Reservacion.FK_Huesped%TYPE,
+    p_fk_hotel         IN Reservacion.FK_Hotel%TYPE,
+    p_fk_habitacion    IN Reservacion.FK_Habitacion%TYPE,
+    p_fk_promocion     IN Reservacion.FK_Promocion%TYPE,
+    p_estado           IN Reservacion.Estado%TYPE,
+    p_comentarios      IN Reservacion.Comentarios%TYPE,
+    p_fecha_checkin    IN Reservacion.Fecha_CheckIn%TYPE,
+    p_fecha_checkout   IN Reservacion.Fecha_CheckOut%TYPE
+  )
+  AS
   BEGIN
     UPDATE Reservacion
     SET
@@ -4204,18 +4223,32 @@ CREATE OR REPLACE PACKAGE BODY pkg_crud_reservaciones AS
       FK_Hotel       = p_fk_hotel,
       FK_Habitacion  = p_fk_habitacion,
       FK_Promocion   = p_fk_promocion,
-      Fecha_CheckIn  = p_fecha_checkin,
-      Fecha_CheckOut = p_fecha_checkout,
       Estado         = p_estado,
-      Comentarios    = p_comentarios
+      Comentarios    = p_comentarios,
+      Fecha_CheckIn  = p_fecha_checkin,
+      Fecha_CheckOut = p_fecha_checkout
     WHERE Id_Reservacion = p_id_reservacion;
-  END actualizar_reservacion;
+    
+    COMMIT;
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      DBMS_OUTPUT.PUT_LINE('Error al modificar reservaci�n: ' || SQLERRM);
+  END;
 
-  PROCEDURE eliminar_reservacion(p_id_reservacion IN NUMBER) IS
+  PROCEDURE eliminar_reservacion(
+    p_id_reservacion IN Reservacion.Id_Reservacion%TYPE
+  )
+  AS
   BEGIN
     DELETE FROM Reservacion
     WHERE Id_Reservacion = p_id_reservacion;
-  END eliminar_reservacion;
+    COMMIT;
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      DBMS_OUTPUT.PUT_LINE('Error al eliminar reservaci�n: ' || SQLERRM);
+  END;
 
 END pkg_crud_reservaciones;
 
@@ -4296,14 +4329,14 @@ EXCEPTION
 END;
 
 
---VA A IMPEDIR CAMBIAR EL ESTADO DE UNA RESERVACIÃN A CANCELADO LUEGO DEL CHECK-IN
+--VA A IMPEDIR CAMBIAR EL ESTADO DE UNA RESERVACIÓN A CANCELADO LUEGO DEL CHECK-IN
 
 CREATE OR REPLACE TRIGGER trg_estado_reservacion
 BEFORE UPDATE OF Estado ON Reservacion
 FOR EACH ROW
 BEGIN
   IF :new.Estado = 'Cancelado' AND :old.FK_CheckIn IS NOT NULL THEN
-    RAISE_APPLICATION_ERROR(-20003, 'No se puede cancelar una reservaciÃ³n con check-in registrado');
+    RAISE_APPLICATION_ERROR(-20003, 'No se puede cancelar una reservación con check-in registrado');
   END IF;
 END;
 
@@ -4317,7 +4350,7 @@ BEGIN
   WHERE Id_Reservacion = 1;
 EXCEPTION
   WHEN ex_estado_reservacion THEN
-    DBMS_OUTPUT.PUT_LINE('Error de Trigger: No se puede cancelar reservaciÃ³n con Check-In');
+    DBMS_OUTPUT.PUT_LINE('Error de Trigger: No se puede cancelar reservación con Check-In');
 END;
 
 
@@ -4328,7 +4361,7 @@ BEFORE INSERT OR UPDATE OF Costo ON Suministro
 FOR EACH ROW
 BEGIN
   IF :new.Costo > 10000 THEN
-    RAISE_APPLICATION_ERROR(-20004, 'Costo de suministro excede el lÃ­mite permitido');
+    RAISE_APPLICATION_ERROR(-20004, 'Costo de suministro excede el límite permitido');
   END IF;
 END;
 
@@ -4338,7 +4371,7 @@ DECLARE
   PRAGMA EXCEPTION_INIT(ex_costo_suministro, -20004);
 BEGIN
   INSERT INTO Suministro (Id_Suministro, FK_Proveedor, FK_Hotel, Nombre, Descripcion, Cantidad, Costo)
-  VALUES (1, 1, 1, 'Producto X', 'DescripciÃ³n', 10, 15000);
+  VALUES (1, 1, 1, 'Producto X', 'Descripción', 10, 15000);
 EXCEPTION
   WHEN ex_costo_suministro THEN
     DBMS_OUTPUT.PUT_LINE('Error de Trigger: Costo de suministro muy alto');
@@ -4352,7 +4385,7 @@ BEFORE UPDATE OF Capacidad ON Evento
 FOR EACH ROW
 BEGIN
   IF TO_NUMBER(:new.Capacidad) < 10 THEN
-    RAISE_APPLICATION_ERROR(-20005, 'La capacidad mÃ­nima de un evento debe ser de al menos 10 personas');
+    RAISE_APPLICATION_ERROR(-20005, 'La capacidad mínima de un evento debe ser de al menos 10 personas');
   END IF;
 END;
 
@@ -4365,7 +4398,7 @@ BEGIN
   WHERE Id_Evento = 1;
 EXCEPTION
   WHEN ex_capacidad_evento THEN
-    DBMS_OUTPUT.PUT_LINE('Error de Trigger: Capacidad mÃ­nima no permitida');
+    DBMS_OUTPUT.PUT_LINE('Error de Trigger: Capacidad mínima no permitida');
 END;
 
 
