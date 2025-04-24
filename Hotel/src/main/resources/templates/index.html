@@ -1,54 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Index</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio | Cadena Hotelera 5Gs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
 
-    </head>
-    
-    <body>
-        
-       <!-- Parte de arriba--> 
-       <nav class="navbar navbar-expand-lg" style="background-color: #003366;">
-            <div class="container-fluid">
-                <a class="navbar-brand text-white" href="/">Cadena hotelera 5Gs</a>
-            </div>
-        </nav>
-        
-        <!-- Menu izquierdo-->
-        <div class="d-flex">
-            <div class="sidebar bg-light p-3" style="width: 220px;">
-                <a class="d-block mb-2 text-decoration-none text-dark" href="/huespedes">Huesped</a>
-                <a class="d-block mb-2 text-decoration-none text-dark" href="/empleados">Empleado</a>
-                <a class="d-block mb-2 text-decoration-none text-dark" href="/reservaciones">Reservacion</a>
-                <a class="d-block mb-2 text-decoration-none text-dark" href="/hoteles/listar">Hotel</a>
-            </div>
+    <!-- Barra superior -->
+    <nav class="navbar navbar-expand-lg" style="background-color: #003366;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="/">Cadena hotelera 5Gs</a>
+        </div>
+    </nav>
 
-            <div class="main-content">
-                <h1>Bienvenido</h1></br>
-                <p>Puedes hacer click en las opciones de la izquierda para ver la informacion que necesites.</p></br>
-                </br><h2>Acciones que podras realizar</h2></br>
-
-                <p><strong>Huesped</strong>: Con esta opcion podras ver todos los huespedes de nuestra cadena de hoteles,</br>
-                    ademas de ser necesario podras agregar un nuevo cliente de ser necesario, 
-                    editar o elimar</br> uno que ya este dependiendo de tus necesidades.</p></br>
-
-                <p><strong>Empleados</strong>: Con esta opcion podras visualizar todos los empleados de nuestra cadena hotelera,</br>
-                    ademas de registrar nuevos colaboradores, editar o eliminar su informacion dependiendo de tus </br>necesidades.</p></br>
-
-                <p><strong>Reservaciones</strong>: Con esta opcion podras ver todas las reservaciones de los clientes en diferentes </br>hoteles,
-                    ademas de poder agregar nuevas reservaciones, editar o elimar una reserva que ya este </br>dependiendo de tus necesidades.</p></br>
-
-                <p><strong>Hotel</strong>: Con esta opcion podras ver todos los hoteles de nuestra cadena hotelera, ademas cuando </br> se contruyan nuevos hoteles 
-                    podras agregar el nuevo hotel, editar o eliminar segun la necesidad </br>de la empresa.</p></br>
-
-            </div>
+    <!-- Contenido principal con menú lateral -->
+    <div class="d-flex">
+        <!-- Menú lateral -->
+        <div class="sidebar bg-light p-3" style="width: 220px; min-height: 100vh;">
+            <h5 class="text-dark mb-3"><i class="bi bi-menu-button-fill"></i> Menú</h5>
+            <a class="d-block mb-2 text-decoration-none text-dark" href="/huespedes"><i class="bi bi-person-fill"></i> Huéspedes</a>
+            <a class="d-block mb-2 text-decoration-none text-dark" href="/empleados"><i class="bi bi-briefcase-fill"></i> Empleados</a>
+            <a class="d-block mb-2 text-decoration-none text-dark" href="/reservaciones"><i class="bi bi-calendar-check-fill"></i> Reservaciones</a>
+            <a class="d-block mb-2 text-decoration-none text-dark" href="/hoteles/listar"><i class="bi bi-building"></i> Hoteles</a>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Contenido principal -->
+        <div class="flex-grow-1 p-5">
+            <h1 class="mb-4">Bienvenido a la Cadena Hotelera 5Gs</h1>
+            <p class="lead">Usa las opciones del menú lateral para navegar por los distintos módulos del sistema.</p>
 
-    </body>
+            <hr class="my-4"/>
+
+            <h3 class="mt-4">¿Qué puedes hacer?</h3>
+            <ul class="list-group list-group-flush mt-3">
+                <li class="list-group-item">
+                    <strong>🧍 Huésped:</strong> Visualiza todos los huéspedes registrados, añade nuevos, edita o elimina según sea necesario.
+                </li>
+                <li class="list-group-item">
+                    <strong>👨‍💼 Empleado:</strong> Gestiona los datos de los colaboradores de la cadena hotelera, con opciones para agregar, modificar o eliminar.
+                </li>
+                <li class="list-group-item">
+                    <strong>📅 Reservación:</strong> Revisa y administra las reservaciones realizadas por los clientes, incluyendo nuevas reservas y ediciones.
+                </li>
+                <li class="list-group-item">
+                    <strong>🏨 Hotel:</strong> Consulta la lista de hoteles activos, agrega nuevos hoteles o realiza ajustes según las necesidades empresariales.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
+

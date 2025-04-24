@@ -1,34 +1,20 @@
-
 package com.hotel.hotel.model;
 
 import java.sql.Date;
 
 public class Huesped {
-    
+
     private Long idHuesped;
     private String nombre;
-    private Integer cedula;
+    private int cedula;
     private String apellido1;
     private String apellido2;
     private String correo;
-    private Integer telefono;
+    private int telefono;
     private Date fechaNacimiento;
     private Date fechaRegistro;
 
-    public Huesped() {}
-
-    public Huesped(Long idHuesped, String nombre, Integer cedula, String apellido1, String apellido2,
-                   String correo, Integer telefono, Date fechaNacimiento, Date fechaRegistro) {
-        this.idHuesped = idHuesped;
-        this.nombre = nombre;
-        this.cedula = cedula;
-        this.apellido1 = apellido1;
-        this.apellido2 = apellido2;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.fechaNacimiento = fechaNacimiento;
-        this.fechaRegistro = fechaRegistro;
-    }
+    // Getters y Setters
 
     public Long getIdHuesped() {
         return idHuesped;
@@ -46,11 +32,11 @@ public class Huesped {
         this.nombre = nombre;
     }
 
-    public Integer getCedula() {
+    public int getCedula() {
         return cedula;
     }
 
-    public void setCedula(Integer cedula) {
+    public void setCedula(int cedula) {
         this.cedula = cedula;
     }
 
@@ -78,11 +64,11 @@ public class Huesped {
         this.correo = correo;
     }
 
-    public Integer getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
