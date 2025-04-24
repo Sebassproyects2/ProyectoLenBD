@@ -5,20 +5,14 @@ import java.sql.Date;
 public class Reservacion {
 
     private Long idReservacion;
-    private Integer fkHuesped;
-    private Integer fkHotel;
-    private Integer fkHabitacion;
-    private Integer fkPromocion;
+    private Long fkHuesped;
+    private Long fkHotel;
+    private Long fkHabitacion;
+    private Long fkPromocion;
     private String estado;
     private String comentarios;
-    private Date fechaCheckin;
-    private Date fechaCheckout;
-
-    // Campos descriptivos (no se usan para insertar, solo mostrar)
-    private String nombreHuesped;
-    private String numeroHabitacion;
-    private String nombreHotel;
-    private String nombrePromocion;
+    private Date fechaCheckIn;
+    private Date fechaCheckOut;
 
     // Getters y Setters
 
@@ -30,35 +24,35 @@ public class Reservacion {
         this.idReservacion = idReservacion;
     }
 
-    public int getFkHuesped() {
+    public Long getFkHuesped() {
         return fkHuesped;
     }
 
-    public void setFkHuesped(int fkHuesped) {
+    public void setFkHuesped(Long fkHuesped) {
         this.fkHuesped = fkHuesped;
     }
 
-    public int getFkHotel() {
+    public Long getFkHotel() {
         return fkHotel;
     }
 
-    public void setFkHotel(int fkHotel) {
+    public void setFkHotel(Long fkHotel) {
         this.fkHotel = fkHotel;
     }
 
-    public int getFkHabitacion() {
+    public Long getFkHabitacion() {
         return fkHabitacion;
     }
 
-    public void setFkHabitacion(int fkHabitacion) {
+    public void setFkHabitacion(Long fkHabitacion) {
         this.fkHabitacion = fkHabitacion;
     }
 
-    public int getFkPromocion() {
+    public Long getFkPromocion() {
         return fkPromocion;
     }
 
-    public void setFkPromocion(int fkPromocion) {
+    public void setFkPromocion(Long fkPromocion) {
         this.fkPromocion = fkPromocion;
     }
 
@@ -78,51 +72,19 @@ public class Reservacion {
         this.comentarios = comentarios;
     }
 
-    public Date getFechaCheckin() {
-        return fechaCheckin;
+    public Date getFechaCheckIn() {
+        return fechaCheckIn;
     }
 
-    public void setFechaCheckin(Date fechaCheckin) {
-        this.fechaCheckin = fechaCheckin;
+    public void setFechaCheckIn(Date fechaCheckIn) {
+        this.fechaCheckIn = fechaCheckIn;
     }
 
-    public Date getFechaCheckout() {
-        return fechaCheckout;
+    public Date getFechaCheckOut() {
+        return fechaCheckOut;
     }
 
-    public void setFechaCheckout(Date fechaCheckout) {
-        this.fechaCheckout = fechaCheckout;
-    }
-
-    public String getNombreHuesped() {
-        return nombreHuesped;
-    }
-
-    public void setNombreHuesped(String nombreHuesped) {
-        this.nombreHuesped = nombreHuesped;
-    }
-
-    public String getNumeroHabitacion() {
-        return numeroHabitacion;
-    }
-
-    public void setNumeroHabitacion(String numeroHabitacion) {
-        this.numeroHabitacion = numeroHabitacion;
-    }
-
-    public String getNombreHotel() {
-        return nombreHotel;
-    }
-
-    public void setNombreHotel(String nombreHotel) {
-        this.nombreHotel = nombreHotel;
-    }
-
-    public String getNombrePromocion() {
-        return nombrePromocion;
-    }
-
-    public void setNombrePromocion(String nombrePromocion) {
-        this.nombrePromocion = nombrePromocion;
+    public void setFechaCheckOut(Date fechaCheckOut) {
+        this.fechaCheckOut = fechaCheckOut;
     }
 }
