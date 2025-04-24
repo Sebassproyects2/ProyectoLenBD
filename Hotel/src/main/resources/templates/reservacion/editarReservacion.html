@@ -15,26 +15,26 @@
 
 <div class="d-flex">
     <div class="sidebar bg-light p-3" style="width: 220px;">
-        <a class="d-block mb-2 text-decoration-none text-dark" href="/huespedes">Huesped</a>
+        <a class="d-block mb-2 text-decoration-none text-dark" href="/huespedes">Huésped</a>
         <a class="d-block mb-2 text-decoration-none text-dark" href="/empleados">Empleado</a>
-        <a class="d-block mb-2 text-decoration-none text-dark" href="/reservaciones">Reservacion</a>
+        <a class="d-block mb-2 text-decoration-none text-dark" href="/reservacion">Reservación</a>
         <a class="d-block mb-2 text-decoration-none text-dark" href="/hoteles/listar">Hotel</a>
     </div>
 
     <div class="flex-grow-1 p-4">
         <h2>Editar Reservación</h2><br>
 
-        <form th:action="@{/reservaciones/editar}" th:object="${reservacion}" method="post" class="row g-3" style="width: 800px;">
+        <form th:action="@{/reservacion/editar}" th:object="${reservacion}" method="post" class="row g-3" style="width: 800px;">
             <input type="hidden" th:field="*{idReservacion}"/>
 
             <div class="col-md-6">
-                <label class="form-label">Fecha Inicio:</label>
-                <input type="date" th:field="*{fechaInicio}" class="form-control" required/>
+                <label class="form-label">Fecha Check-in:</label>
+                <input type="date" th:field="*{fechaCheckin}" class="form-control" required/>
             </div>
 
             <div class="col-md-6">
-                <label class="form-label">Fecha Fin:</label>
-                <input type="date" th:field="*{fechaFin}" class="form-control" required/>
+                <label class="form-label">Fecha Check-out:</label>
+                <input type="date" th:field="*{fechaCheckout}" class="form-control" required/>
             </div>
 
             <div class="col-md-6">
@@ -47,13 +47,37 @@
             <div class="col-md-6">
                 <label class="form-label">Habitación:</label>
                 <select th:field="*{fkHabitacion}" class="form-select">
-                    <option th:each="hab : ${habitaciones}" th:value="${hab.idHabitacion}" th:text="${hab.numero}"></option>
+                    <option th:each="hab : ${habitaciones}" th:value="${hab.idHabitacion}" th:text="${hab.numeroHabitacion}"></option>
                 </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Hotel:</label>
+                <select th:field="*{fkHotel}" class="form-select">
+                    <option th:each="hotel : ${hoteles}" th:value="${hotel.idHotel}" th:text="${hotel.nombre}"></option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Promoción:</label>
+                <select th:field="*{fkPromocion}" class="form-select">
+                    <option th:each="promo : ${promociones}" th:value="${promo.idPromocion}" th:text="${promo.descripcion}"></option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Estado:</label>
+                <input type="text" th:field="*{estado}" class="form-control" required/>
+            </div>
+
+            <div class="col-md-12">
+                <label class="form-label">Comentarios:</label>
+                <textarea th:field="*{comentarios}" class="form-control"></textarea>
             </div>
 
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="/reservaciones" class="btn btn-secondary">Volver</a>
+                <a href="/reservacion" class="btn btn-secondary">Volver</a>
             </div>
         </form>
     </div>

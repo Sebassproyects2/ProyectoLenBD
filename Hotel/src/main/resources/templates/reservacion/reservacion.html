@@ -20,14 +20,14 @@
         <div class="sidebar bg-light p-3" style="width: 220px;">
             <a class="d-block mb-2 text-decoration-none text-dark" href="/huespedes">Huésped</a>
             <a class="d-block mb-2 text-decoration-none text-dark" href="/empleados">Empleado</a>
-            <a class="d-block mb-2 text-decoration-none text-dark" href="/reservaciones">Reservación</a>
+            <a class="d-block mb-2 text-decoration-none text-dark" href="/reservacion">Reservación</a>
             <a class="d-block mb-2 text-decoration-none text-dark" href="/hoteles/listar">Hotel</a>
         </div>
 
         <div class="flex-grow-1 p-4">
             <h1>Reservaciones</h1><br>
 
-            <a href="/reservaciones/crear" class="btn btn-primary mb-3">Agregar reservación</a>
+            <a href="/reservacion/crear" class="btn btn-primary mb-3">Agregar reservación</a>
 
             <!-- Tabla de datos -->
             <table class="table table-striped table-hover">
@@ -57,8 +57,8 @@
                         <td th:text="${r.estado}"></td>
                         <td th:text="${r.comentarios}"></td>
                         <td>
-                            <a th:href="@{'/reservaciones/editar/' + ${r.idReservacion}}" class="btn btn-primary btn-sm">Editar</a>
-                            <a th:href="@{'/reservaciones/eliminar/' + ${r.idReservacion}}" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar esta reservación?');">Eliminar</a>
+                            <a th:href="@{'/reservacion/editar/' + ${r.idReservacion}}" class="btn btn-primary btn-sm">Editar</a>
+                            <a th:href="@{'/reservacion/eliminar/' + ${r.idReservacion}}" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar esta reservación?');">Eliminar</a>
                         </td>
                     </tr>
                 </tbody>

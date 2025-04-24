@@ -5,10 +5,10 @@ import java.sql.Date;
 public class Reservacion {
 
     private Long idReservacion;
-    private int fkHuesped;
-    private int fkHotel;
-    private int fkHabitacion;
-    private int fkPromocion;
+    private Integer fkHuesped;
+    private Integer fkHotel;
+    private Integer fkHabitacion;
+    private Integer fkPromocion;
     private String estado;
     private String comentarios;
     private Date fechaCheckin;
