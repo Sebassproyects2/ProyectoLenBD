@@ -4006,50 +4006,132 @@ END ELIMINAR_HUESPED_SP;
 END HUESPED_PKG;
 /
 
+-- ======================= Paquete Factura =====================================
 
+CREATE SEQUENCE FACTURA_SEQ START WITH 5 INCREMENT BY 1;
 
-----FALTA PROCEDIMIENTOS DE FATURACION MOSTRAR,ACTUALIZAR Y ELIMINAR.---------
-CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_facturas AS
+CREATE OR REPLACE PACKAGE FACTURA_PKG AS
 
-PROCEDURE agregarFactura(
-    v_id_factura IN NUMBER,
-    v_fk_reservacion IN NUMBER,
-    v_fecha_emision IN DATE,
-    v_descuento IN INT,
-    v_metodo_pago IN VARCHAR2,
-    v_monto IN FLOAT,
-    v_estado IN VARCHAR2
-);
+  TYPE FACTURA_CURSOR IS REF CURSOR;
 
-END pkg_crud_facturas;
+  PROCEDURE LISTAR_FACTURAS_SP(P_CURSOR OUT FACTURA_CURSOR);
 
+  PROCEDURE INSERTAR_FACTURA_SP (
+    P_FK_RESERVACION  IN FACTURA.FK_Reservacion%TYPE,
+    P_FECHA_EMISION   IN FACTURA.Fecha_Emision%TYPE,
+    P_DESCUENTO       IN FACTURA.Descuento%TYPE,
+    P_METODO_PAGO     IN FACTURA.Metodo_Pago%TYPE,
+    P_MONTO           IN FACTURA.Monto%TYPE,
+    P_ESTADO          IN FACTURA.Estado%TYPE
+  );
 
-CREATE OR REPLACE PACKAGE BODY pkg_crud_facturas AS
+  PROCEDURE ACTUALIZAR_FACTURA_SP (
+    P_ID_FACTURA      IN FACTURA.Id_Factura%TYPE,
+    P_FK_RESERVACION  IN FACTURA.FK_Reservacion%TYPE,
+    P_FECHA_EMISION   IN FACTURA.Fecha_Emision%TYPE,
+    P_DESCUENTO       IN FACTURA.Descuento%TYPE,
+    P_METODO_PAGO     IN FACTURA.Metodo_Pago%TYPE,
+    P_MONTO           IN FACTURA.Monto%TYPE,
+    P_ESTADO          IN FACTURA.Estado%TYPE
+  );
 
-PROCEDURE agregarFactura(
-    v_id_factura IN NUMBER,
-    v_fk_reservacion IN NUMBER,
-    v_fecha_emision IN DATE,
-    v_descuento IN INT,
-    v_metodo_pago IN VARCHAR2,
-    v_monto IN FLOAT,
-    v_estado IN VARCHAR2
-)
-AS
-BEGIN
-    
-    INSERT INTO Factura (Id_Factura, FK_Reservacion, Fecha_Emision, Descuento, Metodo_Pago, Monto, Estado)
-    VALUES (v_id_factura, v_fk_reservacion, v_fecha_emision, v_descuento, v_metodo_pago, v_monto, v_estado);
-    
-COMMIT;
-EXCEPTION
-WHEN OTHERS THEN
-ROLLBACK;  
-END;
+  PROCEDURE OBTENER_FACTURA_POR_ID_SP(
+    P_ID_FACTURA IN FACTURA.Id_Factura%TYPE,
+    P_CURSOR OUT SYS_REFCURSOR
+  );
 
+  PROCEDURE ELIMINAR_FACTURA_SP (
+    P_ID_FACTURA IN FACTURA.Id_Factura%TYPE
+  );
 
+END FACTURA_PKG;
+/
 
-END pkg_crud_facturas;
+CREATE OR REPLACE PACKAGE BODY FACTURA_PKG AS
+
+  PROCEDURE LISTAR_FACTURAS_SP(P_CURSOR OUT FACTURA_CURSOR) IS
+  BEGIN
+    OPEN P_CURSOR FOR
+      SELECT 
+        Id_Factura,
+        FK_Reservacion,
+        Fecha_Emision,
+        Descuento,
+        Metodo_Pago,
+        Monto,
+        Estado
+      FROM Factura;
+  END LISTAR_FACTURAS_SP;
+
+  PROCEDURE INSERTAR_FACTURA_SP (
+    P_FK_RESERVACION  IN FACTURA.FK_Reservacion%TYPE,
+    P_FECHA_EMISION   IN FACTURA.Fecha_Emision%TYPE,
+    P_DESCUENTO       IN FACTURA.Descuento%TYPE,
+    P_METODO_PAGO     IN FACTURA.Metodo_Pago%TYPE,
+    P_MONTO           IN FACTURA.Monto%TYPE,
+    P_ESTADO          IN FACTURA.Estado%TYPE
+  ) IS
+  BEGIN
+    INSERT INTO Factura (
+      Id_Factura,
+      FK_Reservacion,
+      Fecha_Emision,
+      Descuento,
+      Metodo_Pago,
+      Monto,
+      Estado
+    ) VALUES (
+      FACTURA_SEQ.NEXTVAL,
+      P_FK_RESERVACION,
+      P_FECHA_EMISION,
+      P_DESCUENTO,
+      P_METODO_PAGO,
+      P_MONTO,
+      P_ESTADO
+    );
+  END INSERTAR_FACTURA_SP;
+
+  PROCEDURE ACTUALIZAR_FACTURA_SP (
+    P_ID_FACTURA      IN FACTURA.Id_Factura%TYPE,
+    P_FK_RESERVACION  IN FACTURA.FK_Reservacion%TYPE,
+    P_FECHA_EMISION   IN FACTURA.Fecha_Emision%TYPE,
+    P_DESCUENTO       IN FACTURA.Descuento%TYPE,
+    P_METODO_PAGO     IN FACTURA.Metodo_Pago%TYPE,
+    P_MONTO           IN FACTURA.Monto%TYPE,
+    P_ESTADO          IN FACTURA.Estado%TYPE
+  ) IS
+  BEGIN
+    UPDATE Factura
+    SET 
+      FK_Reservacion = P_FK_RESERVACION,
+      Fecha_Emision = P_FECHA_EMISION,
+      Descuento = P_DESCUENTO,
+      Metodo_Pago = P_METODO_PAGO,
+      Monto = P_MONTO,
+      Estado = P_ESTADO
+    WHERE Id_Factura = P_ID_FACTURA;
+  END ACTUALIZAR_FACTURA_SP;
+
+  PROCEDURE OBTENER_FACTURA_POR_ID_SP(
+    P_ID_FACTURA IN FACTURA.Id_Factura%TYPE,
+    P_CURSOR OUT SYS_REFCURSOR
+  ) IS
+  BEGIN
+    OPEN P_CURSOR FOR
+      SELECT * FROM Factura WHERE Id_Factura = P_ID_FACTURA;
+  END OBTENER_FACTURA_POR_ID_SP;
+
+  PROCEDURE ELIMINAR_FACTURA_SP (
+    P_ID_FACTURA IN FACTURA.Id_Factura%TYPE
+  ) IS
+  BEGIN
+    DELETE FROM Factura
+    WHERE Id_Factura = P_ID_FACTURA;
+  END ELIMINAR_FACTURA_SP;
+
+END FACTURA_PKG;
+/
+
 
 
 -------------------------
@@ -4060,8 +4142,6 @@ CREATE SEQUENCE RESERVACION_SEQ
   START WITH 1
   INCREMENT BY 1
   NOCACHE;
-
-  
 
 CREATE OR REPLACE PACKAGE PKG_CRUD_RESERVACION AS
 
