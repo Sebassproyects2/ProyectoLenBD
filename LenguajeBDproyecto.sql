@@ -3858,186 +3858,153 @@ END;
 
 END pkg_crud_hoteles;
 
-
-
 -- =============================================================================
 -- HUESPEDES
 -- =============================================================================
 
-CREATE SEQUENCE Huesped_SEQ
-START WITH 12
-INCREMENT BY 1
-NOCACHE;
+CREATE SEQUENCE HUESPED_SEQ START WITH 5 INCREMENT BY 1;
 
-select * from huesped; 
+CREATE OR REPLACE PACKAGE HUESPED_PKG AS
 
-SELECT argument_name, position, data_type, in_out
-FROM all_arguments
-WHERE object_name = 'HUESPED_OBETENER_SP'
-AND package_name = 'PKG_CRUD_HUESPEDES'
-ORDER BY position;
+  TYPE HUESPED_CURSOR IS REF CURSOR;
 
-
-ALTER SEQUENCE Huesped_SEQ INCREMENT BY 1;
-SELECT Huesped_SEQ.NEXTVAL FROM DUAL;
-
-
-CREATE OR REPLACE NONEDITIONABLE PACKAGE pkg_crud_huespedes AS
-PROCEDURE agregarHuesped(
-    v_id_huesped IN NUMBER,
-    v_nombre IN VARCHAR2,
-    v_cedula IN INT,
-    v_apellido1 IN VARCHAR2,
-    v_apellido2 IN VARCHAR2,
-    v_correo IN VARCHAR2,
-    v_telefono IN INT,
-    v_fecha_nacimiento IN DATE,
-    v_fecha_registro IN DATE
-);
-
-PROCEDURE HUESPED_OBETENER_SP (
-    p_id_huesped IN HUESPED.ID_HUESPED%TYPE,
-    p_resultado OUT SYS_REFCURSOR
-);
-
-
-PROCEDURE LISTAR_HUESPEDES_SP(p_resultado OUT SYS_REFCURSOR);
-
-
-PROCEDURE HUESPED_MODIFICAR_SP(
-    p_Id_Huesped IN Huesped.Id_Huesped%TYPE, 
-    p_Nombre IN Huesped.Nombre%TYPE DEFAULT NULL, 
-    p_Cedula IN Huesped.Cedula%TYPE DEFAULT NULL, 
-    p_Apellido1 IN Huesped.Apellido1%TYPE DEFAULT NULL, 
-    p_Apellido2 IN Huesped.Apellido2%TYPE DEFAULT NULL, 
-    p_Correo IN Huesped.Correo%TYPE DEFAULT NULL, 
-    p_Telefono IN Huesped.Telefono%TYPE DEFAULT NULL,
-    p_Fecha_Nacimiento IN Huesped.Fecha_Nacimiento%TYPE DEFAULT NULL,
-    p_Fecha_Registro IN Huesped.Fecha_Registro%TYPE DEFAULT NULL 
-);
-
-PROCEDURE HUESPED_BORRAR_SP(
-    p_Id_Huesped IN Huesped.Id_Huesped%TYPE
-);
-
-END pkg_crud_huespedes;
-
-CREATE OR REPLACE PACKAGE BODY pkg_crud_huespedes AS
-
-PROCEDURE agregarHuesped(
-    v_id_huesped IN NUMBER,
-    v_nombre IN VARCHAR2,
-    v_cedula IN INT,
-    v_apellido1 IN VARCHAR2,
-    v_apellido2 IN VARCHAR2,
-    v_correo IN VARCHAR2,
-    v_telefono IN INT,
-    v_fecha_nacimiento IN DATE,
-    v_fecha_registro IN DATE
-)
-AS
-BEGIN
-
-    INSERT INTO Huesped (Id_Huesped, Nombre, Cedula, Apellido1, Apellido2, Correo, Telefono, Fecha_Nacimiento, Fecha_Registro)
-    VALUES (v_id_huesped, v_nombre, v_cedula, v_apellido1, v_apellido2, v_correo, v_telefono, v_fecha_nacimiento, v_fecha_registro);
+  PROCEDURE LISTAR_HUESPEDES_SP(P_CURSOR OUT HUESPED_CURSOR);
+  
+  PROCEDURE INSERTAR_HUESPED_SP (
+    P_NOMBRE           IN HUESPED.NOMBRE%TYPE,
+    P_CEDULA           IN HUESPED.CEDULA%TYPE,
+    P_APELLIDO1        IN HUESPED.APELLIDO1%TYPE,
+    P_APELLIDO2        IN HUESPED.APELLIDO2%TYPE,
+    P_CORREO           IN HUESPED.CORREO%TYPE,
+    P_TELEFONO         IN HUESPED.TELEFONO%TYPE,
+    P_FECHA_NACIMIENTO IN HUESPED.FECHA_NACIMIENTO%TYPE,
+    P_FECHA_REGISTRO   IN HUESPED.FECHA_REGISTRO%TYPE
+  );
+  
+  PROCEDURE ACTUALIZAR_HUESPED_SP (
+        P_ID_HUESPED        IN HUESPED.ID_HUESPED%TYPE,
+        P_NOMBRE            IN HUESPED.NOMBRE%TYPE,
+        P_CEDULA            IN HUESPED.CEDULA%TYPE,
+        P_APELLIDO1         IN HUESPED.APELLIDO1%TYPE,
+        P_APELLIDO2         IN HUESPED.APELLIDO2%TYPE,
+        P_CORREO            IN HUESPED.CORREO%TYPE,
+        P_TELEFONO          IN HUESPED.TELEFONO%TYPE,
+        P_FECHA_NACIMIENTO  IN HUESPED.FECHA_NACIMIENTO%TYPE,
+        P_FECHA_REGISTRO    IN HUESPED.FECHA_REGISTRO%TYPE
+    );
     
-COMMIT;  
-EXCEPTION
-WHEN OTHERS THEN
-ROLLBACK;
-END;
+     PROCEDURE OBTENER_HUESPED_POR_ID_SP(
+        P_ID_HUESPED IN HUESPED.ID_HUESPED%TYPE,
+        P_CURSOR OUT SYS_REFCURSOR
+    );
+    
+    PROCEDURE ELIMINAR_HUESPED_SP (
+    P_ID_HUESPED IN HUESPED.ID_HUESPED%TYPE
+);
+
+    
+END HUESPED_PKG;
+/
 
 
-PROCEDURE HUESPED_OBETENER_SP (
-    p_id_huesped IN huesped.id_huesped%TYPE DEFAULT NULL,
-    p_resultado OUT SYS_REFCURSOR
+CREATE OR REPLACE PACKAGE BODY HUESPED_PKG AS
+
+PROCEDURE LISTAR_HUESPEDES_SP(P_CURSOR OUT HUESPED_CURSOR) IS
+  BEGIN
+    OPEN P_CURSOR FOR
+      SELECT 
+        ID_HUESPED,
+        NOMBRE,
+        CEDULA,
+        APELLIDO1,
+        APELLIDO2,
+        CORREO,
+        TELEFONO,
+        FECHA_NACIMIENTO,
+        FECHA_REGISTRO
+      FROM HUESPED;
+  END LISTAR_HUESPEDES_SP;
+
+  PROCEDURE INSERTAR_HUESPED_SP (
+    P_NOMBRE           IN HUESPED.NOMBRE%TYPE,
+    P_CEDULA           IN HUESPED.CEDULA%TYPE,
+    P_APELLIDO1        IN HUESPED.APELLIDO1%TYPE,
+    P_APELLIDO2        IN HUESPED.APELLIDO2%TYPE,
+    P_CORREO           IN HUESPED.CORREO%TYPE,
+    P_TELEFONO         IN HUESPED.TELEFONO%TYPE,
+    P_FECHA_NACIMIENTO IN HUESPED.FECHA_NACIMIENTO%TYPE,
+    P_FECHA_REGISTRO   IN HUESPED.FECHA_REGISTRO%TYPE
+  ) IS
+  BEGIN
+    INSERT INTO HUESPED (
+      ID_HUESPED,
+      NOMBRE,
+      CEDULA,
+      APELLIDO1,
+      APELLIDO2,
+      CORREO,
+      TELEFONO,
+      FECHA_NACIMIENTO,
+      FECHA_REGISTRO
+    )
+    VALUES (
+      HUESPED_SEQ.NEXTVAL,
+      P_NOMBRE,
+      P_CEDULA,
+      P_APELLIDO1,
+      P_APELLIDO2,
+      P_CORREO,
+      P_TELEFONO,
+      P_FECHA_NACIMIENTO,
+      P_FECHA_REGISTRO
+    );
+  END INSERTAR_HUESPED_SP;
+  
+  PROCEDURE ACTUALIZAR_HUESPED_SP (
+        P_ID_HUESPED        IN HUESPED.ID_HUESPED%TYPE,
+        P_NOMBRE            IN HUESPED.NOMBRE%TYPE,
+        P_CEDULA            IN HUESPED.CEDULA%TYPE,
+        P_APELLIDO1         IN HUESPED.APELLIDO1%TYPE,
+        P_APELLIDO2         IN HUESPED.APELLIDO2%TYPE,
+        P_CORREO            IN HUESPED.CORREO%TYPE,
+        P_TELEFONO          IN HUESPED.TELEFONO%TYPE,
+        P_FECHA_NACIMIENTO  IN HUESPED.FECHA_NACIMIENTO%TYPE,
+        P_FECHA_REGISTRO    IN HUESPED.FECHA_REGISTRO%TYPE
+    ) IS
+    BEGIN
+        UPDATE HUESPED
+        SET NOMBRE = P_NOMBRE,
+            CEDULA = P_CEDULA,
+            APELLIDO1 = P_APELLIDO1,
+            APELLIDO2 = P_APELLIDO2,
+            CORREO = P_CORREO,
+            TELEFONO = P_TELEFONO,
+            FECHA_NACIMIENTO = P_FECHA_NACIMIENTO,
+            FECHA_REGISTRO = P_FECHA_REGISTRO
+        WHERE ID_HUESPED = P_ID_HUESPED;
+    END ACTUALIZAR_HUESPED_SP;
+    
+    PROCEDURE OBTENER_HUESPED_POR_ID_SP(
+        P_ID_HUESPED IN HUESPED.ID_HUESPED%TYPE,
+        P_CURSOR OUT SYS_REFCURSOR
+    ) AS
+    BEGIN
+        OPEN P_CURSOR FOR
+            SELECT * FROM HUESPED
+            WHERE ID_HUESPED = P_ID_HUESPED;
+    END OBTENER_HUESPED_POR_ID_SP;
+    
+    PROCEDURE ELIMINAR_HUESPED_SP (
+    P_ID_HUESPED IN HUESPED.ID_HUESPED%TYPE
 ) IS
 BEGIN
-    OPEN p_resultado FOR
-    SELECT
-        id_huesped,
-        nombre,
-        cedula,
-        apellido1,
-        apellido2,
-        correo,
-        telefono,
-        fecha_nacimiento,
-        fecha_registro
-    FROM
-        huesped
-    WHERE
-        p_id_huesped IS NULL OR id_huesped = p_id_huesped;
-END;
+    DELETE FROM HUESPED
+    WHERE ID_HUESPED = P_ID_HUESPED;
+END ELIMINAR_HUESPED_SP;
 
-PROCEDURE LISTAR_HUESPEDES_SP(p_resultado OUT SYS_REFCURSOR) IS
-BEGIN
-    OPEN p_resultado FOR
-    SELECT
-        id_huesped,
-        nombre,
-        cedula,
-        apellido1,
-        apellido2,
-        correo,
-        telefono,
-        fecha_nacimiento,
-        fecha_registro
-    FROM huesped;
-END;
 
-PROCEDURE HUESPED_MODIFICAR_SP(
-    p_Id_Huesped IN Huesped.Id_Huesped%TYPE, 
-    p_Nombre IN Huesped.Nombre%TYPE DEFAULT NULL, 
-    p_Cedula IN Huesped.Cedula%TYPE DEFAULT NULL, 
-    p_Apellido1 IN Huesped.Apellido1%TYPE DEFAULT NULL, 
-    p_Apellido2 IN Huesped.Apellido2%TYPE DEFAULT NULL, 
-    p_Correo IN Huesped.Correo%TYPE DEFAULT NULL, 
-    p_Telefono IN Huesped.Telefono%TYPE DEFAULT NULL,
-    p_Fecha_Nacimiento IN Huesped.Fecha_Nacimiento%TYPE DEFAULT NULL,
-    p_Fecha_Registro IN Huesped.Fecha_Registro%TYPE DEFAULT NULL 
-) IS
-BEGIN
-
-    UPDATE Huesped
-    SET
-        Nombre = NVL(p_Nombre, Nombre), 
-        Cedula = NVL(p_Cedula, Cedula),
-        Apellido1 = NVL(p_Apellido1, Apellido1),
-        Apellido2 = NVL(p_Apellido2, Apellido2),
-        Correo = NVL(p_Correo, Correo),
-        Telefono = NVL(p_Telefono, Telefono),
-        Fecha_Nacimiento = NVL(p_Fecha_Nacimiento, Fecha_Nacimiento),
-        Fecha_Registro = NVL(p_Fecha_Registro, Fecha_Registro)
-    WHERE Id_Huesped = p_Id_Huesped;
-
-    IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n hu�sped con el ID ' || p_Id_Huesped);
-    ELSE
-        DBMS_OUTPUT.PUT_LINE('Hu�sped con ID ' || p_Id_Huesped || ' modificado correctamente.');
-    END IF;
-END;
-
-PROCEDURE HUESPED_BORRAR_SP(
-    p_Id_Huesped IN Huesped.Id_Huesped%TYPE
-) IS
-BEGIN
-
-    DELETE FROM Huesped
-    WHERE Id_Huesped = p_Id_Huesped;
-
-    IF SQL%ROWCOUNT = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontr� ning�n hu�sped con el ID ' || p_Id_Huesped);
-    ELSE
-        DBMS_OUTPUT.PUT_LINE('Hu�sped con ID ' || p_Id_Huesped || ' borrado correctamente.');
-    END IF;
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error al borrar el hu�sped: ' || SQLERRM);
-END;
-
-END pkg_crud_huespedes;
-
+END HUESPED_PKG;
+/
 
 
 
