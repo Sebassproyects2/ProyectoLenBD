@@ -29,11 +29,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
     @Procedure("pkg_crud_hoteles.ver_hotel_por_id")
     Optional<Hotel> verHotelPorId(@Param("hotelid") Long hotelId);
     
-    @Procedure(value = "pkg_crud_hoteles.ver_hotel_por_id")
-Optional<Hotel> verHotelPorId(
-        @Param("hotelid") Long hotelId,
-        @Param("hotel_rec") Hotel hotelRec // Intenta mapear el OUT a un parámetro Java
-);
+ 
 
     @Procedure("pkg_crud_hoteles.actualizar_hotel")
     void actualizarHotel(

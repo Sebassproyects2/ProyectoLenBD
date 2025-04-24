@@ -14,7 +14,7 @@ public class Huesped {
     private Date fechaNacimiento;
     private Date fechaRegistro;
 
-    // Getters y Setters
+   
 
     public Long getIdHuesped() {
         return idHuesped;
